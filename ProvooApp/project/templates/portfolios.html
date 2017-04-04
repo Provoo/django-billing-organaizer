@@ -4,12 +4,13 @@
 {% block body_class %}home{% endblock %}
 {% block body_base %}
     {#TODO: completar template Portafolios #}
-    <div class="row">
+    <div class="row container">
         <div class="col s12 m12">
             <h1>Portafolios de {{ request.user }}</h1>
+            <hr>
             {% if object_list %}
                 {% for portafolios  in object_list %}
-                    <a href="{% url 'user_dashboard' request.user.id portafolios.Ruc %}">
+                    <a href="{% url 'user_dashboard' request.user portafolios.Ruc %}">
                         <div class="col s12 m4">
                             <div class="card blue-grey lighten-5 ">
                                 <div class="card-content black-text">
@@ -22,9 +23,12 @@
                         </div>
                     </a>
                 {% endfor %}
-                </div>
             {% else %}
-                <p>No hay portfolios registrados.</p>
+                <h4>No hay portfolios registrados.</h4>
+                <hr>
+
+                <h5>Agrega un porfafolio haciendo click <br>en el simbolo de <i class="fa fa-plus-circle"></i></h5>
             {% endif %}
+        </div>
     </div>
 {% endblock %}

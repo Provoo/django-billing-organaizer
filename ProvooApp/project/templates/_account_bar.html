@@ -2,22 +2,23 @@
 {% load account_tags %}
 
 <ul class="nav navbar-nav pull-right white-text">
-    {%  if user.is_active %}
-        <li class="dropdown">
-            <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-user"></i> {% user_display user %}
-
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="{% url 'account_settings' %}" tabindex="-1">Settings</a></li>
-                <li><a href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a></li>
-                <li><a href="account_logout" tabindex="-1">Logout</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="{% url 'account_settings' %}"><i class="fa fa-cog"></i> {% trans "Settings" %}</a>
-        </li>
+    {% if request.user.is_authenticated %}
+{#        <li class="dropdown">#}
+{#            <a href="" class="dropdown-toggle" data-toggle="dropdown">#}
+{#                <i class="fa fa-user"></i> {% user_display request.user %}#}
+{##}
+{#                <b class="caret"></b>#}
+{#            </a>#}
+{#            <ul class="dropdown-menu">#}
+{#                <li><a href="{% url 'account_settings' %}" tabindex="-1">Settings</a></li>#}
+{#                <li><a href="{% url 'portafolios' request.user %}" tabindex="-1">Portafolios</a></li>#}
+{#                <li><a href="account_logout" tabindex="-1">Logout</a></li>#}
+{##}
+{#            </ul>#}
+{#        </li>#}
+{#        <li>#}
+{#            <a href="{% url 'account_settings' %}"><i class="fa fa-cog"></i> {% trans "Settings" %}</a>#}
+{#        </li>#}
         <li>
             <a id="account_logout" href="{% url 'account_logout' %}"><i
                     class="fa fa-power-off"></i> {% trans "Log out" %}</a>

@@ -19,12 +19,10 @@
                 suitable for most sites that have user accounts.
                 {% endblocktrans %}
             </p>
-            {% if not user.is_active %}
+            {% if not user.is_authenticated %}
             {% url "account_login" as login_url %}
             {% url "account_signup" as signup_url %}
             <p>{% blocktrans %}You can <a href="{{ login_url }}" class="btn btn-default">Log In</a> or <a href="{{ signup_url }}" class="btn btn-primary">Sign Up</a> to try out the site.{% endblocktrans %}</p>
-            <p><a href="{% url "social:begin" "google-oauth2" %}">Google+</a></p>
-            <p><a href="{% url "social:begin" "msn-live-connect" %}">outlook</a></p>
             {% endif %}
         </div>
     </section>
@@ -33,7 +31,10 @@
             <h2 class="text-center">{% blocktrans %}What is Pinax?{% endblocktrans %}</h2>
             <p class="lead">
                 {% blocktrans %}
-                <b>Pinax</b> {{user}}
+                <b>Pinax</b> is an open-source platform based on Django and
+                intended to provide a starting point for websites. It takes
+                care of the things that many sites have in common, so you can
+                focus on what makes your site different.
                 {% endblocktrans %}
             </p>
             <div class="feature-columns">
@@ -48,6 +49,7 @@
                 <div>
                     <i class="fa fa-puzzle-piece fa-3x"></i><br>
                     {% blocktrans %}
+                    <b>Reusable apps</b> provide common
                     infrastructure, back-end functionality,
                     and user-facing components.
                     {% endblocktrans %}

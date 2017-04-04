@@ -6,7 +6,7 @@
     <section class="jumbotron">
         <div class="panel teal white-text darken-3 z-depth-2 center">
             <h1>Facturas de "Portafolio N" {{ user.portafolio }}</h1>
-            <table class="container-fluid z-depth-3 white highlight black-text">
+            <table class="container-fluid z-depth-3 white black-text table-bordered striped responsive-table highlight">
                 <thead>
                 <tr>
                     <th>Nro. Fact</th>
@@ -15,6 +15,7 @@
                     <th>Deducible Educacion</th>
                     <th>Deducible Salud</th>
                     <th>Deducible Vestimenta</th>
+                    <th>Deducible Alimentación</th>
                     <th>Deducible Alimentación</th>
                     <th>No Deducible</th>
                     <th>Total</th>
@@ -30,6 +31,7 @@
                             <td>{{ documentos.deducible_educacion }}</td>
                             <td>{{ documentos.deducible_salud }}</td>
                             <td>{{ documentos.deducible_vestimenta }}</td>
+                            <td>{{ documentos.deducible_comida }}</td>
                             <td>{{ documentos.deducible_comida }}</td>
                             <td>{{ documentos.no_deducible }}</td>
                             <td>{{ documentos.totalGastosf }}</td>
