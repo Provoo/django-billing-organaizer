@@ -1,0 +1,30 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% block head_title %}Dashboard{% endblock %}
+{% block body_class %}home{% endblock %}
+{% block body_base %}
+    {#TODO: completar template Portafolios #}
+    <div class="row">
+        <div class="col s12 m12">
+            <h1>Portafolios de {{ request.user }}</h1>
+            {% if object_list %}
+                {% for portafolios  in object_list %}
+                    <a href="{% url 'user_dashboard' request.user.id portafolios.Ruc %}">
+                        <div class="col s12 m4">
+                            <div class="card blue-grey lighten-5 ">
+                                <div class="card-content black-text">
+                                    <p class="card-title">{{ portafolios.Nombre }}</p>
+                                    <p>RUC: {{ portafolios.Ruc }}</p>
+                                    <p>Total Gastos: {{ portafolios.total_gastos }}</p>
+                                    <p>Total de impuestos: {{ portafolios.total_impuestos }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+                </div>
+            {% else %}
+                <p>No hay portfolios registrados.</p>
+            {% endif %}
+    </div>
+{% endblock %}

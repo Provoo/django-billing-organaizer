@@ -1,0 +1,87 @@
+{% extends "theme_bootstrap/base.html" %}
+{% load staticfiles %}
+{% load pinax_webanalytics_tags %}
+{% load i18n %}
+{% block scripts %}
+    {% include "_scripts.html" %}
+{% endblock %}
+{% block styles %}
+    {% include "_styles.html" %}
+{% endblock %}
+
+
+{% block topbar_base %}
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header ">
+    <header class="mdl-layout__header blue-grey lighten-5 z-depth-2 ">
+        <div class="mdl-layout__header-row ">
+            <div class="navbar-header ">
+                {% block site_brand %}
+                    <span class="mdl-layout-title ">
+                    <a class="navbar-brand" href="{% url "home" %}">
+                        EFACT
+                    </a>
+                    </span>
+                {% endblock %}
+            </div>
+            <div class="mdl-layout-spacer"></div>
+
+            <div class="collapse navbar-collapse navbar-responsive-collapse">
+                {% block nav %}
+                {% endblock %}
+                {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}
+            </div>
+        </div>
+    </header>
+    <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Efact</span>
+
+        <nav class="mdl-navigation">
+            <div class="nav-wrapper">
+                <form>
+                    <div class="input-field teal accent-5">
+                        <input id="search" type="search" required>
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                </form>
+            </div>
+            <a class="mdl-navigation__link hoverable" href="{% url 'home' %}">Home</a>
+            {% if request.user.is_authenticated %}
+
+            {% else %}
+
+                <a class="mdl-navigation__link hoverable" href="{% url 'account_login' %}">{% trans "Log in" %}</a>
+                {% if ACCOUNT_OPEN_SIGNUP %}
+                    <a class="mdl-navigation__link hoverable"
+                       href="{% url 'account_signup' %}">{% trans "Sign up" %}</a>
+                {% endif %}
+            {% endif %}
+
+
+
+        </nav>
+    </div>
+{% endblock %}
+
+<main class="mdl-layout__content">
+    {#TODO: barra lateral, tener un icono portafolios => click => datos y estadísticas dashboard actual#}
+    {#TODO: barra lateral también icno de lista de facturas#}
+    {#TODO: barra lateral que haya un icono de busqueda#}
+
+    {% block extra_head_base %}
+        {% block extra_head %}{% endblock %}
+    {% endblock %}
+
+
+    {% block footer_base %}
+        {% include "_footer.html" %}
+    {% endblock %}
+</main>
+
+
+
+{% block extra_body_base %}
+    {% analytics %}
+    {% block extra_body %}{% endblock %}
+{% endblock %}
