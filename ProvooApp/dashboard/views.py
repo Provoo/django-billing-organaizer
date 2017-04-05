@@ -8,6 +8,7 @@ from django.views.generic import ListView, TemplateView
 from django.contrib.auth.models import User
 from dashboard.models import Portafolio, documento, CredentialsModel
 from dashboard.xmlReader import readDocumentXML
+from django.http import JsonResponse
 
 #google api imports
 import logging
@@ -107,8 +108,11 @@ class dashboardView(ListView):
             saveDocumentPorfolio(objetoNu, self.request.user, portafolio_User)
         print(prueba)
         print(ajax)
-        return HttpResponseRedirect(
-            reverse('user_dashboard', kwargs={'pk': self.request.user, 'ruc': self.kwargs['ruc']}))
+        mensaje = "Tu factura se guardo en el siguiente portafolio: %s" % (self.kwargs['ruc'])
+        data = {
+            'mensaje': mensaje}
+        return JsonResponse(data)
+
 
 
 class portafolioView(ListView):
