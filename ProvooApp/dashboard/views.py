@@ -84,16 +84,19 @@ class dashboardView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(dashboardView, self).get_context_data(**kwargs)
-        member = documento.objects.select_related('rucDocumento').filter(rucDocumento=self.kwargs['ruc']) \
+        member = documento.objects.select_related('rucDocumento').filter(
+            rucDocumento=self.kwargs['ruc']) \
             .annotate(mes=ExtractMonth('fecha'), anio=ExtractYear('fecha')) \
-            .values('mes', 'anio').annotate(gastos_sin_impuestos=Sum('totalGastosf')) \
+            .values('mes', 'anio').annotate(
+            gastos_sin_impuestos=Sum('totalGastosf')) \
             .values('mes', 'anio', 'gastos_sin_impuestos')
         print(member)
         context['member'] = member
         return context
 
     def post(self, request, *args, **kwargs):
-        portafolio_User = Portafolio.objects.get(UserID_id=self.request.user.id, Ruc=self.kwargs['ruc'])
+        portafolio_User = Portafolio.objects.get(
+            UserID_id=self.request.user.id, Ruc=self.kwargs['ruc'])
         prueba = self.request.POST
         documentos = self.request.FILES.getlist('docfile')
         ajax = request.is_ajax()
