@@ -178,34 +178,6 @@ def googleImport(request):
     listemails = ListMessagesMatchingQuery(services, request.user, "factura has:attachment xml ")
     for nlist in listemails:
         print('numero de id: %s' % (nlist['id']))
-    # activities = services.activities()
-    # activitylist = activities.list(collection='public',
-    #                                userId='me').execute()
-    # print(activitylist)
-
-    # credentials = flow_from_clientsecrets(settings.GOOGLE_OAUTH2_CLIENT_SECRETS_JSON, settings.SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE)
-    # storage = Storage(CredentialsModel, 'id', request.user.id, 'credential')
-    # credentials = storage.get()
-    # storage.put(credentials)
-    # credentials = tools.run_flow(credentials, storage)
-    # print("Imprimiendo Credenciales en import %s" % (credentials))
-    # print("Imprimiendo Cren2 en import %s" % (storage))
-    #
-    # if not credentials:
-    #     credentials = flow_from_clientsecrets(settings.GOOGLE_OAUTH2_CLIENT_SECRETS_JSON, settings.SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE)
-    #     storage = Storage(CredentialsModel, 'id', request.user.id, 'credential')
-    #     storage.put(credentials)
-    #     return HttpResponseRedirect(reverse('googleImport'))
-    # else:
-    #     print("entra!")
-    #     http = httplib2.Http()
-    #     http = credentials.authorize(http)
-    #     print("Imprimiendo Credenciales en http %s" % (http))
-    #
-    #     service = build("gmail", "v1", http=http)
-    #     activities = service.activities()
-    #     activitylist = activities.list(collection='public',
-    #                                    userId='me').execute()
-    #     print(activitylist)
+        
     return HttpResponseRedirect(
             reverse('portafolios', kwargs={'pk': request.user.id}))
