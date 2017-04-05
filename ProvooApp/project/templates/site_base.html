@@ -7,7 +7,9 @@
     {% if SITE_NAME %}{{ SITE_NAME }} | {% endif %}
     {% block head_title %} {% endblock %}
 {% endblock %}
-
+{% block scripts %}
+    {% include "_scripts.html" %}
+{% endblock %}
 {% block styles %}
     {% include "_styles.html" %}
 {% endblock %}
@@ -105,7 +107,6 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            {#                <form id="uploadForm" action="{% url 'user_dashboard'  user.pk %}" method="POST"#}
                             <form id=uploadForm action="" method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="file-field input-field">
@@ -114,7 +115,7 @@
                                         <input type="file" name="docfile" multiple>
                                     </div>
                                     <div class="file-path-wrapper">
-                                        <input accept=".xml" type="file" class="file-path validate">
+                                       <input class="file-path validate" type="text" accept=".xml" placeholder="Upload one or more files">
                                     </div>
                                 </div>
                                 <br>
@@ -126,8 +127,4 @@
             {% endif %}
         {% endblock %}
     {% endblock %}
-
 </main>
-{% block scripts %}
-    {% include "_scripts.html" %}
-{% endblock %}
