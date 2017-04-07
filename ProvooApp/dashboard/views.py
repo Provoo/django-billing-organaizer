@@ -1,29 +1,29 @@
-# from django.utils import simplejson
-from django.core.urlresolvers import reverse
-from django.db.models import Sum
-from django.db.models.functions import ExtractMonth, ExtractYear
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+# Views Important libraries
 from django.views.generic import ListView, TemplateView
-from django.contrib.auth.models import User
-from dashboard.models import Portafolio, documento, CredentialsModel
-from dashboard.xmlReader import readDocumentXML
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
-
-#google api imports
-import logging
-from oauth2client import tools
-import pickle
-import base64
-import httplib2
-from oauth2client import tools
-from googleapiclient.discovery import build
-from oauth2client.client import AccessTokenCredentials
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+
+# Models Import
+from dashboard.models import Portafolio, documento, CredentialsModel
+from django.db.models.functions import ExtractMonth, ExtractYear
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.db.models import Sum
+
+from dashboard.xmlReader import readDocumentXML
+
+# google api imports
+from oauth2client.client import AccessTokenCredentials
+from googleapiclient.discovery import build
+import httplib2
+from dashboard.GoogleApi import ListMessagesMatchingQuery, GetAttachments
+
 
 
 # funcion para combrar la existencia de un portafolio o crear uno nuevo guardar
@@ -77,8 +77,7 @@ class dashboardView(ListView):
     pk_url_kwarg = 'pk'
     queryset = Portafolio.objects.all()
 
-    # Se define el query para buscar el Portafolio que le corresponde al usuario
-
+    # Query para buscar el Portafolio que le corresponde al usuario
     def get_queryset(self):
         portafolio_user = super(dashboardView, self).get_queryset()
         return portafolio_user.filter(Ruc=self.kwargs['ruc'])[:1].get()
@@ -114,7 +113,6 @@ class dashboardView(ListView):
         return JsonResponse(data)
 
 
-
 class portafolioView(ListView):
     template_name = 'portfolios.html'
     model = Portafolio
@@ -135,36 +133,6 @@ class documentoView(ListView):
         return documentos.filter(rucDocumento=self.kwargs['ruc'])
 
 
-def ListMessagesMatchingQuery(service, user_id, query=''):
-    """List all Messages of the user's mailbox matching the query.
-
-    Args:
-    service: Authorized Gmail API service instance.
-    user_id: User's email address. The special value "me"
-    can be used to indicate the authenticated user.
-    query: String used to filter messages returned.
-    Eg.- 'from:user@some_domain.com' for Messages from a particular sender.
-
-    Returns:
-    List of Messages that match the criteria of the query. Note that the
-    returned list contains Message IDs, you must use get with the
-    appropriate ID to get the details of a Message.
-    """
-    try:
-        response = service.users().messages().list(userId=user_id, q=query).execute()
-        messages = []
-        if 'messages' in response:
-            messages.extend(response['messages'])
-
-        while 'nextPageToken' in response:
-            page_token = response['nextPageToken']
-            response = service.users().messages().list(userId=user_id, q=query, pageToken=page_token).execute()
-            messages.extend(response['messages'])
-        return messages
-    except errors.HttpError, error:
-        print 'An error occurred: %s' % error
-
-
 @login_required
 def googleImport(request):
     user = User.objects.get(username=request.user)
@@ -178,6 +146,10 @@ def googleImport(request):
     listemails = ListMessagesMatchingQuery(services, request.user, "factura has:attachment xml ")
     for nlist in listemails:
         print('numero de id: %s' % (nlist['id']))
-        
+        f_buffer = GetAttachments(services, request.user, nlist['id'])
+        print("El Archivo que se va a guardar es: %s" % (f_buffer))
+        f_buffer = ""
+        # Aqui hacer con GetAttachments un buffer para escribir el archivo
+
     return HttpResponseRedirect(
             reverse('portafolios', kwargs={'pk': request.user.id}))
