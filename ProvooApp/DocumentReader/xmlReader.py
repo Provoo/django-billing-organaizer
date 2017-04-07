@@ -2,6 +2,13 @@ import xml.etree.ElementTree as ET
 from DocumentReader.models import EnterprisesMetadataEcuador as MetaData
 from datetime import datetime
 
+'''
+Código lector de facturas, es importante tomar en cuenta que algunas facturas
+tienen mal definido el xml, es por esto que se lo transforma a texto nuevamente
+y se lo convierte en xml para que coincida con las tags definidas.
+
+'''
+
 
 def get_xml_tree(xml_file):
     try:
@@ -9,16 +16,37 @@ def get_xml_tree(xml_file):
     except Exception as e:
         print('error: {}'.format(e))
     else:
+        flag = False
+        for child in tree.iter('ruc'):
+            if child.text:
+                flag = True
         print('good')
-        root = tree.getroot()
+        if not flag:
+            print(tree.findall('ruc'))
+            print("no existe el ruc")
+            myxml = tree.getroot()
+            parser = ET.XMLParser(encoding="utf-8")
+            root = tree.iter('comprobante')
+            imp = ""
+            for elem in root:
+                imp = elem.text
 
-    return root
+            imp = imp.replace('&', '&amp;')
+            myxml = ET.fromstring(imp, parser=parser)
+            return myxml
+        else:
+            return tree.getroot()
 
 
 def readDocumentXML(xml_document):
     root = get_xml_tree(xml_document)
     iterat = root.getiterator()
     document_object = {}
+    search_ruc = ""
+    for child in tree.iter('ruc'):
+        if child.text:
+            search_ruc = child.text
+
     # Seteamos Diccionario con los valores por defecto
     document_object['NUMERO_DOCUMENTO'] = ''
     document_object['DEDUCIBLE_COMIDA'] = 0.00
@@ -27,6 +55,9 @@ def readDocumentXML(xml_document):
     document_object['DEDUCIBLE_SALUD'] = 0.00
     document_object['NO_DEDUCIBLE'] = 0.00
     document_object['ARCHIVO'] = xml_document
+    for child in iterat:
+        if child.tag == "ruc":
+            search_var = child.text
 
     for child in iterat:
             if child.tag == "identificacionComprador":

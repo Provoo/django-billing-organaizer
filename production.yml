@@ -12,8 +12,8 @@ services:
       service: web
     build:
       args:
-        - DJANGO_ENV=production
-    command: bash -c "gunicorn project.wsgi -b 0.0.0.0:8001"
+        - DJANGO_ENV=produc
+    command: bash -c "gunicorn project.wsgi -b 0.0.0.0:8001 -u root"
     volumes:
       - ./ProvooApp:/ProvooApp
     ports:
