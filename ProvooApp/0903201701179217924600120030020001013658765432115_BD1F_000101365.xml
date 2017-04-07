@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<autorizacion>
+  <estado>AUTORIZADO</estado>
+  <numeroAutorizacion>0903201701200300200010136517921792469</numeroAutorizacion>
+  <fechaAutorizacion>2017-03-10T09:21:21-05:00</fechaAutorizacion>
+  <comprobante>
+    <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<factura id="comprobante" version="1.1.0">
+<infoTributaria>
+   <ambiente>2</ambiente>
+   <tipoEmision>1</tipoEmision>
+   <razonSocial>GROUPKENNEDY CIA LTDA</razonSocial>
+   <nombreComercial>GROUPKENNEDY CIA LTDA</nombreComercial>
+   <ruc>1792179246001</ruc>
+   <claveAcceso>0903201701179217924600120030020001013658765432115</claveAcceso>
+   <codDoc>01</codDoc>
+   <estab>003</estab>
+   <ptoEmi>002</ptoEmi>
+   <secuencial>000101365</secuencial>
+   <dirMatriz>Av. Real Audiencia N57&#x002D;223 y Leonardo Murialdo</dirMatriz>
+</infoTributaria>
+<infoFactura>
+   <fechaEmision>09/03/2017</fechaEmision>
+   <dirEstablecimiento>Av Rio Coca 1529 e Isla Seymour</dirEstablecimiento>
+<obligadoContabilidad>NO</obligadoContabilidad>
+   <tipoIdentificacionComprador>05</tipoIdentificacionComprador>
+   <razonSocialComprador>CARLOS  VELASCO</razonSocialComprador>
+   <identificacionComprador>1711635571</identificacionComprador>
+   <totalSinImpuestos>2.02</totalSinImpuestos>
+   <totalDescuento>0.00</totalDescuento>
+   <totalConImpuestos>
+   <totalImpuesto>
+      <codigo>2</codigo>
+      <codigoPorcentaje>3</codigoPorcentaje>
+      <baseImponible>2.02</baseImponible>
+      <valor>0.28</valor>
+   </totalImpuesto>
+   </totalConImpuestos>
+   <propina>0.00</propina>
+   <importeTotal>2.30</importeTotal>
+   <moneda>DOLAR US</moneda>
+<pagos>
+<pago>
+<formaPago>01</formaPago>
+<total>2.30</total>
+<plazo>0</plazo>
+<unidadTiempo>DIAS</unidadTiempo>
+</pago>
+</pagos>
+</infoFactura>
+<detalles>
+   <detalle>
+     <codigoPrincipal>V1011</codigoPrincipal>
+     <descripcion>PAPA JUNIOR</descripcion>
+     <cantidad>1.0000</cantidad>
+     <precioUnitario>1.5790</precioUnitario>
+     <descuento>0.00</descuento>
+     <precioTotalSinImpuesto>1.58</precioTotalSinImpuesto>
+     <impuestos>
+         <impuesto>
+            <codigo>2</codigo>
+            <codigoPorcentaje>3</codigoPorcentaje>
+            <tarifa>14.00</tarifa>
+            <baseImponible>1.58</baseImponible>
+            <valor>0.22</valor>
+         </impuesto>
+     </impuestos>
+   </detalle>
+   <detalle>
+     <codigoPrincipal>I20071</codigoPrincipal>
+     <descripcion>COLA MINI  VIDRIO</descripcion>
+     <cantidad>1.0000</cantidad>
+     <precioUnitario>0.4386</precioUnitario>
+     <descuento>0.00</descuento>
+     <precioTotalSinImpuesto>0.44</precioTotalSinImpuesto>
+     <impuestos>
+         <impuesto>
+            <codigo>2</codigo>
+            <codigoPorcentaje>3</codigoPorcentaje>
+            <tarifa>14.00</tarifa>
+            <baseImponible>0.44</baseImponible>
+            <valor>0.06</valor>
+         </impuesto>
+     </impuestos>
+   </detalle>
+</detalles>
+<infoAdicional>
+<campoAdicional nombre="EMAIL">cvelascorosa@gmail.com</campoAdicional>
+</infoAdicional><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="Signature-1682153989"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><ds:Reference Id="ReferenciaComprobante" URI="#comprobante"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>bWEmEBtkyX9SNeWX6L1QvNDyO9c=</ds:DigestValue></ds:Reference><ds:Reference Id="ReferenciaCertificado" URI="#Certificado"><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>cjf9tAyWFuN/Ifu7FsM30bELH5A=</ds:DigestValue></ds:Reference><ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#SignedProperties-2121941108"><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>lcg1qcuwe+EHxpJvStr9ppG02Ng=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>WR2X0mvYfc8Zq2SKOAZe+MKHAwuuGhRkOLSuw6chfj6vmeyxiLjmxiM6Kq7JBkHUOEir/shCl3DC4UpwXMHmVyZ/+6ewRysz7Ljh0Z6sJg3Q3W9GpqcuXb4u5YAlrW0JEa1LBSOCOtDlOaMWzo3P5+03/JTuKKSelCXVPX5gZuvst9RPPx1C49ENfvUFS0EZFqdxqzz39nvjnCjE5bWErwdNyjsjYzPrF4ImgIvrrdt+ZukttuTKxwbTFQO5mVdsu+VPZqbHo1DIdkrBtC03MdiDxpCRrDHA9sSqLXcBIcTyZv/bF5MXTaZpGOBipGZS0ON9CSxGU3a16Fkr+u7XwA==</ds:SignatureValue><ds:KeyInfo Id="Certificado"><ds:KeyValue><ds:RSAKeyValue><ds:Modulus>t9bv9sIwwvFPnhiVkXKfaRmEccGPqtXEmC1IJ3jZGpIk739gmEJHIE+Up5oZYJt0kT+1E9HGCnjxuqpXHqlirav+QidK0t2Zm+qwS2CFb+9hzkZOJZsH0U34KyegvQB9ZYcSk2txcb6cdSrONXaNB5pM30RNiSgMaCMLmgBp/BpmCdn04uetUWcOL5E7Hd+Mzmy4fZqbF9RKqEL7ToNAXnG8j1pXdDYFTut/T7qk4saNpSoJQQ1KRY2djeckXNNY5QRTg7wKrsIuAlheEkeAN5VvYiLRTdA63h5NCutUlMxQICtggDuFG9NvLBRaPW7/CYEnP0/98Lc/+SA2Mj9m+Q==</ds:Modulus><ds:Exponent>AQAB</ds:Exponent></ds:RSAKeyValue></ds:KeyValue><ds:X509Data><ds:X509IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR, L=QUITO, OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE, O=BANCO CENTRAL DEL ECUADOR, C=EC</ds:X509IssuerName><ds:X509SerialNumber>1313195353</ds:X509SerialNumber></ds:X509IssuerSerial><ds:X509SubjectName>CN=CRISTHIAN EDUARDO ARELLANO POZO, 2.5.4.5=0000098444, L=QUITO, OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE, O=BANCO CENTRAL DEL ECUADOR, C=EC</ds:X509SubjectName><ds:X509Certificate>MIIKGTCCCAGgAwIBAgIETkXFWTANBgkqhkiG9w0BAQsFADCBoTELMAkGA1UEBhMCRUMxIjAgBgNVBAoTGUJBTkNPIENFTlRSQUwgREVMIEVDVUFET1IxNzA1BgNVBAsTLkVOVElEQUQgREUgQ0VSVElGSUNBQ0lPTiBERSBJTkZPUk1BQ0lPTi1FQ0lCQ0UxDjAMBgNVBAcTBVFVSVRPMSUwIwYDVQQDExxBQyBCQU5DTyBDRU5UUkFMIERFTCBFQ1VBRE9SMB4XDTE2MDEwNzE3MDc0N1oXDTE4MDEwNzE3Mzc0N1owgbcxCzAJBgNVBAYTAkVDMSIwIAYDVQQKExlCQU5DTyBDRU5UUkFMIERFTCBFQ1VBRE9SMTcwNQYDVQQLEy5FTlRJREFEIERFIENFUlRJRklDQUNJT04gREUgSU5GT1JNQUNJT04tRUNJQkNFMQ4wDAYDVQQHEwVRVUlUTzE7MBEGA1UEBRMKMDAwMDA5ODQ0NDAmBgNVBAMTH0NSSVNUSElBTiBFRFVBUkRPIEFSRUxMQU5PIFBPWk8wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC31u/2wjDC8U+eGJWRcp9pGYRxwY+q1cSYLUgneNkakiTvf2CYQkcgT5Snmhlgm3SRP7UT0cYKePG6qlceqWKtq/5CJ0rS3Zmb6rBLYIVv72HORk4lmwfRTfgrJ6C9AH1lhxKTa3Fxvpx1Ks41do0HmkzfRE2JKAxoIwuaAGn8GmYJ2fTi561RZw4vkTsd34zObLh9mpsX1EqoQvtOg0BecbyPWld0NgVO639PuqTixo2lKglBDUpFjZ2N5yRc01jlBFODvAquwi4CWF4SR4A3lW9iItFN0DreHk0K61SUzFAgK2CAO4Ub028sFFo9bv8JgSc/T/3wtz/5IDYyP2b5AgMBAAGjggU/MIIFOzALBgNVHQ8EBAMCB4AwZwYDVR0gBGAwXjBcBgsrBgEEAYKoOwICATBNMEsGCCsGAQUFBwIBFj9odHRwOi8vd3d3LmVjaS5iY2UuZWMvcG9saXRpY2EtY2VydGlmaWNhZG8vcGVyc29uYS1qdXJpZGljYS5wZGYwgZEGCCsGAQUFBwEBBIGEMIGBMD4GCCsGAQUFBzABhjJodHRwOi8vb2NzcC5lY2kuYmNlLmVjL2VqYmNhL3B1YmxpY3dlYi9zdGF0dXMvb2NzcDA/BggrBgEFBQcwAYYzaHR0cDovL29jc3AxLmVjaS5iY2UuZWMvZWpiY2EvcHVibGljd2ViL3N0YXR1cy9vY3NwMCUGCisGAQQBgqg7AwoEFxMVR1JPVVBLRU5ORURZIENJQSBMVERBMB0GCisGAQQBgqg7AwsEDxMNMTc5MjE3OTI0NjAwMTAaBgorBgEEAYKoOwMBBAwTCjE3MTAxMTc0MjMwIQYKKwYBBAGCqDsDAgQTExFDUklTVEhJQU4gRURVQVJETzAYBgorBgEEAYKoOwMDBAoTCEFSRUxMQU5PMBQGCisGAQQBgqg7AwQEBhMEUE9aTzAyBgorBgEEAYKoOwMFBCQTIlJFU1BPTlNBQkxFIERFTCBERVBBUlRBTUVOVE8gTEVHQUwwPAYKKwYBBAGCqDsDBwQuEyxBViBSRUFMIEFVRElFTkNJQSBONTcyMjMgWSBMRU9OQVJETyBNVVJJQUxETzAZBgorBgEEAYKoOwMIBAsTCTAyNTAwNzIyNzAVBgorBgEEAYKoOwMJBAcTBVF1aXRvMBcGCisGAQQBgqg7AwwECRMHRUNVQURPUjAgBgorBgEEAYKoOwMzBBITEFNPRlRXQVJFLUFSQ0hJVk8wJQYDVR0RBB4wHIEaZ2VyZW5jaWFAZ3JvdXBrZW5uZWR5LmNvbUowggHfBgNVHR8EggHWMIIB0jCCAc6gggHKoIIBxoaB1WxkYXA6Ly9iY2VxbGRhcHN1YnAxLmJjZS5lYy9jbj1DUkwyODgsY249QUMlMjBCQU5DTyUyMENFTlRSQUwlMjBERUwlMjBFQ1VBRE9SLGw9UVVJVE8sb3U9RU5USURBRCUyMERFJTIwQ0VSVElGSUNBQ0lPTiUyMERFJTIwSU5GT1JNQUNJT04tRUNJQkNFLG89QkFOQ08lMjBDRU5UUkFMJTIwREVMJTIwRUNVQURPUixjPUVDP2NlcnRpZmljYXRlUmV2b2NhdGlvbkxpc3Q/YmFzZYY0aHR0cDovL3d3dy5lY2kuYmNlLmVjL0NSTC9lY2lfYmNlX2VjX2NybGZpbGVjb21iLmNybKSBtTCBsjELMAkGA1UEBhMCRUMxIjAgBgNVBAoTGUJBTkNPIENFTlRSQUwgREVMIEVDVUFET1IxNzA1BgNVBAsTLkVOVElEQUQgREUgQ0VSVElGSUNBQ0lPTiBERSBJTkZPUk1BQ0lPTi1FQ0lCQ0UxDjAMBgNVBAcTBVFVSVRPMSUwIwYDVQQDExxBQyBCQU5DTyBDRU5UUkFMIERFTCBFQ1VBRE9SMQ8wDQYDVQQDEwZDUkwyODgwKwYDVR0QBCQwIoAPMjAxNjAxMDcxNzA3NDdagQ8yMDE4MDEwNzE3Mzc0N1owHwYDVR0jBBgwFoAUGPnw++YyHJlmOSrKi7JpfUknv84wHQYDVR0OBBYEFM2unqUzlvgV+sMcUV75q37C/XirMAkGA1UdEwQCMAAwGQYJKoZIhvZ9B0EABAwwChsEVjguMQMCBLAwDQYJKoZIhvcNAQELBQADggIBAEahXN+gcThXqSJoCctGSY4c11ZbZINOJNN3JzlcHxBoQy05nLwKdsXIQ3di3uaBHPfKn6GT6OTw+xzki713KqAKusMhnqr5OhkSaLfoLAz4v1tqWMs4bTil/m8otEmWg0iJR5GdtU9+gbL5A9Zl5A7gLixfkNBiAjRFkKOtuot7ZK4xL4EhvnD0GPErfApez+bv8Cad4qqCrgfqI8rm2ppBZbHOjdevYpNPKuh7aTFCtLF3JOJWpp1ZV/UJXVHQSzqFZFSRBsNSXojYVzCvt8s1/4z/WXvI90gOYaTghYYHcCZoy6CjHapDeSXuJWPWr0Nazj3xZqKFx+2nd05L0rbG4lrU7R+HaRRZFzCUIeW+f5KQ1Yj0ezjuq/x+1jJ9ycINzc+zJ82POuL9ixemTD89K0dLUKDoYEF+QJtYO+XzAP9YLMMFT+fWFCblA3Y6aJhttaZq87wi96U6CqyvalihvVYD88f9odr+gxk0Uod6YzevkFv3CH28VPiprOrNQIjsZ6iEeK4i+QJsbI4/335AsPMu9JyD6K7t1lrFz5Y4Uwh0bElf7RL4t7jKk3lTeKbdK1WcSwXbyXyxLrwk/JVYxSybNDPzxEM0uDlpQi8bLpGXaW2tPiNf/o0froTeNyVVEVrVaCB8N8iUW/4IWjZA6buoXnXtO5ch0AymV95x</ds:X509Certificate></ds:X509Data></ds:KeyInfo><ds:Object><QualifyingProperties xmlns="http://uri.etsi.org/01903/v1.3.2#" Target="#Signature-1682153989"><SignedProperties Id="SignedProperties-2121941108"><SignedSignatureProperties><SigningTime>2017-03-10T13:21:16.615Z</SigningTime><SigningCertificate><Cert><CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>4VCkbuD6phGtRydIdDt4knwuuVk=</ds:DigestValue></CertDigest><IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR, L=QUITO, OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE, O=BANCO CENTRAL DEL ECUADOR, C=EC</ds:X509IssuerName><ds:X509SerialNumber>1313195353</ds:X509SerialNumber></IssuerSerial></Cert></SigningCertificate></SignedSignatureProperties></SignedProperties></QualifyingProperties></ds:Object></ds:Signature>
+</factura>
+    ]]>
+  </comprobante>
+  <mensajes>
+  </mensajes>
+</autorizacion>

@@ -96,6 +96,7 @@ def GetAttachments(service, user_id, msg_id):
     msg_id: ID of Message containing attachment.
     prefix: prefix which is added to the attachment filename on saving
     """
+    path = ""
     try:
         message = service.users().messages().get(
             userId=user_id, id=msg_id).execute()
@@ -106,17 +107,18 @@ def GetAttachments(service, user_id, msg_id):
                 att = service.users().messages().attachments().get(
                     userId=user_id, messageId=msg_id, id=att_id).execute()
                 data = att['data']
-                file_data = base64.urlsafe_b64decode(data.encode('UTF-8'))
-                print("estes esle archivot: %s" % (part['filename']))
-                path = part['filename']
-                buffer = open(path, 'w')
-                buffer.write(file_data)
-                buffer.close()
+                if part['filename']:
+                    file_data = base64.urlsafe_b64decode(data.encode('UTF-8'))
+                    print("estes esle archivo: %s" % (part['filename']))
+                    path = part['filename']
+                    bufferf = open(path, 'w')
+                    bufferf.write(file_data)
+                    bufferf.close()
+
     except errors.HttpError, error:
         print 'An error occurred: %s' % error
 
     return path
-
 
 # ----- Stand Alone Exexcution Gmail API -----
 # def main():
