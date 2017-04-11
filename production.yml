@@ -1,5 +1,6 @@
 version: '2'
-  services:
+
+services:
   db:
     extends:
       file: base.yml
@@ -11,8 +12,8 @@ version: '2'
       service: web
     build:
       args:
-        - DJANGO_ENV=pro
-    command: bash -c "sh /ProvooApp/start.sh"
+        - DJANGO_ENV=produc
+    command: bash -c "gunicorn project.wsgi -b 0.0.0.0:8001 -u root"
     volumes:
       - ./ProvooApp:/ProvooApp
     ports:
@@ -20,6 +21,6 @@ version: '2'
     depends_on:
       - db
 
-  volumes:
+volumes:
   db_data:
     external: true

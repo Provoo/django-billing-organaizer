@@ -1,6 +1,5 @@
-import httplib2
 import os
-
+import httplib2
 from apiclient import discovery
 from oauth2client import client
 from oauth2client import tools
@@ -9,19 +8,19 @@ from apiclient import errors
 import base64
 import email
 
-
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-    print(flags)
-except ImportError:
-    flags = None
-
-# If modifying these scopes, delete your previously saved credentials
-# at ~/.credentials/gmail-python-quickstart.json
-SCOPES = 'https://www.googleapis.com/auth/gmail.readonly'
-#CLIENT_SECRET_FILE = os.path.join(os.path.dirname(__file__), '..', 'static/client_secret.json')
-APPLICATION_NAME = 'ProvoFact'
+# ----Variables para utilizar la Api Stand Alone------
+# try:
+#     import argparse
+#     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+#     print(flags)
+# except ImportError:
+#     flags = None
+#
+# # If modifying these scopes, delete your previously saved credentials
+# # at ~/.credentials/gmail-python-quickstart.json
+# SCOPES = 'https://www.googleapis.com/auth/gmail.readonly'
+# #CLIENT_SECRET_FILE = os.path.join(os.path.dirname(__file__), '..', 'static/client_secret.json')
+# APPLICATION_NAME = 'ProvoFact'
 
 
 def get_credentials():
@@ -70,21 +69,23 @@ def ListMessagesMatchingQuery(service, user_id, query=''):
     appropriate ID to get the details of a Message.
     """
     try:
-        response = service.users().messages().list(userId=user_id, q=query).execute()
+        response = service.users().messages().list(
+            userId=user_id, q=query).execute()
         messages = []
         if 'messages' in response:
             messages.extend(response['messages'])
 
         while 'nextPageToken' in response:
             page_token = response['nextPageToken']
-            response = service.users().messages().list(userId=user_id, q=query, pageToken=page_token).execute()
+            response = service.users().messages().list(
+                userId=user_id, q=query, pageToken=page_token).execute()
             messages.extend(response['messages'])
         return messages
     except errors.HttpError, error:
         print 'An error occurred: %s' % error
 
 
-def GetAttachments(service, user_id, msg_id, store_dir):
+def GetAttachments(service, user_id, msg_id):
 
     """Get and store attachment from Message with given id.
 
@@ -96,51 +97,49 @@ def GetAttachments(service, user_id, msg_id, store_dir):
     prefix: prefix which is added to the attachment filename on saving
     """
     try:
-        message = service.users().messages().get(userId=user_id, id=msg_id).execute()
+        message = service.users().messages().get(
+            userId=user_id, id=msg_id).execute()
         for part in message['payload']['parts']:
             newvar = part['body']
             if 'attachmentId' in newvar:
-                #print("imprimiendo partes : %s" % (newvar['attachmentId']))
                 att_id = newvar['attachmentId']
-                att = service.users().messages().attachments().get(userId=user_id, messageId=msg_id, id=att_id).execute()
+                att = service.users().messages().attachments().get(
+                    userId=user_id, messageId=msg_id, id=att_id).execute()
                 data = att['data']
                 file_data = base64.urlsafe_b64decode(data.encode('UTF-8'))
-                print(part['filename'])
-                path = ''.join([store_dir, part['filename']])
-                f = open(path, 'w')
-                f.write(file_data)
-                f.close()
+                print("estes esle archivot: %s" % (part['filename']))
+                path = part['filename']
+                buffer = open(path, 'w')
+                buffer.write(file_data)
+                buffer.close()
     except errors.HttpError, error:
         print 'An error occurred: %s' % error
 
-
-def main():
-    """Shows basic usage of the Gmail API.
-
-    Creates a Gmail API service object and outputs a list of label names
-    of the user's Gmail account.
-    """
-    credentials = get_credentials()
-    http = credentials.authorize(httplib2.Http())
-    service = discovery.build('gmail', 'v1', http=http)
-    listemails = ListMessagesMatchingQuery(service, "design24439@gmail.com", "factura has:attachment xml ")
-
-    for nlist in listemails:
-        print('numero de id: %s' % (nlist['id']))
-        GetAttachments(service, "design24439@gmail.com", nlist['id'], "/dashboard")
-
-    results = service.users().labels().list(userId='me').execute()
-    labels = results.get('labels', [])
-
-    if not labels:
-        print('No labels found.')
-    else:
-        print('Labels:')
-        for label in labels:
-            print(label['name'])
-
-        print(listemails)
+    return path
 
 
-if __name__ == '__main__':
-    main()
+# ----- Stand Alone Exexcution Gmail API -----
+# def main():
+#     """Shows basic usage of the Gmail API.
+#
+#     Creates a Gmail API service object and outputs a list of label names
+#     of the user's Gmail account.
+#     """
+#     credentials = get_credentials()
+#     http = credentials.authorize(httplib2.Http())
+#     service = discovery.build('gmail', 'v1', http=http)
+#     results = service.users().labels().list(userId='me').execute()
+#     labels = results.get('labels', [])
+#
+#     if not labels:
+#         print('No labels found.')
+#     else:
+#         print('Labels:')
+#         for label in labels:
+#             print(label['name'])
+#
+#         print(listemails)
+#
+#
+# if __name__ == '__main__':
+#     main()
