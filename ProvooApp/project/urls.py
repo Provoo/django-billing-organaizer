@@ -7,13 +7,17 @@ from dashboard.views import dashboardView, documentoView, homeView, portafolioVi
 
 # from dashboard.views import dashboard
 urlpatterns = [
-    url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
+    url(r"^$", TemplateView.as_view(template_name="homepage.html"),
+        name="home"),
     url(r"^admin/", include(admin.site.urls)),
     url(r"^account/", include("account.urls")),
     url(r"^googleimp/", googleImport, name="googleImport"),
-    url(r"^portfolios/(?P<pk>[-\w]+)$", portafolioView.as_view(), name="portafolios"),
-    url(r"^dashboard/(?P<pk>[-\w]+)/(?P<ruc>[0-9]+)/$", dashboardView.as_view(), name="user_dashboard"),
-    url(r"^documentos/(?P<pk>[-\w]+)/(?P<ruc>[0-9]+)/$", documentoView.as_view(), name="user_documentos"),
+    url(r"^portfolios/(?P<pk>[-\w]+)$", portafolioView.as_view(),
+        name="portafolios"),
+    url(r"^dashboard/(?P<pk>[-\w]+)/(?P<ruc>[0-9]+)/$",
+        dashboardView.as_view(), name="user_dashboard"),
+    url(r"^documentos/(?P<pk>[-\w]+)/(?P<ruc>[0-9]+)/$",
+        documentoView.as_view(), name="user_documentos"),
     url(r'', include('social_django.urls', namespace='social')),
 ]
 

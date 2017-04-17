@@ -7,6 +7,8 @@ from oauth2client.file import Storage
 from apiclient import errors
 import base64
 import email
+from django.core.files.storage import FileSystemStorage
+import cStringIO
 
 # ----Variables para utilizar la Api Stand Alone------
 # try:
@@ -96,6 +98,7 @@ def GetAttachments(service, user_id, msg_id):
     msg_id: ID of Message containing attachment.
     prefix: prefix which is added to the attachment filename on saving
     """
+    file_return = {}
     try:
         message = service.users().messages().get(
             userId=user_id, id=msg_id).execute()
@@ -106,17 +109,15 @@ def GetAttachments(service, user_id, msg_id):
                 att = service.users().messages().attachments().get(
                     userId=user_id, messageId=msg_id, id=att_id).execute()
                 data = att['data']
-                file_data = base64.urlsafe_b64decode(data.encode('UTF-8'))
-                print("estes esle archivot: %s" % (part['filename']))
-                path = part['filename']
-                buffer = open(path, 'w')
-                buffer.write(file_data)
-                buffer.close()
+                if part['filename']:
+                    file_data = base64.urlsafe_b64decode(data.encode('UTF-8'))
+                    print("estes esle archivo: %s" % (part['filename']))
+                    file_return['name'] = part['filename']
+                    file_return['data'] = file_data
     except errors.HttpError, error:
         print 'An error occurred: %s' % error
 
-    return path
-
+    return file_return
 
 # ----- Stand Alone Exexcution Gmail API -----
 # def main():

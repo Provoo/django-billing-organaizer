@@ -24,8 +24,6 @@ from googleapiclient.discovery import build
 import httplib2
 from dashboard.GoogleApi import ListMessagesMatchingQuery, GetAttachments
 
-
-
 # funcion para combrar la existencia de un portafolio o crear uno nuevo guardar
 def modelDocumentoSave(document_object, portafolio_instance):
     p = documento(
@@ -129,7 +127,8 @@ class documentoView(ListView):
 
     def get_queryset(self):
         documentos = super(documentoView, self).get_queryset()
-        get_object_or_404(Portafolio, UserID_id=self.request.user.id, Ruc=self.kwargs['ruc'])
+        get_object_or_404(
+            Portafolio, UserID_id=self.request.user.id, Ruc=self.kwargs['ruc'])
         return documentos.filter(rucDocumento=self.kwargs['ruc'])
 
 
@@ -143,12 +142,16 @@ def googleImport(request):
     http = credentials.authorize(http)
     services = build("gmail", "v1", http=http)
     print(services)
-    listemails = ListMessagesMatchingQuery(services, request.user, "factura has:attachment xml ")
+    listemails = ListMessagesMatchingQuery(
+        services, request.user, "factura has:attachment xml ")
     for nlist in listemails:
         print('numero de id: %s' % (nlist['id']))
         f_buffer = GetAttachments(services, request.user, nlist['id'])
-        print("El Archivo que se va a guardar es: %s" % (f_buffer))
-        f_buffer = ""
+        if f_buffer:
+            print("El buffer antes guardar es: %s" % (f_buffer['name']))
+        else:
+            print("este archivo esta vacio")
+        f_buffer = None
         # Aqui hacer con GetAttachments un buffer para escribir el archivo
 
     return HttpResponseRedirect(
