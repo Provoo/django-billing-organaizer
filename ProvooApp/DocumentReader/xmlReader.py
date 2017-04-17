@@ -92,7 +92,6 @@ def readDocumentXML(xml_document):
             if child.tag == Variables_Enterprise.EnterpriseTotal:
                 document_object['TOTAL_DOCUMENTO'] = float(child.text)
 
-
     # End For
 
     # Busqueda de campos adicionales comida:
@@ -113,5 +112,5 @@ def readDocumentXML(xml_document):
 
 # import os
 # from DocumentReader.xmlReader import readDocumentXML
-# path = os.path.join(os.path.dirname(os.path.realpath('__file__')), 'xml_de_prueba/favorita022017.xml')
+# path = os.path.join(os.path.dirname(os.path.realpath('__file__')), 'xml_de_prueba/JuanValdez.xml')
 # readDocumentXML(path)

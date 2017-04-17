@@ -10,9 +10,8 @@ services:
     extends:
       file: base.yml
       service: nginx
-    #"envsubst '$NGINX_HOST $NGINX_PORT' < /etc/nginx/conf.d/provooNginx.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
     ports:
-      - "80:80"
+      - "8001:80"
     depends_on:
       - web
 
@@ -23,8 +22,8 @@ services:
       service: web
     build:
       args:
-        - DJANGO_ENV=production
-    command: bash -c "python manage.py collectstatic --noinput && chmod 775 -R project/site_media/static && gunicorn -c /ProvooApp/gunicorn.conf project.wsgi:application"
+        - DJANGO_ENV=$DJANGO_ENV
+    command: bash -c "chown -R www-data /ProvooApp/project/site_media/ && chmod -R 755 /ProvooApp/project/site_media/ && python manage.py collectstatic --noinput && gunicorn -c /ProvooApp/gunicorn.conf project.wsgi:application"
     volumes:
       - ./ProvooApp:/ProvooApp
     ports:

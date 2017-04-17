@@ -12,7 +12,7 @@ services:
       service: web
     build:
       args:
-        - DJANGO_ENV=dev
+        - DJANGO_ENV=$DJANGO_ENV
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./ProvooApp:/ProvooApp

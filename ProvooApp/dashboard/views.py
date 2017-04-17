@@ -17,7 +17,7 @@ from django.contrib.auth.models import User
 from django.db.models import Sum
 
 #Xml Reader Api
-from dashboard.xmlReader import readDocumentXML
+from DocumentReader.xmlReader import readDocumentXML
 
 # google api imports
 from oauth2client.client import AccessTokenCredentials
@@ -56,6 +56,7 @@ def saveDocumentPorfolio(document_object, user_id, portafolio_instance):
             UserID=user_id, Ruc=document_object['RUC_XML'],
             Nombre=document_object['NOMBRE'])
         p.save()
+        print(p)
         modelDocumentoSave(document_object, p)
     else:
         print("El ruc si existe")
