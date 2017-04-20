@@ -107,7 +107,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id=uploadForm action="" method="post" enctype="multipart/form-data">
+                            <form id=uploadForm action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="file-field input-field">
                                     <div class="btn">

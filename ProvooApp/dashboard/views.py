@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.views.decorators.http import require_http_methods
 
 # Models Import
 from dashboard.models import Portafolio, documento, CredentialsModel
@@ -30,45 +31,50 @@ from dashboard.GoogleApi import ListMessagesMatchingQuery, GetAttachments
 def modelDocumentoSave(document_object, portafolio_instance):
     p = documento(
         rucDocumento=portafolio_instance,
+        nombreDocumento=document_object['NOMBRE_DOCUMENTO'],
         numeroDeDocumento=document_object['NUMERO_DOCUMENTO'],
         RucEmisor=document_object['RUC_EMISOR'],
         NombreEmisor=document_object['NOMBRE_EMISOR'],
         DireccionEmisor=document_object['DIRECCION_EMISOR'],
         fecha=document_object['FECHA'],
-        totalGastosf=document_object['TOTAL_GASTOS'],
+        Impuesto=document_object['TAX'],
+        totalGastosf=document_object['TOTAL_GASTOSF'],
         totalImpuestos=document_object['TOTAL_IMPUESTOS'],
         totalDocumento=document_object['TOTAL_DOCUMENTO'],
         deducible_vestimenta=document_object['DEDUCIBLE_VESTIMENTA'],
         deducible_educacion=document_object['DEDUCIBLE_EDUCACION'],
         deducible_comida=document_object['DEDUCIBLE_COMIDA'],
         deducible_salud=document_object['DEDUCIBLE_SALUD'],
+        deducible_vivienda=document_object['DEDUCIBLE_VIVIENDA'],
         no_deducible=document_object['NO_DEDUCIBLE'],
         archivo=document_object['ARCHIVO'])
     p.save()
 
 
-def saveDocumentPorfolio(document_object, user_id, portafolio_instance):
+def saveDocumentPorfolio(document_object, user_id):
     try:
         p = Portafolio.objects.get(Ruc=document_object['RUC_XML'])
     except Portafolio.DoesNotExist:
         print("El ruc no exite, crearemos un nuevo portafolio para este Ruc")
         p = Portafolio(
             UserID=user_id, Ruc=document_object['RUC_XML'],
-            Nombre=document_object['NOMBRE'])
+            Nombre=document_object['NOMBRE_DOCUMENTO'])
         p.save()
+        ps = Portafolio.objects.get(Ruc=document_object['RUC_XML'])
         print(p)
-        modelDocumentoSave(document_object, p)
+        modelDocumentoSave(document_object, ps)
     else:
         print("El ruc si existe")
-        try:
-            prueba_num_doc = documento.objects.filter(
-                    numeroDeDocumento=document_object['NUMERO_DOCUMENTO']
-                    )[:1].get()
-        except documento.DoesNotExist:
-            modelDocumentoSave(document_object, portafolio_instance)
-            print("Tu documento ya se guardo automaticamente")
-        else:
-            print("Tu factura ya existe")
+        modelDocumentoSave(document_object, p)
+        print("Tu documento ya se guardo automaticamente")
+        # try:
+        #     prueba_num_doc = documento.objects.filter(
+        #             numeroDeDocumento=document_object['NUMERO_DOCUMENTO']
+        #             )[:1].get()
+        # except documento.DoesNotExist:
+
+        # else:
+        #     print("Tu factura ya existe")
 
 
 class homeView(TemplateView):
@@ -98,25 +104,6 @@ class dashboardView(ListView):
         context['member'] = member
         return context
 
-    def post(self, request, *args, **kwargs):
-        portafolio_User = Portafolio.objects.get(
-            UserID_id=self.request.user.id, Ruc=self.kwargs['ruc'])
-        prueba = self.request.POST
-        documentos = self.request.FILES.getlist('docfile')
-        ajax = request.is_ajax()
-        print(documentos)
-        for documento_it in documentos:
-            objetoNu = readDocumentXML(documento_it)
-            print(objetoNu)
-            saveDocumentPorfolio(objetoNu, self.request.user, portafolio_User)
-        print(prueba)
-        print(ajax)
-        mensaje = "Tu factura se guardo en el siguiente portafolio: %s"\
-            % (self.kwargs['ruc'])
-        data = {
-            'mensaje': mensaje}
-        return JsonResponse(data)
-
 
 class portafolioView(ListView):
     template_name = 'portfolios.html'
@@ -137,6 +124,31 @@ class documentoView(ListView):
         get_object_or_404(
             Portafolio, UserID_id=self.request.user.id, Ruc=self.kwargs['ruc'])
         return documentos.filter(rucDocumento=self.kwargs['ruc'])
+
+
+@login_required
+@require_http_methods(["POST"])
+def upLoad(request, *args, **kwargs):
+    # portafolio_User = Portafolio.objects.get(
+    #     UserID_id=self.request.user.id, Ruc=self.kwargs['ruc'])
+    prueba = request.POST
+    usuario = request.user.id
+    documentos = request.FILES.getlist('docfile')
+    ajax = request.is_ajax()
+    print(documentos)
+    for documento_it in documentos:
+        objetoNu = readDocumentXML(documento_it)
+        print(objetoNu)
+        saveDocumentPorfolio(objetoNu, request.user)
+    print(usuario)
+    print(documentos)
+    print(prueba)
+    print(ajax)
+    mensaje = "Tu factura se guardo en el siguiente usuario: %s"\
+        % (usuario)
+    data = {
+        'mensaje': mensaje}
+    return JsonResponse(data)
 
 
 @login_required
@@ -163,3 +175,24 @@ def googleImport(request):
 
     return HttpResponseRedirect(
             reverse('portafolios', kwargs={'pk': request.user.id}))
+
+
+
+# def upLoad(self, request, *args, **kwargs):
+#     portafolio_User = Portafolio.objects.get(
+#         UserID_id=self.request.user.id, Ruc=self.kwargs['ruc'])
+#     prueba = self.request.POST
+#     documentos = self.request.FILES.getlist('docfile')
+#     ajax = request.is_ajax()
+#     print(documentos)
+#     for documento_it in documentos:
+#         objetoNu = readDocumentXML(documento_it)
+#         print(objetoNu)
+#         saveDocumentPorfolio(objetoNu, self.request.user, portafolio_User)
+#     print(prueba)
+#     print(ajax)
+#     mensaje = "Tu factura se guardo en el siguiente portafolio: %s"\
+#         % (self.kwargs['ruc'])
+#     data = {
+#         'mensaje': mensaje}
+#     return JsonResponse(data)

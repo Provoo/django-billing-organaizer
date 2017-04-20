@@ -3,7 +3,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
-from dashboard.views import dashboardView, documentoView, homeView, portafolioView, googleImport
+from dashboard.views import dashboardView, documentoView, homeView, portafolioView, googleImport, upLoad
 
 # from dashboard.views import dashboard
 urlpatterns = [
@@ -12,6 +12,7 @@ urlpatterns = [
     url(r"^admin/", include(admin.site.urls)),
     url(r"^account/", include("account.urls")),
     url(r"^googleimp/", googleImport, name="googleImport"),
+    url(r"^upload/", upLoad, name="upload"),
     url(r"^portfolios/(?P<pk>[-\w]+)$", portafolioView.as_view(),
         name="portafolios"),
     url(r"^dashboard/(?P<pk>[-\w]+)/(?P<ruc>[0-9]+)/$",
