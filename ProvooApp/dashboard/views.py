@@ -16,13 +16,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Sum
 
-from dashboard.xmlReader import readDocumentXML
+#Xml Reader Api
+from DocumentReader.xmlReader import readDocumentXML
 
 # google api imports
 from oauth2client.client import AccessTokenCredentials
 from googleapiclient.discovery import build
 import httplib2
 from dashboard.GoogleApi import ListMessagesMatchingQuery, GetAttachments
+
 
 # funcion para combrar la existencia de un portafolio o crear uno nuevo guardar
 def modelDocumentoSave(document_object, portafolio_instance):
@@ -50,14 +52,18 @@ def saveDocumentPorfolio(document_object, user_id, portafolio_instance):
         p = Portafolio.objects.get(Ruc=document_object['RUC_XML'])
     except Portafolio.DoesNotExist:
         print("El ruc no exite, crearemos un nuevo portafolio para este Ruc")
-        p = Portafolio(UserID=user_id, Ruc=document_object['RUC_XML'], Nombre=document_object['NOMBRE'])
+        p = Portafolio(
+            UserID=user_id, Ruc=document_object['RUC_XML'],
+            Nombre=document_object['NOMBRE'])
         p.save()
+        print(p)
         modelDocumentoSave(document_object, p)
     else:
         print("El ruc si existe")
         try:
-            prueba_num_doc = documento.objects \
-                                 .filter(numeroDeDocumento=document_object['NUMERO_DOCUMENTO'])[:1].get()
+            prueba_num_doc = documento.objects.filter(
+                    numeroDeDocumento=document_object['NUMERO_DOCUMENTO']
+                    )[:1].get()
         except documento.DoesNotExist:
             modelDocumentoSave(document_object, portafolio_instance)
             print("Tu documento ya se guardo automaticamente")
@@ -105,7 +111,8 @@ class dashboardView(ListView):
             saveDocumentPorfolio(objetoNu, self.request.user, portafolio_User)
         print(prueba)
         print(ajax)
-        mensaje = "Tu factura se guardo en el siguiente portafolio: %s" % (self.kwargs['ruc'])
+        mensaje = "Tu factura se guardo en el siguiente portafolio: %s"\
+            % (self.kwargs['ruc'])
         data = {
             'mensaje': mensaje}
         return JsonResponse(data)

@@ -16,7 +16,7 @@
 
 {% block wrapper_class %} mdl-layout mdl-js-layout mdl-layout--fixed-header{% endblock %}
 {% block topbar_base %}
-    <header class="mdl-layout__header blue-grey lighten-5 z-depth-2 ">
+    <header class="mdl-layout__header grey darken-4 white-text z-depth-2 ">
         <div class="mdl-layout__header-row ">
             <div class="navbar-header ">
                 {% block site_brand %}
@@ -35,29 +35,29 @@
             </div>
         </div>
     </header>
-    <div class="mdl-layout__drawer">
+    <div class="mdl-layout__drawer grey darken-4 white-text">
         <span class="mdl-layout-title">Efact</span>
         <nav class="mdl-navigation">
             <div class="nav-wrapper">
                 <form>
-                    <div class="input-field teal accent-5">
+                    <div class="input-field blue darken-2">
                         <input id="search" type="search" required>
                         <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                         <i class="material-icons">close</i>
                     </div>
                 </form>
             </div>
-            <a class="mdl-navigation__link hoverable" href="{% url 'home' %}">Home</a>
+            <a class="mdl-navigation__link hoverable white-text" href="{% url 'home' %}">Home</a>
             {% if request.user.is_authenticated %}
-                {#                <a class="mdl-navigation__link hoverable" href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>#}
-                <a class="mdl-navigation__link hoverable" href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>
-                {#                <a class="mdl-navigation__link hoverable" href="{% url 'facturas' %}">Facturas</a>#}
-                <a class="mdl-navigation__link hoverable" id="account_logout" href="{% url 'account_logout' %}">
+                {# <a class="mdl-navigation__link hoverable" href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>#}
+                <a class="mdl-navigation__link hoverable white-text" href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>
+                {# <a class="mdl-navigation__link hoverable" href="{% url 'facturas' %}">Facturas</a>#}
+                <a class="mdl-navigation__link hoverable white-text" id="account_logout" href="{% url 'account_logout' %}">
                     <i class="fa fa-power-off"></i> {% trans "Log out" %}</a>
             {% else %}
-                <a class="mdl-navigation__link hoverable" href="{% url 'account_login' %}">{% trans "Log in" %}</a>
+                <a class="mdl-navigation__link hoverable white-text" href="{% url 'account_login' %}">{% trans "Log in" %}</a>
                 {% if ACCOUNT_OPEN_SIGNUP %}
-                    <a class="mdl-navigation__link hoverable"
+                    <a class="mdl-navigation__link hoverable white-text"
                        href="{% url 'account_signup' %}">{% trans "Sign up" %}</a>
                 {% endif %}
             {% endif %}
@@ -87,15 +87,14 @@
                         <i class="material-icons" style="font-size:40px;">add</i>
                     </a>
                     <ul>
-                        <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-                        <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-                        <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-                        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+                        <li><a href="{% url "social:begin" "google-oauth2" %}" class="btn-floating red"><i class="fa fa-google"></i></a></li>
+                        <li><a href="{% url "social:begin" "msn-live-connect" %}" class="btn-floating blue"><i class="material-icons">mail_outline</i></a></li>
+{#                        <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>#}
+{#                        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>#}
                     </ul>
                 </div>
                 <div class="modal modal-dialog modal-lg fade bd-example-modal-lg modal-content container mdl-grid"
-                     tabindex="-1"
-                     role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                     tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     <div class="mdl-card col-md-12" style="width: 100%">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">
@@ -115,7 +114,8 @@
                                         <input type="file" name="docfile" multiple>
                                     </div>
                                     <div class="file-path-wrapper">
-                                       <input class="file-path validate" type="text" accept=".xml" placeholder="Upload one or more files">
+                                        <input class="file-path validate" type="text" accept=".xml"
+                                               placeholder="Upload one or more files">
                                     </div>
                                 </div>
                                 <br>

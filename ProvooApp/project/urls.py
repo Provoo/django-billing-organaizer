@@ -1,15 +1,17 @@
+from dashboard.views import dashboardView, documentoView, portafolioView, googleImport
 from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
-from dashboard.views import dashboardView, documentoView, homeView, portafolioView, googleImport
 
-# from dashboard.views import dashboard
+from .views import SignupView
+
 urlpatterns = [
     url(r"^$", TemplateView.as_view(template_name="homepage.html"),
         name="home"),
     url(r"^admin/", include(admin.site.urls)),
+    url(r"^account/signup/$", SignupView.as_view(), name='account_signup'),
     url(r"^account/", include("account.urls")),
     url(r"^googleimp/", googleImport, name="googleImport"),
     url(r"^portfolios/(?P<pk>[-\w]+)$", portafolioView.as_view(),
@@ -22,3 +24,6 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if not settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

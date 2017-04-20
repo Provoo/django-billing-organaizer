@@ -3,34 +3,33 @@
 
 <ul class="nav navbar-nav pull-right white-text">
     {% if request.user.is_authenticated %}
-        <li class="dropdown">#}
-            <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-user"></i> {% user_display request.user %}
-
-          <!--      <b class="caret"></b>
-           </a>
+        <li class="white-text dropdown">
+            <a href="" class="white-text dropdown-toggle" data-toggle="dropdown">
+                <i class="white-text fa fa-user"></i> {% user_display request.user %}
+                <b class="white-text caret"></b>
+            </a>
             <ul class="dropdown-menu">
                 <li><a href="{% url 'account_settings' %}" tabindex="-1">Settings</a></li>
                 <li><a href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a></li>
-                <li><a href="account_logout" tabindex="-1">Logout</a></li>
-
-           </ul>
+            </ul>
         </li>
         <li>
-           <a href="{% url 'account_settings' %}"><i class="fa fa-cog"></i> {% trans "Settings" %}</a>
-      </li>
+            <a class="white-text" href="{% url 'account_settings' %}"><i class="fa fa-cog"></i> {% trans "Settings" %}
+            </a>
+        </li>
         <li>
-            <a id="account_logout" href="{% url 'account_logout' %}"><i
+            <a id="account_logout" href="{% url 'account_logout' %}" class="white-text"><i
                     class="fa fa-power-off"></i> {% trans "Log out" %}</a>
         </li>
     {% else %}
-        <li><a href="{% url 'account_login' %}">{% trans "Log in" %}</a></li>
+        <li><a class="white-text" href="{% url 'account_login' %}">{% trans "Log in" %}</a></li>
         {% if ACCOUNT_OPEN_SIGNUP %}
-            <li><a href="{% url 'account_signup' %}">{% trans "Sign up" %}</a></li>
+            <li><a class="white-text" href="{% url 'account_signup' %}">{% trans "Sign up" %}</a></li>
         {% endif %}
-    {% endif %}-->
+    {% endif %}
 </ul>
 
-<form id="accountLogOutForm" style="display: none;" action="{% url 'account_logout' %}" method="POST">
+<form id="accountLogOutForm" style="display: none;" action="{% url 'account_logout' %}" method="POST"
+      class="white-text">
     {% csrf_token %}
 </form>
