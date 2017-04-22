@@ -1,0 +1,5 @@
+*.pyc
+.env
+ProvooApp/project/site_media/media/*
+ProvooApp/project/site_media/static/*
+ProvooApp/xml_de_prueba/*
