@@ -1,3 +1,4 @@
+import os
 # Views Important libraries
 from django.views.generic import ListView, TemplateView
 from django.http import HttpResponseRedirect
@@ -19,6 +20,9 @@ from django.db.models import Sum
 
 #Xml Reader Api
 from DocumentReader.xmlReader import readDocumentXML
+from django.conf import settings
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 
 # google api imports
 from oauth2client.client import AccessTokenCredentials
@@ -137,15 +141,16 @@ def upLoad(request, *args, **kwargs):
     ajax = request.is_ajax()
     print(documentos)
     for documento_it in documentos:
+        #path = default_storage.save(os.path.join(settings.MEDIA_ROOT, 'documents',str(documento_it)),documento_it)
         objetoNu = readDocumentXML(documento_it)
         print(objetoNu)
-        saveDocumentPorfolio(objetoNu, request.user)
+        saveDocumentPorfolio(objetoNu, request.user.id)
     print(usuario)
     print(documentos)
     print(prueba)
     print(ajax)
     mensaje = "Tu factura se guardo en el siguiente usuario: %s"\
-        % (usuario)
+        % (objetoNu['RUC_XML'])
     data = {
         'mensaje': mensaje}
     return JsonResponse(data)
@@ -175,24 +180,3 @@ def googleImport(request):
 
     return HttpResponseRedirect(
             reverse('portafolios', kwargs={'pk': request.user.id}))
-
-
-
-# def upLoad(self, request, *args, **kwargs):
-#     portafolio_User = Portafolio.objects.get(
-#         UserID_id=self.request.user.id, Ruc=self.kwargs['ruc'])
-#     prueba = self.request.POST
-#     documentos = self.request.FILES.getlist('docfile')
-#     ajax = request.is_ajax()
-#     print(documentos)
-#     for documento_it in documentos:
-#         objetoNu = readDocumentXML(documento_it)
-#         print(objetoNu)
-#         saveDocumentPorfolio(objetoNu, self.request.user, portafolio_User)
-#     print(prueba)
-#     print(ajax)
-#     mensaje = "Tu factura se guardo en el siguiente portafolio: %s"\
-#         % (self.kwargs['ruc'])
-#     data = {
-#         'mensaje': mensaje}
-#     return JsonResponse(data)

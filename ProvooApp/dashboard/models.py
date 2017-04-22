@@ -73,6 +73,10 @@ class Portafolio(models.Model):
         return '%s %s' % (self.UserID, self.Ruc)
 
 
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'documents/{0}/{1}'.format(instance.rucDocumento, filename)
+
 class documento(models.Model):
     rucDocumento = models.ForeignKey(Portafolio)
     nombreDocumento = models.CharField(max_length=50)
@@ -91,7 +95,7 @@ class documento(models.Model):
     deducible_salud = models.DecimalField(max_digits=20, decimal_places=2)
     deducible_vivienda = models.DecimalField(max_digits=20, decimal_places=2)
     no_deducible = models.DecimalField(max_digits=20, decimal_places=2)
-    archivo = models.FileField(upload_to='documents/')
+    archivo = models.FileField(upload_to=user_directory_path)
 
     def slug(self):
         return slugify(self.rucDocumento)
