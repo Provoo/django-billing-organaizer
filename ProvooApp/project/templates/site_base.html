@@ -1,28 +1,32 @@
 {% extends "theme_bootstrap/base.html" %}
-{% load staticfiles %}
+
 {% load pinax_webanalytics_tags %}
 {% load i18n %}
 
 {% block head_title_base %}
-    {% if SITE_NAME %}{{ SITE_NAME }} | {% endif %}
+    {% if SITE_NAME %}invMachine | {% endif %}
     {% block head_title %} {% endblock %}
 {% endblock %}
 {% block scripts %}
     {% include "_scripts.html" %}
 {% endblock %}
+
 {% block styles %}
     {% include "_styles.html" %}
 {% endblock %}
 
+
+
 {% block wrapper_class %} mdl-layout mdl-js-layout mdl-layout--fixed-header{% endblock %}
+{% block body_class %}fullBody{% endblock %}
 {% block topbar_base %}
-    <header class="mdl-layout__header grey darken-4 white-text z-depth-2 ">
+    <header class="mdl-layout__header blue-grey darken-4 white-text z-depth-2 ">
         <div class="mdl-layout__header-row ">
             <div class="navbar-header ">
                 {% block site_brand %}
                     <span class="mdl-layout-title ">
-                    <a class="navbar-brand" href="{% url "home" %}">
-                        EFACT
+                    <a class="navbar-brand white-text" href="{% url "home" %}">
+                        InvMachine.con
                     </a>
                     </span>
                 {% endblock %}
@@ -35,7 +39,7 @@
             </div>
         </div>
     </header>
-    <div class="mdl-layout__drawer grey darken-4 white-text">
+    <div class="mdl-layout__drawer blue darken-4 white-text">
         <span class="mdl-layout-title">Efact</span>
         <nav class="mdl-navigation">
             <div class="nav-wrapper">
@@ -50,12 +54,15 @@
             <a class="mdl-navigation__link hoverable white-text" href="{% url 'home' %}">Home</a>
             {% if request.user.is_authenticated %}
                 {# <a class="mdl-navigation__link hoverable" href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>#}
-                <a class="mdl-navigation__link hoverable white-text" href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>
+                <a class="mdl-navigation__link hoverable white-text" href="{% url 'portafolios' request.user.id %}"
+                   tabindex="-1">Portafolios</a>
                 {# <a class="mdl-navigation__link hoverable" href="{% url 'facturas' %}">Facturas</a>#}
-                <a class="mdl-navigation__link hoverable white-text" id="account_logout" href="{% url 'account_logout' %}">
+                <a class="mdl-navigation__link hoverable white-text" id="account_logout"
+                   href="{% url 'account_logout' %}">
                     <i class="fa fa-power-off"></i> {% trans "Log out" %}</a>
             {% else %}
-                <a class="mdl-navigation__link hoverable white-text" href="{% url 'account_login' %}">{% trans "Log in" %}</a>
+                <a class="mdl-navigation__link hoverable white-text"
+                   href="{% url 'account_login' %}">{% trans "Log in" %}</a>
                 {% if ACCOUNT_OPEN_SIGNUP %}
                     <a class="mdl-navigation__link hoverable white-text"
                        href="{% url 'account_signup' %}">{% trans "Sign up" %}</a>
@@ -83,14 +90,16 @@
         {% block extra_body %}
             {% if  user.is_authenticated %}
                 <div class="fixed-action-btn">
-                    <a class="btn-floating btn-large orange" data-toggle="modal" data-target=".bd-example-modal-lg">
+                    <a class="btn-floating btn-large teal accent-4" data-toggle="modal" data-target=".bd-example-modal-lg">
                         <i class="material-icons" style="font-size:40px;">add</i>
                     </a>
                     <ul>
-                        <li><a href="{% url "social:begin" "google-oauth2" %}" class="btn-floating red"><i class="fa fa-google"></i></a></li>
-                        <li><a href="{% url "social:begin" "msn-live-connect" %}" class="btn-floating blue"><i class="material-icons">mail_outline</i></a></li>
-{#                        <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>#}
-{#                        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>#}
+                        <li><a href="{% url "social:begin" "google-oauth2" %}" class="btn-floating red"><i
+                                class="fa fa-google"></i></a></li>
+                        <li><a href="{% url "social:begin" "msn-live-connect" %}" class="btn-floating blue"><i
+                                class="material-icons">mail_outline</i></a></li>
+                        {#                        <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>#}
+                        {#                        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>#}
                     </ul>
                 </div>
                 <div class="modal modal-dialog modal-lg fade bd-example-modal-lg modal-content container mdl-grid"

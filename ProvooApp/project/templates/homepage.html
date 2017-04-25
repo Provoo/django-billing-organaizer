@@ -1,66 +1,154 @@
 {% extends "site_base.html" %}
-
+{% load staticfiles %}
 {% load i18n %}
 
-{% block head_title %}EFACT{% endblock %}
+{% block head_title %}Home{% endblock %}
+{% block extra_head %}
+    <title>InvMachine</title>
+{% endblock %}
 
 {% block body_class %}home{% endblock %}
 
 {% block body_base %}
-    <section class="jumbotron">
-        <div class="container">
+
+
+
+    <section style="padding: 0">
+        <div class="carousel carousel-slider center" data-indicators="true" style="height: 90vh">
+
+            <div class="carousel-item white black-text valign-wrapper" href="#one!">
+              <img src="{% static 'img/invmachine.svg' %}" alt="" class="img-bg"/>
+              <div class="row valign-wrapper" style="    height: 100%;">
+                <div class="col s6 row ">
+                  <div class="col s12">
+                    <h4 class="teal-text">¿Te has dado cuenta que mientras más ganas más gastas?</h4>
+                    <p class="left">
+                            Te presentamos una forma inteligente de ahorrar y llevar tu contabilidad de una forma
+                            ordenada y a la vista en todo momento, con invMachine, podrás saber, Dónde estás gastando
+                            cómo estas gastando y cuales son todos tus gastos y te podemos decir cómo realmente ahorrar
+                            y aprender a manejar tus finanzas personales, todo a través de un solo click.
+                    </p>
+                  </div>
+                  <div class="col s6">
+                    <img src='{% static "img/apple.svg" %}'  alt="" />
+                  </div>
+
+                  <div class="col s6">
+                    <img src='{% static "img/playstore.svg" %}'  alt="" />
+                  </div>
+                </div>
+                <div class="col s6">
+                  imagen
+                </div>
+              </div>
+
+            </div>
+            <div class="carousel-item amber valign-wrapper center-align white-text" href="#two!">
+                <h2>¿Quieres llevar un mejor control de tus finanzas?</h2>
+                <h4 class="white-text right">
+                    <b>InvMachine</b> aprenderá de tus consumos y te ayudará a generar los mejores presupuestos e
+                    inclusive puedes ponerte metas de ahorro que invMachine te ayudará a cumplir, sin tener que pasar
+                    horas programando tus gastos, o comparando tus facturas manualmente. invMachine te dirá dónde
+                    compras más barato y te avisará cuando estarás derrochando tu dinero.
+                </h4>
+            </div>
+            <div class="carousel-item green white-text center-align valign-wrapper" href="#three!">
+                <h2>¿Siempre has querido ahorrar?</h2>
+                <h4 class="white-text center-align">
+                  ¿Sabes cuánto dinero pierdes cuando no llevas bien tu contabilidad?<br>
+                  ¿O cuánto derrochas en gastos hormigas? ¿Y cuánto has perdido ya en impuestos?
+                </h4>
+            </div>
+            <div class="carousel-item blue white-text center-align valign-wrapper" href="#four!">
+                <h2>¿Cómo invMachine te hace la vida más fácil?</h2>
+                <h4 class="white-text valign-wrapper center-align">
+                  Nuestra aplicación tiene como objetivo enseñarte cómo controlar tus finanzas,
+                  utilizar inteligencia financiera para que de verdad seas dueño de tu dinero,
+                  y que no pierdas en tus gastos, personales, jurídicos o inclusive por
+                  no tener claros tus impuestos.
+                  <br>
+                  InvMachine aprenderá de tus consumos y te ayudará a generar los mejores
+                  presupuestos e inclusive puedes ponerte metas de ahorro que invMachine
+                  te ayudará a cumplir, sin tener que pasar horas programando tus gastos,
+                  o comparando tus facturas manualmente. <br>
+                  InvMachine te dirá dónde compras más barato y te avisará cuando estarás <br>
+                  derrochando tu dinero.
+                </h4>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="jumbotron teal lighten-2">
+        <div class="container white-text row">
             {% include "_messages.html" %}
-            <h1>{% blocktrans %}Welcome to<br>pinax-project-account{% endblocktrans %}</h1>
-            <p>
-                {% blocktrans %}
-                In addition to what is provided by the "zero" project, this project
-                provides thorough integration with django-user-accounts, adding
-                comprehensive account management functionality. It is a foundation
-                suitable for most sites that have user accounts.
-                {% endblocktrans %}
-            </p>
+            <h1>{% blocktrans %}Bienvenido a inv<b>Machine</b>{% endblocktrans %}</h1>
+
+            <div class="col s12 m8 row">
+                <div class="">
+                    <h4>
+                        {% blocktrans %}
+                            Te presentamos una forma inteligente de ahorrar y llevar tu contabilidad de una forma
+                            ordenada y a la vista en todo momento, con invMachine, podrás saber, Dónde estás gastando
+                            cómo estas gastando y  cuales son todos tus gastos y te podemos decir cómo realmente ahorrar
+                            y aprender a manejar tus finanzas personales, todo a través de un solo click.
+
+                        {% endblocktrans %}
+                    </h4>
+                </div>
+                <div class="card col s5 green">
+                    <i class="material-icons">phone_android</i>
+
+                </div>
+                <div class="card col s5 blue-grey">
+                    <i class="material-icons">phone_iphone</i>
+
+                </div>
+            </div>
             {% if not user.is_authenticated %}
-            {% url "account_login" as login_url %}
-            {% url "account_signup" as signup_url %}
-            <p>{% blocktrans %}You can <a href="{{ login_url }}" class="btn btn-default">Log In</a> or <a href="{{ signup_url }}" class="btn btn-primary">Sign Up</a> to try out the site.{% endblocktrans %}</p>
-            <p><a href="{% url "social:begin" "google-oauth2" %}">Google+</a></p>
-            <p><a href="{% url "social:begin" "msn-live-connect" %}">outlook</a></p>
+                {% url "account_login" as login_url %}
+                {% url "account_signup" as signup_url %}
+                <p>{% blocktrans %}You can <a href="{{ login_url }}" class="btn btn-default">Log In</a> or
+                    <a href="{{ signup_url }}" class="btn btn-primary">Sign Up</a> to try out the
+                    site.{% endblocktrans %}</p>
+                <p><a href="{% url "social:begin" "google-oauth2" %}">Google+</a></p>
+                <p><a href="{% url "social:begin" "msn-live-connect" %}">outlook</a></p>
             {% endif %}
         </div>
     </section>
     <section>
-        <div class="container">
-            <h2 class="text-center">{% blocktrans %}What is Pinax?{% endblocktrans %}</h2>
-            <p class="lead">
+        <div class="container row">
+            <h2 class="text-center">{% blocktrans %} InvMachine te ayuda {% endblocktrans %}</h2>
+            <p class="lead content col s8 offset-s2  ">
                 {% blocktrans %}
-                <b>Pinax</b> is an open-source platform based on Django and
-                intended to provide a starting point for websites. It takes
-                care of the things that many sites have in common, so you can
-                focus on what makes your site different.
+                    <b>InvMachine</b> aprenderá de tus consumos y te ayudará a generar los mejores presupuestos e
+                    inclusive puedes ponerte metas de ahorro que invMachine te ayudará a cumplir, sin tener que pasar
+                    horas programando tus gastos, o comparando tus facturas manualmente. invMachine te dirá dónde
+                    compras más barato y te avisará cuando estarás derrochando tu dinero.
                 {% endblocktrans %}
             </p>
             <div class="feature-columns">
                 <div>
                     <i class="fa fa-cubes fa-3x"></i><br>
                     {% blocktrans %}
-                    <b>Starter projects</b> provide project layout,
-                    scaffolding, already integrated components and
-                    ready-to-go code.
+                        <b>Starter projects</b> provide project layout,
+                        scaffolding, already integrated components and
+                        ready-to-go code.
                     {% endblocktrans %}
                 </div>
                 <div>
                     <i class="fa fa-puzzle-piece fa-3x"></i><br>
                     {% blocktrans %}
-                    <b>Reusable apps</b> provide common
-                    infrastructure, back-end functionality,
-                    and user-facing components.
+                        <b>Reusable apps</b> provide common
+                        infrastructure, back-end functionality,
+                        and user-facing components.
                     {% endblocktrans %}
                 </div>
                 <div>
                     <i class="fa fa-tint fa-3x"></i><br>
                     {% blocktrans %}
-                    <b>Themes</b> provide default templates and
-                    stylesheets for quick prototyping and easy customization.
+                        <b>Themes</b> provide default templates and
+                        stylesheets for quick prototyping and easy customization.
                     {% endblocktrans %}
                 </div>
             </div>
@@ -70,8 +158,8 @@
         <div class="container">
             <p class="lead text-center">
                 {% blocktrans %}
-                See <a href="http://pinaxproject.com/">pinaxproject.com</a>
-                for more information.
+                    See <a href="http://pinaxproject.com/">pinaxproject.com</a>
+                    for more information.
                 {% endblocktrans %}
             </p>
         </div>

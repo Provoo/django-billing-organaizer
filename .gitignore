@@ -1,0 +1,6 @@
+*.pyc
+.idea/
+.env
+project/site_media/media/*
+project/site_media/static/*
+xml_de_prueba/*
