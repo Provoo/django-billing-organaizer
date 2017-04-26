@@ -61,7 +61,7 @@ def saveDocumentPorfolio(document_object, user_id):
     except Portafolio.DoesNotExist:
         print("El ruc no exite, crearemos un nuevo portafolio para este Ruc")
         p = Portafolio(
-            UserID=user_id, Ruc=document_object['RUC_XML'],
+            UserID_id=user_id, Ruc=document_object['RUC_XML'],
             Nombre=document_object['NOMBRE_DOCUMENTO'])
         p.save()
         ps = Portafolio.objects.get(Ruc=document_object['RUC_XML'])
@@ -172,7 +172,10 @@ def googleImport(request):
         print('numero de id: %s' % (nlist['id']))
         f_buffer = GetAttachments(services, request.user, nlist['id'])
         if f_buffer:
-            print("El buffer antes guardar es: %s" % (f_buffer['name']))
+            print("El buffer antes guardar es: %s" % (f_buffer.name))
+            objetoNu = readDocumentXML(f_buffer)
+            saveDocumentPorfolio(objetoNu, request.user.id)
+
         else:
             print("este archivo esta vacio")
         f_buffer = None
