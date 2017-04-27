@@ -112,7 +112,7 @@
                     <small> Email: {{ portafolio.UserID }} |</small>
                     <small> Total Portafolio: ${{ portafolio.total_portafolio }} |</small>
                     <small>
-                        <a href="{% url 'user_documentos' request.user.id portafolio.Ruc %}">Ver facturas</a>
+                        <a href="{% url 'user_documentos' request.user portafolio.Ruc %}">Ver facturas</a>
                     </small>
                 </div>
             </div>
@@ -169,8 +169,7 @@
                         <div class="card-stacked">
                             <div class="card-title">
                                 <h4 class="center">
-                                    <i class="material-icons"
-                                       style="font-size:5rem; line-height: 10rem">monetization_on</i>
+                                    <i class="material-icons"style="font-size:5rem; line-height: 10rem">monetization_on</i>
                                     <br>
                                     Total
                                 </h4>

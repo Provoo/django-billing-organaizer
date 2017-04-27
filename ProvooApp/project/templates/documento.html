@@ -3,10 +3,29 @@
 {% block head_title %}Dashboard{% endblock %}
 {% block body_class %}home{% endblock %}
 {% block body_base %}
-    <section class="jumbotron">
-        <div class="panel teal white-text darken-3 z-depth-2 center">
-            <h1>Facturas de "Portafolio N" {{ user.portafolio }}</h1>
-            <table class="container-fluid z-depth-3 white black-text table-bordered striped responsive-table highlight">
+    <section class="container-fluid">
+      <h2>Facturas de {{ portafolio.Ruc }}</h2>
+      <div class="card-panel white row">
+        <div class="input-field col s4">
+          <select>
+            <option value="" disabled selected>Choose your option</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+          </select>
+          <label>Materialize Select</label>
+        </div>
+        <div class="input-field col s8">
+           <i class="material-icons prefix">search</i>
+           <input id="icon_prefix" type="text" class="validate">
+           <label for="icon_prefix"> Buscar </label>
+        </div>
+
+      </div>
+        <div class="white black-text z-depth-4 center card-panel">
+
+            <table class="container-fluid white black-text
+            responsive-table highlight">
                 <thead>
                 <tr>
                     <th>Nro. Fact</th>
