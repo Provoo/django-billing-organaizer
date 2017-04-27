@@ -206,12 +206,6 @@ body {
     overflow-x: hidden;
 }
 
-.carousel{
-    height: 90vh;
-}
-.carousel-item row {
-    height: 100% !important;
-}
 
 div.row.valgrim-wraper {
   height: 100%;
@@ -229,4 +223,38 @@ div.row.valgrim-wraper {
    top: 0;
    width: 100%;
    z-index: -1;
+}
+
+.side-img{
+  width: auto;
+  height: 600px;
+}
+
+.welcome-text {
+    height: 90vh;
+}
+
+.sectionTwo {
+  height: 100vh;
+}
+
+.whyUs {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.section-title{
+  font-family: "Helvetica";
+}
+
+p.line {
+    font-size: 14px;
+    letter-spacing: 0;
+    margin: 0 0 5px;
+}
+
+.portafolio-card{
+  /*border-style: solid;*/
+  /*border-left: thick blue;*/
 }

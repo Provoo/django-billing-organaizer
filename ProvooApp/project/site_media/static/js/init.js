@@ -1,28 +1,15 @@
 /*----------------------------------------------------*/
-/*-------------------Carousel-------------------------*/
-/*----------------------------------------------------*/
-    $('.carousel').carousel(
-        {
-            fullWidth: true,
-            indicators: true,
-            duration: 100
-        }
-    );
-
-    $('.carousel.carousel-slider').carousel({
-        fullWidth: true,
-        indicators: true,
-        duration: 100,
-
-    });
-
+/* Carousel
+ ------------------------------------------------------*/
 $(document).ready(function () {
-  $('select').material_select();
+    $('.carousel').carousel();
+
     /*----------------------------------------------------*/
     /*  Video
      ------------------------------------------------------*/
     var vid = document.getElementById("bgvid");
     var pauseButton = document.querySelector("#polina button");
+
     if (window.matchMedia('(prefers-reduced-motion)').matches) {
         vid.removeAttribute("autoplay");
         vid.pause();
@@ -40,3 +27,5 @@ $(document).ready(function () {
         vidFade();
     });
 });
+
+$('.carousel.carousel-slider').carousel({fullWidth: true});
