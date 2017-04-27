@@ -7,8 +7,9 @@ from oauth2client.file import Storage
 from apiclient import errors
 import base64
 import email
-from django.core.files.storage import FileSystemStorage
-import cStringIO
+from django.core.files.base import ContentFile
+import re
+
 
 # ----Variables para utilizar la Api Stand Alone------
 # try:
@@ -98,7 +99,7 @@ def GetAttachments(service, user_id, msg_id):
     msg_id: ID of Message containing attachment.
     prefix: prefix which is added to the attachment filename on saving
     """
-    file_return = {}
+    file_return = None
     try:
         message = service.users().messages().get(
             userId=user_id, id=msg_id).execute()
@@ -109,11 +110,12 @@ def GetAttachments(service, user_id, msg_id):
                 att = service.users().messages().attachments().get(
                     userId=user_id, messageId=msg_id, id=att_id).execute()
                 data = att['data']
-                if part['filename']:
+                if re.search(r"xml", str(part['filename'])):
                     file_data = base64.urlsafe_b64decode(data.encode('UTF-8'))
                     print("estes esle archivo: %s" % (part['filename']))
-                    file_return['name'] = part['filename']
-                    file_return['data'] = file_data
+                    file_return = ContentFile(str(file_data), name=str(part['filename']))
+                    # file_return['name'] = part['filename']
+                    # file_return['data'] = file_data
     except errors.HttpError, error:
         print 'An error occurred: %s' % error
 

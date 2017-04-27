@@ -53,12 +53,11 @@
             </div>
             <a class="mdl-navigation__link hoverable white-text" href="{% url 'home' %}">Home</a>
             {% if request.user.is_authenticated %}
-                {# <a class="mdl-navigation__link hoverable" href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>#}
-                <a class="mdl-navigation__link hoverable white-text" href="{% url 'portafolios' request.user.id %}"
-                   tabindex="-1">Portafolios</a>
-                {# <a class="mdl-navigation__link hoverable" href="{% url 'facturas' %}">Facturas</a>#}
-                <a class="mdl-navigation__link hoverable white-text" id="account_logout"
-                   href="{% url 'account_logout' %}">
+
+                {#<a class="mdl-navigation__link hoverable" href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>#}
+                <a class="mdl-navigation__link hoverable white-text" href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>
+                {#<a class="mdl-navigation__link hoverable" href="{% url 'facturas' %}">Facturas</a>#}
+                <a class="mdl-navigation__link hoverable white-text" id="account_logout" href="{% url 'account_logout' %}">
                     <i class="fa fa-power-off"></i> {% trans "Log out" %}</a>
             {% else %}
                 <a class="mdl-navigation__link hoverable white-text"
@@ -115,7 +114,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id=uploadForm action="" method="post" enctype="multipart/form-data">
+                            <form id=uploadForm action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="file-field input-field">
                                     <div class="btn">
@@ -162,8 +161,6 @@
                         </div>
                     </div>
                 </div>
-
-
             {% endif %}
         {% endblock %}
     {% endblock %}

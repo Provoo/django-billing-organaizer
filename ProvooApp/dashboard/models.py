@@ -60,6 +60,11 @@ class Portafolio(models.Model):
             rucDocumento=self.Ruc).aggregate(total=Sum("deducible_salud"))["total"]
 
     @property
+    def total_vivienda(self):
+        return documento.objects.filter(
+            rucDocumento=self.Ruc).aggregate(total=Sum("deducible_vivienda"))["total"]
+
+    @property
     def total_no_deducible(self):
         return documento.objects.filter(
             rucDocumento=self.Ruc).aggregate(total=Sum("no_deducible"))["total"]
@@ -68,13 +73,19 @@ class Portafolio(models.Model):
         return '%s %s' % (self.UserID, self.Ruc)
 
 
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'documents/{0}/{1}'.format(instance.rucDocumento, filename)
+
 class documento(models.Model):
     rucDocumento = models.ForeignKey(Portafolio)
+    nombreDocumento = models.CharField(max_length=50)
     numeroDeDocumento = models.CharField(max_length=30)
     RucEmisor = models.CharField(max_length=13)
-    NombreEmisor = models.CharField(max_length=50)
-    DireccionEmisor = models.CharField(max_length=50)
+    NombreEmisor = models.CharField(max_length=100)
+    DireccionEmisor = models.CharField(max_length=100)
     fecha = models.DateTimeField('Fecha del documento')
+    Impuesto = models.DecimalField(max_digits=4, decimal_places=2)
     totalGastosf = models.DecimalField(max_digits=20, decimal_places=2)
     totalImpuestos = models.DecimalField(max_digits=20, decimal_places=2)
     totalDocumento = models.DecimalField(max_digits=20, decimal_places=2)
@@ -82,8 +93,9 @@ class documento(models.Model):
     deducible_educacion = models.DecimalField(max_digits=20, decimal_places=2)
     deducible_comida = models.DecimalField(max_digits=20, decimal_places=2)
     deducible_salud = models.DecimalField(max_digits=20, decimal_places=2)
+    deducible_vivienda = models.DecimalField(max_digits=20, decimal_places=2)
     no_deducible = models.DecimalField(max_digits=20, decimal_places=2)
-    archivo = models.FileField(upload_to='documents/')
+    archivo = models.FileField(upload_to=user_directory_path)
 
     def slug(self):
         return slugify(self.rucDocumento)

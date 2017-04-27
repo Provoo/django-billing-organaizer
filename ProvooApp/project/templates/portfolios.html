@@ -10,7 +10,7 @@
             <hr>
             {% if object_list %}
                 {% for portafolios  in object_list %}
-                    <a href="{% url 'user_dashboard' request.user portafolios.Ruc %}">
+                    <a href="{% url 'user_dashboard' request.user.id portafolios.Ruc %}">
                         <div class="col s12 m4">
                             <div class="card white z-depth-3 hoverable">
                               <div class="card-title blue" style="padding:5px"></div>
