@@ -51,10 +51,6 @@ nav {
     right: 16px;
 }
 
-.card-title p {
-
-}
-
 /*!
  * Start Bootstrap - Simple Sidebar (http://startbootstrap.com/)
  * Copyright 2013-2016 Start Bootstrap
@@ -183,78 +179,4 @@ body {
         position: relative;
         margin-right: 0;
     }
-}
-
-#IntroVideo {
-    padding: 0;
-
-}
-
-#IntroVideo video {
-
-    max-width: 1400px;
-    width: 100vw;
-    height: 90vh;
-    left: 0;
-    padding: 0;
-    bottom: 0;
-    right: 0;
-    z-index: -100;
-}
-
-.fullBody {
-    overflow-x: hidden;
-}
-
-
-div.row.valgrim-wraper {
-  height: 100%;
-}
-
-.img-bg{
-  opacity: 0.2;
-   height: auto;
-   left: 0;
-   margin: 0;
-   min-height: 100%;
-   min-width: 674px;
-   padding: 0;
-   position: fixed;
-   top: 0;
-   width: 100%;
-   z-index: -1;
-}
-
-.side-img{
-  width: auto;
-  height: 600px;
-}
-
-.welcome-text {
-    height: 90vh;
-}
-
-.sectionTwo {
-  height: 100vh;
-}
-
-.whyUs {
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: 500;
-}
-
-.section-title{
-  font-family: "Helvetica";
-}
-
-p.line {
-    font-size: 14px;
-    letter-spacing: 0;
-    margin: 0 0 5px;
-}
-
-.portafolio-card{
-  /*border-style: solid;*/
-  /*border-left: thick blue;*/
 }

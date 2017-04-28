@@ -1,0 +1,25 @@
+.homeSection{
+  /*background: url(/static/img/invmachine.svg);*/
+  height: 100%;
+}
+
+.homeSection .side-img {
+      width: 50%;
+      display: inherit;
+      position: inherit;
+      z-index: 5;
+}
+
+.homeSection .img-bg {
+  height: 50%;
+  display: block;
+  position: inherit;
+  z-index: -1;
+}
+
+.homeSection .downloadImage {
+      width: 100%;
+      display: inherit;
+      position: inherit;
+      z-index: 5;
+}
