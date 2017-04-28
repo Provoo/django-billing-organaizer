@@ -184,14 +184,3 @@ body {
         margin-right: 0;
     }
 }
-
-#IntroVideo video {
-    position: absolute;
-    /*max-width: 1400px;*/
-    width: 100vw;
-    top: -38px;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: -100;
-}
