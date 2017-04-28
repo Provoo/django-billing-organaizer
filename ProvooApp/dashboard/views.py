@@ -57,14 +57,14 @@ def modelDocumentoSave(document_object, portafolio_instance):
 
 def saveDocumentPorfolio(document_object, user_id):
     try:
-        p = Portafolio.objects.get(Ruc=document_object['RUC_XML'])
+        p = Portafolio.objects.get(Ruc=document_object['RUC_XML'], UserID_id=user_id)
     except Portafolio.DoesNotExist:
         print("El ruc no exite, crearemos un nuevo portafolio para este Ruc")
         p = Portafolio(
             UserID_id=user_id, Ruc=document_object['RUC_XML'],
             Nombre=document_object['NOMBRE_DOCUMENTO'])
         p.save()
-        ps = Portafolio.objects.get(Ruc=document_object['RUC_XML'])
+        ps = Portafolio.objects.get(Ruc=document_object['RUC_XML'], UserID_id=user_id)
         print(p)
         modelDocumentoSave(document_object, ps)
     else:
