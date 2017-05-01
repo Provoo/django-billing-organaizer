@@ -112,7 +112,7 @@
                     <small> Email: {{ portafolio.UserID }} |</small>
                     <small> Total Portafolio: ${{ portafolio.total_portafolio }} |</small>
                     <small>
-                        <a href="{% url 'user_documentos' request.user.id portafolio.Ruc %}">Ver facturas</a>
+                        <a href="{% url 'user_documentos' request.user portafolio.Ruc %}">Ver facturas</a>
                     </small>
                 </div>
             </div>
