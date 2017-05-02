@@ -3,6 +3,48 @@
 {% block head_title %}Dashboard{% endblock %}
 {% block body_class %}home{% endblock %}
 {% block body_base %}
+<div id="wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+              <a href="{% url 'home' %}">
+                  InvMachine
+              </a>
+          </li>
+
+          <li role="separator" class="divider"></li>
+          {% if request.user.is_authenticated %}
+          <li>
+            <a href="{% url 'account_settings' %}" tabindex="-1">Settings</a>
+          </li>
+          <li>
+            <a href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>
+          </li>
+          <li>
+            <a href="{% url 'account_settings' %}">
+            {# <i class="fa fa-cog"></i>#}
+             {% trans "Settings" %}
+            </a>
+          </li>
+          <li>
+            <a id="account_logout" href="{% url 'account_logout' %}">
+              {# <i class="fa fa-power-off"></i>#}
+              {% trans "Log out" %}
+            </a>
+          </li>
+          {% else %}
+              <li><a class="white-text" href="{% url 'account_login' %}">{% trans "Log in" %}</a></li>
+              {% if ACCOUNT_OPEN_SIGNUP %}
+                  <li><a class="white-text" href="{% url 'account_signup' %}">{% trans "Sign up" %}</a></li>
+              {% endif %}
+          {% endif %}
+          <li>
+              <a href="#">Contact</a>
+          </li>
+      </ul>
+  </div>
+  <div id="page-content-wrapper">
     <section class="container-fluid">
       <h2>Facturas de {{ portafolio.Ruc }}</h2>
       <div class="card-panel white row">
@@ -63,4 +105,6 @@
             </table>
         </div>
     </section>
+  </div>
+</div>
 {% endblock %}

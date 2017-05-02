@@ -1,7 +1,29 @@
+/*
 .homeSection{
-  /*background: url(/static/img/invmachine.svg);*/
-  height: 100%;
+  width: 100%;
+  background-color: white;
+  display: block;
+  position: relative;
 }
+
+.img-bg::after {
+  content: "";
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.homeSection .img-bg {
+  display: block;
+  position: inherit;
+  z-index: -1;
+  opacity: 0.1;
+}
+*/
 
 .homeSection .side-img {
       width: 70%;
@@ -10,16 +32,45 @@
       z-index: 5;
 }
 
-.homeSection .img-bg {
-  height: 50%;
-  display: block;
-  position: inherit;
-  z-index: -1;
-}
-
 .homeSection .downloadImage {
       width: 100%;
       display: inherit;
       position: inherit;
       z-index: 5;
+}
+
+
+.img-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.img-bg::after {
+  content: "";
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.margin-zero{
+  margin: 0;
+}
+
+body {
+   padding-top: 50px !important;
+}
+
+.head-card {
+  /*padding: 0 0.75rem;*/
+  /*margin: 0 0.75em;*/
 }
