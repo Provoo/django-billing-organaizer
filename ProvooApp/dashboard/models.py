@@ -97,6 +97,17 @@ class documento(models.Model):
     no_deducible = models.DecimalField(max_digits=20, decimal_places=2)
     archivo = models.FileField(upload_to=user_directory_path)
 
+
+def user_directory_error_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'documents/{0}/{1}'.format(instance.user_documento, filename)
+
+
+class documento_error(models.Model):
+    user_documento = models.ForeignKey(User)
+    file_dcoumento = models.FileField(upload_to=user_directory_error_path)
+
+
     def slug(self):
         return slugify(self.rucDocumento)
 

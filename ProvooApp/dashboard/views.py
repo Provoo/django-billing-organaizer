@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 
 # Models Import
-from dashboard.models import Portafolio, documento, CredentialsModel
+from dashboard.models import Portafolio, documento, CredentialsModel, documento_error
 from django.db.models.functions import ExtractMonth, ExtractYear
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -69,8 +69,13 @@ def saveDocumentPorfolio(document_object, user_id):
         modelDocumentoSave(document_object, p)
     else:
         print("El ruc si existe")
-        modelDocumentoSave(document_object, p)
-        print("Tu documento ya se guardo automaticamente")
+        try:
+            documento_exist = documento.objects.filter(rucDocumento=p)
+        except documento.DoesNotExist:
+            modelDocumentoSave(document_object, p)
+            print("Tu documento ya se guardo automaticamente")
+        else:
+            print("Este documento ya existe, no necesitas duplicarlo")
         # try:
         #     prueba_num_doc = documento.objects.filter(
         #             numeroDeDocumento=document_object['NUMERO_DOCUMENTO']
@@ -136,6 +141,7 @@ class documentoView(ListView):
 def upLoad(request, *args, **kwargs):
     # portafolio_User = Portafolio.objects.get(
     #     UserID_id=self.request.user.id, Ruc=self.kwargs['ruc'])
+    errors_documents = []
     prueba = request.POST
     usuario = request.user.id
     documentos = request.FILES.getlist('docfile')
@@ -143,13 +149,20 @@ def upLoad(request, *args, **kwargs):
     print(documentos)
     for documento_it in documentos:
         #path = default_storage.save(os.path.join(settings.MEDIA_ROOT, 'documents',str(documento_it)),documento_it)
-        objetoNu = readDocumentXML(documento_it)
-        print(objetoNu)
-        saveDocumentPorfolio(objetoNu, request.user.id)
+        try:
+            objetoNu = readDocumentXML(documento_it)
+        except:
+            errors_documents.append(str(documento_it))
+            documento_r = documento_error(user_documento=request.user.id, file_dcoumento=documento_it)
+            documento_r.save()
+        else:
+            print(objetoNu)
+            saveDocumentPorfolio(objetoNu, request.user.id)
     print(usuario)
     print(documentos)
     print(prueba)
     print(ajax)
+    print("documentos con errores %s" % (errors_documents))
     mensaje = "Tu factura se guardo en el siguiente usuario: %s"\
         % (objetoNu['RUC_XML'])
     data = {
@@ -159,6 +172,7 @@ def upLoad(request, *args, **kwargs):
 
 @login_required
 def googleImport(request):
+    errors_documents = []
     user = User.objects.get(username=request.user)
     social = user.social_auth.get(provider='google-oauth2')
     access_token = social.extra_data['access_token']
@@ -166,7 +180,7 @@ def googleImport(request):
     http = httplib2.Http()
     http = credentials.authorize(http)
     services = build("gmail", "v1", http=http)
-    print(services)
+    # Aqui hacer con GetAttachments un buffer para escribir el archivo
     listemails = ListMessagesMatchingQuery(
         services, request.user, "factura has:attachment xml ")
     for nlist in listemails:
@@ -174,13 +188,17 @@ def googleImport(request):
         f_buffer = GetAttachments(services, request.user, nlist['id'])
         if f_buffer:
             print("El buffer antes guardar es: %s" % (f_buffer.name))
-            objetoNu = readDocumentXML(f_buffer)
-            saveDocumentPorfolio(objetoNu, request.user.id)
+            try:
+                objetoNu = readDocumentXML(f_buffer)
+            except:
+                errors_documents.append(str(objetoNu))
+                documento_r = documento_error(user_documento=request.user.id, file_dcoumento=objetoNu)
+                documento_r.save()
 
-        else:
-            print("este archivo esta vacio")
+            else:
+                saveDocumentPorfolio(objetoNu, request.user.id)
         f_buffer = None
-        # Aqui hacer con GetAttachments un buffer para escribir el archivo
+        print("documentos con errores %s" % (errors_documents))
 
     return HttpResponseRedirect(
             reverse('portafolios', kwargs={'pk': request.user.id}))
