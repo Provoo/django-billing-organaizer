@@ -1,20 +1,35 @@
+/*
 .homeSection{
-  /*background: url(/static/img/invmachine.svg);*/
-  height: 100%;
+  width: 100%;
+  background-color: white;
+  display: block;
+  position: relative;
 }
 
-.homeSection .side-img {
-      width: 50%;
-      display: inherit;
-      position: inherit;
-      z-index: 5;
+.img-bg::after {
+  content: "";
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
 }
 
 .homeSection .img-bg {
-  height: 50%;
   display: block;
   position: inherit;
   z-index: -1;
+  opacity: 0.1;
+}
+*/
+
+.homeSection .side-img {
+      width: 70%;
+      display: inherit;
+      position: inherit;
+      z-index: 5;
 }
 
 .homeSection .downloadImage {
@@ -22,4 +37,125 @@
       display: inherit;
       position: inherit;
       z-index: 5;
+}
+
+
+.img-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.img-bg::after {
+  content: "";
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.margin-zero{
+  margin: 0;
+}
+
+body {
+   padding-top: 50px !important;
+}
+
+.head-card {
+  /*padding: 0 0.75rem;*/
+  /*margin: 0 0.75em;*/
+}
+
+p.dashboard-card-title{
+  text-align: left;
+  font-size: 15px;
+  line-height: 18px;
+  /*padding: 0px 15px;*/
+  margin: 1em;
+  font-weight: 600;
+}
+
+p.dashboard-card-date{
+  text-align: left;
+  font-size: 1rem;
+  padding: 2.5px 15px;
+  margin: 5px;
+}
+
+span.dashboard-card-amount  {
+  text-align: left;
+  font-size: 1rem;
+  padding: 0 15px;
+}
+
+span.dashboard-card-amount b{
+  font-size: 2rem;
+  line-height: 3rem;
+  font-weight: 100;
+}
+
+.divider{
+  margin: 0 15px 10px 15px;
+}
+
+.lowercase {text-transform: lowercase; }
+.uppercase { text-transform: uppercase; }
+.capitalize { text-transform: capitalize; }
+
+p.dashboard-title {
+
+  padding: 0 -1em;
+}
+
+p.dashboard-title span{
+  font-size: 0.9rem;
+  font-weight: 200;
+}
+
+.btn-floating.halfway-fab {
+    position: absolute;
+    right: 5px;
+    /*bottom: 8em;*/
+    -webkit-transform: translateY(50%);
+    transform: translateY(50%);
+}
+
+.portfolio-card-header {
+  padding: 0em 0 0em 2em;
+}
+.portfolio-card-content {
+    padding: 10px 20px 15px 15px;
+    border-radius: 0 0 2px 2px;
+}
+.portfolio-card-amount{
+
+}
+
+.details{
+  margin: 0!important;
+  padding: 0 0 1em!important;
+}
+
+.portfolio-title {
+  padding: 1em 1em;
+
+}
+.portfolio-title p {
+  font-size: 1.5rem;
+}
+
+
+
+.portfolio-divider{
+  margin: 0 0.75em 1em;
+
 }

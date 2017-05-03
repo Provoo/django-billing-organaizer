@@ -1,47 +1,105 @@
 {% extends "site_base.html" %}
 {% load i18n %}
 {% block head_title %}Dashboard{% endblock %}
-{% block body_class %}home{% endblock %}
+{% block body_class %}Home{% endblock %}
+
 {% block body_base %}
-    {#TODO: completar template Portafolios #}
-    <div class="row container">
-        <div class="col s12 m12">
-            <h3 class="teal-text text-accent-4">Bienvenido {{ request.user }}</h3>
-            <hr>
-            {% if object_list %}
-                {% for portafolios  in object_list %}
-                    <a href="{% url 'user_dashboard' request.user.id portafolios.Ruc %}">
-                        <div class="col s12 m4">
-                            <div class="card white z-depth-3 hoverable">
-                              <div class="card-title blue" style="padding:5px"></div>
-                              <div class="card-action black-text row" style="margin-buttom:0; height:100%;">
+<div id="wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
 
-                                <div class="col s4 valgrim-wraper">
-                                  <i class="material-icons valgrim-wraper blue-text" style="font-size:7rem;">check_circle</i>
-                                </div>
-                                <div class="col s8 ">
-                                    <br>
-                                  <p class="line black-text " style="font-size: 1.2rem; word-break:normal;">{{ portafolios.Nombre }}</p>
+          {% if request.user.is_authenticated %}
+          <li>
+            <a href="{% url 'account_settings' %}" tabindex="-1">Settings</a>
+          </li>
+          <li>
+            <a href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>
+          </li>
+          <li>
+            <a href="{% url 'account_settings' %}">
+            {# <i class="fa fa-cog"></i>#}
+             {% trans "Settings" %}
+            </a>
+          </li>
+          <li>
+            <a id="account_logout" href="{% url 'account_logout' %}">
+              {# <i class="fa fa-power-off"></i>#}
+              {% trans "Log out" %}
+            </a>
+          </li>
+          {% else %}
+              <li><a class="white-text" href="{% url 'account_login' %}">{% trans "Log in" %}</a></li>
+              {% if ACCOUNT_OPEN_SIGNUP %}
+                  <li><a class="white-text" href="{% url 'account_signup' %}">{% trans "Sign up" %}</a></li>
+              {% endif %}
+          {% endif %}
+          <li>
+              <a href="#">Contact</a>
+          </li>
+      </ul>
+  </div>
+  <div id="page-content-wrapper" class="white">
+    <div class="white margin-zero  portfolio-title">
+      <p class="teal-text text-accent-4 margin-zero portfolio-title">Bienvenido {{ request.user }}</p>
+    </div>
 
-                                  <p class="truncate text-darken-1 blue-grey-text " style="margin-bottom:0; font-size:1.6rem">
-                                    {{ portafolios.Ruc }}
-                                  </p>
+    <div class="container">
+            {% include "_messages.html" %}
+            {% block body %}
+            {#TODO: completar template Portafolios #}
+            <div class="row container">
+              <hr class="portfolio-divider col s12 m12">
+              {% if object_list %}
+                  {% for portafolios  in object_list %}
+                      <div class="col s12 m4">
+                        <div class="card">
+                          <div class="card-image blue " style="padding:2em 3em 1em 2em;">
+                            <a href="{% url 'user_dashboard' request.user.id portafolios.Ruc %}" class="btn-floating btn-large halfway-fab waves-effect waves-light red">
+                                <i class="material-icons">chevron_right</i></a>
+                                <div class="portfolio-card-header">
+                                  <p class="portfolios-card-title white-text ">{{ portafolios.Nombre }} </p>
+                                  <h5 class="white-text ">
+                                    USD{{ portafolios.total_gastos }}
+                                  </h5>
                                   <hr>
-                                  <p class="line blue-text text-darken-4"><i class="fa fa-credit-card"></i>&nbsp; ${{ portafolios.total_portafolio }}</p>
-                                  <p class="line orange-text text-darken-4"><i class="fa fa-percent"></i> &nbsp; ${{ portafolios.total_impuestos }}</p>
-                                  <p class="line green-text text-darken-4"><i class="fa fa-money"></i> &nbsp; ${{ portafolios.total_gastos }}</p>
+                                  <p class="portfolios-card-title white-text ">{{ portafolios.Ruc }}</p>
                                 </div>
-                              </div>
-                            </div>
-                        </div>
-                    </a>
-                {% endfor %}
-            {% else %}
-                <h4>No hay portfolios registrados.</h4>
-                <hr>
+                          </div>
+                          <div class="portfolio-card-content">
+                              <p class="details">Detalles</p>
+                              <span class="portfolio-card-amount">
+                                <i class="fa fa-credit-card btn-floating center grey"></i>
+                                Consumos
+                                <span class="right">
+                                  ${{ portafolios.total_portafolio }}
+                                </span>
+                              </span>
+                              <hr>
+                              <span class="portfolio-card-amount">
+                                <i class="fa fa-percent btn-floating center grey"></i>
+                                Impuestos
+                                <span class="right">
+                                  ${{ portafolios.total_impuestos }}
 
-                <h5>Agrega un porfafolio haciendo click <br>en el simbolo de <i class="fa fa-plus-circle"></i></h5>
-            {% endif %}
+                                </span>
+                              </span>
+
+                          </div>
+                        </div>
+                      </div>
+                  {% endfor %}
+              {% else %}
+                  <h4>No hay portfolios registrados.</h4>
+                  <hr>
+                  <h5>Agrega un porfafolio haciendo click <br>en el simbolo de <i class="fa fa-plus-circle"></i></h5>
+              {% endif %}
+            </div>
+
+            {% endblock %}
+          </div>
         </div>
     </div>
+  </div>
+</div>
 {% endblock %}

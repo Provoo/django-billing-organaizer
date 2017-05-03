@@ -1,96 +1,59 @@
 {% extends "site_base.html" %}
-{% block scripts %}
-    <script type="text/javascript" src='/site_media/static/js/site-5e73bbeeb0.js'></script>
-    <script type="text/javascript" src="/site_media/static/js/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src='/site_media/static/js/material.min.js'></script>
-    <script type="text/javascript" src="/site_media/static/js/materialize.min.js"></script>
-    <script type="text/javascript" src="/site_media/static/js/chartist.min.js"></script>
-    <script type="text/javascript" src="/site_media/static/js/chart.min.js"></script>
-    <script type="text/javascript" src="/site_media/static/js/chart-script.js"></script>
-    <script type="text/javascript" src="/site_media/static/js/plugins.min.js"></script>
-    <script type="text/javascript" src="/site_media/static/js/upload.js"></script>
-    <script type="text/javascript">
-        var data = {
-            labels: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-            height: 100,
-            datasets: [
-                {
-                    label: "Educación",
-                    fillColor: "rgba(128, 222, 234, 0)",
-                    strokeColor: "#80cbc4",
-                    pointColor: "#fafafa",
-                    pointStrokeColor: "#80cbc4",
-                    pointHighlightFill: "#80cbc4",
-                    pointHighlightStroke: "#80cbc4",
-                    data: [19, 20, 21, 20, 22, 25, 20, 22, 25, 20, 22, 25, 20]
-                },
-                {
-                    label: "Vivienda",
-                    fillColor: "rgba(128, 222, 234, 0)",
-                    strokeColor: "#4db6ac",
-                    pointColor: "#fafafa",
-                    pointStrokeColor: "#4db6ac",
-                    pointHighlightFill: "#4db6ac",
-                    pointHighlightStroke: "#4db6ac",
-                    data: [40, 38, 40, 39, 40, 38, 40, 40, 38, 40, 40, 38, 40]
-                },
-                {
-                    label: "Salud",
-                    fillColor: "rgba(128, 222, 234, 0)",
-                    strokeColor: "#26a69a",
-                    pointColor: "#fafafa",
-                    pointStrokeColor: "#26a69a",
-                    pointHighlightFill: "#26a69a",
-                    pointHighlightStroke: "#26a69a",
-                    data: [30, 31, 29, 28, 30, 31, 32, 30, 31, 32, 30, 31, 32]
-                },
-                {
-                    label: "Vivienda",
-                    fillColor: "rgba(128, 222, 234, 0)",
-                    strokeColor: "#009688",
-                    pointColor: "#fafafa",
-                    pointStrokeColor: "#009688",
-                    pointHighlightFill: "#009688",
-                    pointHighlightStroke: "#009688",
-                    data: [10, 11, 12, 9, 10, 13, 9, 10, 13, 9, 10, 13]
-                },
-                {
-                    label: "Salud",
-                    fillColor: "rgba(128, 222, 234, 0)",
-                    strokeColor: "#00897b",
-                    pointColor: "#fafafa",
-                    pointStrokeColor: "#00897b",
-                    pointHighlightFill: "#00897b",
-                    pointHighlightStroke: "#00897b",
-                    data: [15, 16, 14, 15, 16, 14, 15, 16, 14, 15, 16, 14, 15]
-                },
-                {
-                    label: "Vivienda",
-                    fillColor: "rgba(128, 222, 234, 0)",
-                    strokeColor: "#00796b",
-                    pointColor: "#fafafa",
-                    pointStrokeColor: "#00796b",
-                    pointHighlightFill: "#00796b",
-                    pointHighlightStroke: "#00796b",
-                    data: [
-                        {% for x in "efmamjjasond" %}
-                            {{ forloop.counter }},
-                        {% endfor %}
-                    ]
-                }
-            ]
-        };
-    </script>
-
-{% endblock %}
 {% load i18n %}
 {% block head_title %}Dashboard{% endblock %}
-{% block body_class %}home{% endblock %}
+
 {% block body_base %}
-    {# TODO: DashBoard tempalte Total deducibles poner icono#}
-    {# TODO: DashBoard tempalte en 'TOTAL DE DEDUCIBLES' arreglar los tamaños#}
     {# TODO: DashBoard tempalte modal agragar mensaje de subida satisfactoria de archivos#}
+    {# TODO: DashBoard tempalte modal Agragar mensaje de subida satisfactoria de archivos#}
     {# TODO: DashBoard tempalte Modal Sí la factura no pertenece al protafolio mandar mensaje de que se creo uno nuevo#}
+    {# TODO: Borrar Factura#}
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper">
+          <ul class="sidebar-nav">
+              {% if request.user.is_authenticated %}
+              <li>
+                <a href="{% url 'account_settings' %}" tabindex="-1">Settings</a>
+              </li>
+              <li>
+                <a href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>
+              </li>
+              <li>
+                <a href="{% url 'account_settings' %}">
+                {# <i class="fa fa-cog"></i>#}
+                 {% trans "Settings" %}
+                </a>
+              </li>
+              <li>
+                <a id="account_logout" href="{% url 'account_logout' %}">
+                  {# <i class="fa fa-power-off"></i>#}
+                  {% trans "Log out" %}
+                </a>
+              </li>
+              {% else %}
+                  <li><a class="white-text" href="{% url 'account_login' %}">{% trans "Log in" %}</a></li>
+                  {% if ACCOUNT_OPEN_SIGNUP %}
+                      <li><a class="white-text" href="{% url 'account_signup' %}">{% trans "Sign up" %}</a></li>
+                  {% endif %}
+              {% endif %}
+              <li>
+                  <a href="#">Contact</a>
+              </li>
+          </ul>
+      </div>
+      <div id="page-content-wrapper">
+        <section class="container-fluid jumbotron" style="padding: 1em 2em !important;">
+          <p class="dashboard-title">
+            <span class="teal-text">Portafolio</span>
+            <br>
+            <span>{{ portafolio.Nombre }}</span>
+            <br>
+            <small>
+              {{ portafolio.Ruc }}
+            |
+              <a href="{% url 'user_documentos' request.user portafolio.Ruc %}">Ver facturas</a>
+            </small>
+          </p>
 
     {% block javascript %}
         <!-- <script src="'/site_media/static/js/upload.js'"></script> -->
@@ -117,171 +80,184 @@
                 </div>
             </div>
 
-        </div>
-        <div class="row">
+        </section>
+
+        <section class="container-fluid">
+          <div class="row">
+            <div class="col s12 m4">
+              <div class="card row">
+                <div class="card-title blue darken-1 margin-zero" style="padding:3px"></div>
+                <div class="card-title">
+                  <p class="dashboard-card-title blue-grey-text text-lighten-2">CONSUMOS</p>
+                  <p role="separator" class="divider"></p>
+                </div>
+                <div >
+                  <span class="dashboard-card-amount">
+                      USD <b class="blue-text text-darken-1">{{ portafolio.total_gastos }}</b>
+                  </span>
+                  <p class="dashboard-card-date blue-grey-text text-lighten-3">1 de enero - 30 de abril</p>
+                </div>
+              </div>
+              </div>
+            <div class="col s12 m4">
+              <div class="card row">
+                <div class="card-title blue darken-1 margin-zero" style="padding:3px"></div>
+                <div class="card-title">
+                  <p class="dashboard-card-title blue-grey-text text-lighten-2">Impuestos</p>
+                  <p role="separator" class="divider"></p>
+                </div>
+                <span class="dashboard-card-amount">
+                  USD <b class="blue-text text-darken-1">{{ portafolio.total_impuestos }}</b>
+                </span>
+                <p class="dashboard-card-date blue-grey-text text-lighten-3">1 de enero - 30 de abril</p>
+              </div>
+            </div>
 
             <div class="col s12 m4">
-                <div class="card blue accent-3 z-depth-2 hoverable">
-                    <div class="card-content white-text">
-                        <div class="card-stacked">
-                            <div class="card-title">
-                                <h4 class="center">
-                                    <i class="material-icons" style="font-size:5rem; line-height: 10rem">credit_card</i>
-                                    <br>
-                                    Consumos
-                                </h4>
-                            </div>
-                            <div class="card-content">
-                                <p class="center">
-                                    Total es de <br>
-                                    ${{ portafolio.total_gastos }}
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+              <div class="card row">
+              <div class="card-title blue darken-1 margin-zero" style="padding:3px"></div>
+              <div class="card-title">
+                <p class="dashboard-card-title blue-grey-text text-lighten-2">Total</p>
+                <p role="separator" class="divider"></p>
+              </div>
+              <span class="dashboard-card-amount">
+                USD <b class="blue-text text-darken-1">{{ portafolio.total_portafolio }}
+                </b>
+              </span>
+              <p class="dashboard-card-date blue-grey-text text-lighten-3">1 de enero - 30 de abril</p>
+              </div>
             </div>
-            <div class="col s12 m4">
-                <div class="card blue accent-3 z-depth-2 hoverable">
-                    <div class="card-content white-text">
-                        <div class="card-stacked">
-                            <div class="card-title">
-                                <h4 class="center">
-                                    <i class="fa fa-percent" style="font-size:5rem; line-height: 10rem"></i>
-                                    <br>
-                                    Impuestos
-                                </h4>
-                            </div>
-                            <div class="card-content">
-                                <p class="center">
-                                    Total es de <br>
-                                    ${{ portafolio.total_impuestos }}.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col s12 m4">
-                <div class="card blue accent-3 z-depth-2 hoverable">
-                    <div class="card-content white-text">
-                        <div class="card-stacked">
-                            <div class="card-title">
-                                <h4 class="center">
-                                    <i class="material-icons"style="font-size:5rem; line-height: 10rem">monetization_on</i>
-                                    <br>
-                                    Total
-                                </h4>
-                            </div>
-                            <div class="card-content">
-                                <p class="center">
-                                    Total es de <br>
-                                    ${{ portafolio.total_portafolio }}.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container mdl-grid">
-            </div>
-    </section>
-    <section class="jumbotron">
-        <h3 class="col m12 center">Totales de deducibles</h3>
-        <hr>
-        <div class="row">
-            <div class="col s6 m2">
-                <div class="card blue accent-1 z-depth-2">
-                    <div class="card-content white-text">
+          </div>
+        </section>
+        <section class="container-fluid white">
+            <p class="dashboard-title">Deducibles</p>
+            <hr>
+            <div class="row">
+              <div class="col s12 m4">
+                <div class="card-title blue margin-zero" style="padding:5px"></div>
+                <div class="card white z-depth-2 row margin-zero">
+                  <div class="card-content blue-text col s12 m4">
+                      <div class="card-title center">
+                        <i class="fa fa-home" style="font-size: 3rem"></i>
+                      </div>
+                  </div>
+                  <div class="card-content col s12 m8">
                         <div class="card-title center">
-                            <i class="fa fa-home"></i>
                             <p>Vivienda</p>
+                            ${{ portafolio.total_vestimenta }}
                         </div>
-                        <div class="center">${{ portafolio.total_vestimenta }}</div>
+                        <div class="center"></div>
+                    </div>
+                </div>
+              </div>
+              <div class="col s12 m4">
+                <div class="card-title blue margin-zero" style="padding:5px"></div>
+                <div class="card white z-depth-2 row margin-zero">
+                  <div class="card-content blue-text col s12 m4">
+                    <div class="card-title center">
+                        <span class="glyphicon glyphicon-education" style="font-size:3rem;"></span>
+                    </div>
+                  </div>
+                  <div class="card-content  col s12 m8">
+                    <div class="card-title center">
+                      <p>Educación</p>
+                      <div class=" center">${{ portafolio.total_educacion }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col s12 m4">
+                <div class="card-title blue margin-zero" style="padding:5px"></div>
+                <div class="card white z-depth-2 row margin-zero">
+                  <div class="card-content blue-text col s12 m4">
+                      <div class="card-title center">
+                        <i class="material-icons" style="font-size:3rem;">restaurant</i>
+                      </div>
+                  </div>
+                  <div class="card-content col s12 m8">
+                    <div class="card-title center">
+                      <p>Alimentación</p>
+                      <div class="center">${{ portafolio.total_comida }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12 m4">
+                <div class="card-title blue margin-zero" style="padding:5px"></div>
+                <div class="card white z-depth-2 row margin-zero">
+                  <div class="card-content blue-text col s12 m4">
+                      <div class="card-title center">
+                        <i class="fa fa-stethoscope" style="font-size:3rem;"></i>
+                      </div>
+                  </div>
+                  <div class="card-content col s12 m8">
+                    <div class="card-title center">
+                      <p>Salud</p>
+                      <div class=" center">${{ portafolio.total_salud }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col s12 m4">
+                <div class="card-title blue margin-zero" style="padding:5px"></div>
+                <div class="card white z-depth-2 row margin-zero">
+                  <div class="card-content blue-text col s12 m4">
+                      <div class="card-title center">
+                        <i class="fa fa-stethoscope" style="font-size:3rem;"></i>
+                      </div>
+                  </div>
+                  <div class="card-content col s12 m8">
+                    <div class="card-title center">
+                      <p>Vestimenta</p>
+                      <div class=" center">${{ portafolio.total_vestimenta }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col s12 m4">
+                <div class="card-title blue margin-zero" style="padding:5px"></div>
+                <div class="card white z-depth-2 row margin-zero">
+                  <div class="card-content blue-text col s12 m4">
+                      <div class="card-title center">
+                        <i class="fa fa-stethoscope" style="font-size:3rem;"></i>
+                      </div>
+                  </div>
+                  <div class="card-content col s12 m8">
+                    <div class="card-title center">
+                      <p>No deducible</p>
+                      <div class=" center">${{ portafolio.total_no_deducible }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
+        <section class="jumbotron container-fluid ">
+              <div id="chart-dashboard">
+                <div class="row center-align center-block center ">
+                    <div class="card white text-darken-4 col s12 m12">
+                        <div class="line-chart-wrapper">
+                            <h2 class="chart-title">Total deducibles</h2>
+                            <div class="chart-revenue cyan darken-2 white-text">
+                                <p class="chart-revenue-total">Total de gastos 2017: ${{ portafolio.total_gastos }}</p>
+                            </div>
+                            <canvas id="line-chart" class="canvas"></canvas>
+                            <div class="col s12 s12 m2 l2">
+                                <ul class="doughnut-chart-legend align-left">
+                                    <li class="mobile ultra-small"><span class="legend-col s12or"></span>Vivienda</li>
+                                    <li class="kitchen ultra-small"><span class="legend-col s12or"></span> Salud</li>
+                                    <li class="home ultra-small"><span class="legend-col s12or"></span> Educacion</li>
+                                    <li class="mobile ultra-small"><span class="legend-col s12or"></span> Vestimenta</li>
+                                    <li class="kitchen ultra-small"><span class="legend-col s12or"></span> Alimentación</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col s6 m2">
-                <div class="card blue accent-1 z-depth-2">
-                    <div class="card-content white-text">
-                        <div class="card-title center">
-                            <span class="glyphicon glyphicon-education"></span>
-                            <p>Educación</p>
-                        </div>
-                        <div class=" center">${{ portafolio.total_educacion }}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col s6 m2">
-                <div class="card blue accent-1 z-depth-2">
-                    <div class="card-content white-text">
-                        <div class="card-title center">
-                            <i class="material-icons">restaurant</i>
-                            <p>Alimentación</p>
-                        </div>
-                        <div class="center">${{ portafolio.total_comida }}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col s6 m2">
-                <div class="card blue accent-1 z-depth-2">
-                    <div class="card-content white-text">
-                        <div class="card-title center">
-                            <i class="fa fa-stethoscope"></i>
-                            <p>Salud</p>
-                        </div>
-                        <div class=" center">${{ portafolio.total_salud }}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col s6 m2">
-                <div class="card blue accent-1 z-depth-2">
-                    <div class="card-content white-text">
-                        <div class="card-title center">
-                            <i class="fa fa-stethoscope"></i>
-                            <p>Vestimenta</p>
-                        </div>
-                        <div class=" center">${{ portafolio.total_vestimenta }}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col s6 m2">
-                <div class="card blue accent-1 z-depth-2">
-                    <div class="card-content white-text">
-                        <div class="card-title center">
-                            <i class="fa fa-stethoscope"></i>
-                            <p>No deducible</p>
-                        </div>
-                        <div class=" center">${{ portafolio.total_no_deducible }}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="jumbotron ">
-        <div id="chart-dashboard">
-            <div class="row center-align center-block center ">
-                <div class="card white text-darken-4 col m12">
-                    <div class="line-chart-wrapper">
-                        <h2 class="chart-title">Total deducibles</h2>
-                        <div class="chart-revenue cyan darken-2 white-text">
-                            <p class="chart-revenue-total">Total de gastos 2017: ${{ portafolio.total_gastos }}</p>
-                        </div>
-                        <canvas id="line-chart" class="canvas"></canvas>
-                        <div class="col s12 m2 l2">
-                            <ul class="doughnut-chart-legend align-left">
-                                <li class="mobile ultra-small"><span class="legend-color"></span>Vivienda</li>
-                                <li class="kitchen ultra-small"><span class="legend-color"></span> Salud</li>
-                                <li class="home ultra-small"><span class="legend-color"></span> Educacion</li>
-                                <li class="mobile ultra-small"><span class="legend-color"></span> Vestimenta</li>
-                                <li class="kitchen ultra-small"><span class="legend-color"></span> Alimentación</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+      </div>
+    </div>
 {% endblock %}
