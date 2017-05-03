@@ -11,12 +11,7 @@
       <!-- Sidebar -->
       <div id="sidebar-wrapper">
           <ul class="sidebar-nav">
-              <li class="sidebar-brand">
-                  <a href="{% url 'home' %}">
-                      InvMachine
-                  </a>
-              </li>
-              <li role="separator" class="divider"></li>
+              
               {% if request.user.is_authenticated %}
               <li>
                 <a href="{% url 'account_settings' %}" tabindex="-1">Settings</a>
@@ -48,82 +43,75 @@
           </ul>
       </div>
       <div id="page-content-wrapper">
+        <section class="container-fluid jumbotron" style="padding: 1em 2em !important;">
+          <p class="dashboard-title">
+            <span class="teal-text">Portafolio</span>
+            <br>
+            <span>{{ portafolio.Nombre }}</span>
+            <br>
+            <small>
+              {{ portafolio.Ruc }}
+            |
+              <a href="{% url 'user_documentos' request.user portafolio.Ruc %}">Ver facturas</a>
+            </small>
+          </p>
+
+          {# <p>#}
+          {# </p>#}
+          {# <small> Email: {{ portafolio.UserID }} |</small>#}
+          {# <small> Total Portafolio: ${{ portafolio.total_portafolio }} |</small>#}
+
+        </section>
+
         <section class="container-fluid">
-            <div class="card row">
-              <div class="col s12 m4">
-                <h4 class="center">
-                  {{ portafolio.Nombre }}
-                </h4>
-              </div>
-              <div class="col s12 m8">
-                <div class="center">
-                  <h5> RUC: {{ portafolio.Ruc }}</h5>
-                  <hr>
-                  <small> Email: {{ portafolio.UserID }} |</small>
-                  <small> Total Portafolio: ${{ portafolio.total_portafolio }} |</small>
-                  <small>
-                    <a href="{% url 'user_documentos' request.user portafolio.Ruc %}">Ver facturas</a>
-                  </small>
+          <div class="row">
+            <div class="col s12 m4">
+              <div class="card row">
+                <div class="card-title blue darken-1 margin-zero" style="padding:3px"></div>
+                <div class="card-title">
+                  <p class="dashboard-card-title blue-grey-text text-lighten-2">CONSUMOS</p>
+                  <p role="separator" class="divider"></p>
                 </div>
+                <div >
+                  <span class="dashboard-card-amount">
+                      USD <b class="blue-text text-darken-1">{{ portafolio.total_gastos }}</b>
+                  </span>
+                  <p class="dashboard-card-date blue-grey-text text-lighten-3">1 de enero - 30 de abril</p>
+                </div>
+              </div>
+              </div>
+            <div class="col s12 m4">
+              <div class="card row">
+                <div class="card-title blue darken-1 margin-zero" style="padding:3px"></div>
+                <div class="card-title">
+                  <p class="dashboard-card-title blue-grey-text text-lighten-2">Impuestos</p>
+                  <p role="separator" class="divider"></p>
+                </div>
+                <span class="dashboard-card-amount">
+                  USD <b class="blue-text text-darken-1">{{ portafolio.total_impuestos }}</b>
+                </span>
+                <p class="dashboard-card-date blue-grey-text text-lighten-3">1 de enero - 30 de abril</p>
+              </div>
+            </div>
+
+            <div class="col s12 m4">
+              <div class="card row">
+              <div class="card-title blue darken-1 margin-zero" style="padding:3px"></div>
+              <div class="card-title">
+                <p class="dashboard-card-title blue-grey-text text-lighten-2">Total</p>
+                <p role="separator" class="divider"></p>
+              </div>
+              <span class="dashboard-card-amount">
+                USD <b class="blue-text text-darken-1">{{ portafolio.total_portafolio }}
+                </b>
+              </span>
+              <p class="dashboard-card-date blue-grey-text text-lighten-3">1 de enero - 30 de abril</p>
               </div>
             </div>
           </div>
         </section>
-        <section class="jumbotron">
-          <div class="row">
-            <div class="col s12 m4">
-              <div class="card row">
-                <div class="card-title teal margin-zero" style="padding:5px"></div>
-                <div class="col s4 valgrim-wraper">
-                  <i class="material-icons" style="font-size:5rem; line-height: 10rem">credit_card</i>
-                </div>
-                <div class="col s8 valgrim-wraper">
-                  <h4 class="center">Consumos</h4>
-                  <hr>
-                  <p class="center">
-                      Total es de <br>
-                      ${{ portafolio.total_gastos }}
-                  </p>
-                </div>
-              </div>
-
-              </div>
-            <div class="col s12 m4">
-              <div class="row card">
-                <div class="card-title teal margin-zero" style="padding:5px"></div>
-                <div class="col s4 valgrim-wraper">
-                  <i class="fa fa-percent" style="font-size:5rem; line-height: 10rem;"></i>
-                </div>
-                <div class="col s8 valgrim-wraper">
-                  <h4 class="center">Impuestos</h4>
-                  <hr>
-                  <p class="center">
-                      Total es de <br>
-                      ${{ portafolio.total_impuestos }}.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col s12 m4">
-              <div class="row card ">
-                <div class="card-title teal margin-zero" style="padding:5px"></div>
-                <div class="col s4 valgrim-wraper center">
-                  <i class="material-icons"style="font-size:4rem; line-height: 10rem">monetization_on</i>
-                </div>
-                <div class="col s8 valgrim-wraper">
-                  <h4 class="center">Total</h4>
-                  <hr>
-                  <p class="center">
-                      Total es de <br>
-                      ${{ portafolio.total_portafolio }}.
-                  </p>
-                </div>
-              </div>
-
-            </div>
-        </section>
         <section class="container-fluid white">
-            <h3 class="center">Totales de deducibles</h3>
+            <p class="dashboard-title">Deducibles</p>
             <hr>
             <div class="row">
               <div class="col s12 m4">
@@ -228,7 +216,7 @@
             </div>
         </section>
         <section class="jumbotron container-fluid ">
-            <div id="chart-dashboard">
+              <div id="chart-dashboard">
                 <div class="row center-align center-block center ">
                     <div class="card white text-darken-4 col s12 m12">
                         <div class="line-chart-wrapper">
