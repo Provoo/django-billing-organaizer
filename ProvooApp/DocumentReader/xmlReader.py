@@ -34,8 +34,19 @@ def get_xml_tree(xml_file):
             for elem in root:
                 imp = elem.text
 
+            imp = imp.replace('\n', '')
+            imp = imp.replace('  ', '')
             imp = imp.replace('&', '&amp;')
-            myxml = ET.fromstring(imp, parser=parser)
+            imp = imp.replace(u'\xe9', 'c3a9')
+            imp = imp.replace(u'\xe1', 'c3a1')
+            imp = imp.replace(u'\xed', 'c3ad')
+            imp = imp.replace(u'\xf3', 'c3b3')
+            imp = imp.replace(u'\xf9', 'c3ba')
+            imp = imp.replace(u'\xd3', 'c393')
+            imp = imp.replace(u'\xd1', 'c391')
+
+            print(imp)
+            myxml = ET.fromstring(imp, parser=None)
             return myxml
         else:
             return tree.getroot()
@@ -51,8 +62,12 @@ def readDocumentXML(xml_document):
     # document_object['TOTAL_GASTOSF'],
     # document_object['TOTAL_IMPUESTOS'],
     # document_object['TOTAL_DOCUMENTO'],
+    try:
+        Variables_Enterprise = MetaData.objects.get(IdDocument=search_ruc)
+    except:
+        Variables_Enterprise = MetaData.objects.get(IdDocument="default")
 
-    Variables_Enterprise = MetaData.objects.get(IdDocument=search_ruc)
+
     print("imprimiendo objeto de la base: %s " % (Variables_Enterprise))
     # Seteamos Diccionario con los valores por defecto
     document_object['NUMERO_DOCUMENTO'] = ''
@@ -61,6 +76,7 @@ def readDocumentXML(xml_document):
     document_object['DEDUCIBLE_EDUCACION'] = Decimal(0.00)
     document_object['DEDUCIBLE_SALUD'] = Decimal(0.00)
     document_object['DEDUCIBLE_VIVIENDA'] = Decimal(0.00)
+    document_object['TOTAL_DOCUMENTO'] = Decimal(0.00)
     document_object['ARCHIVO'] = xml_document
 
     for child in root.iter(Variables_Enterprise.EnterpriseTaxPercent):

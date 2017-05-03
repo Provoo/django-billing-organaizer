@@ -64,9 +64,9 @@ def saveDocumentPorfolio(document_object, user_id):
             UserID_id=user_id, Ruc=document_object['RUC_XML'],
             Nombre=document_object['NOMBRE_DOCUMENTO'])
         p.save()
-        ps = Portafolio.objects.get(Ruc=document_object['RUC_XML'], UserID_id=user_id)
+        #ps = Portafolio.objects.get(Ruc=document_object['RUC_XML'], UserID_id=user_id)
         print(p)
-        modelDocumentoSave(document_object, ps)
+        modelDocumentoSave(document_object, p)
     else:
         print("El ruc si existe")
         modelDocumentoSave(document_object, p)
@@ -125,9 +125,10 @@ class documentoView(ListView):
 
     def get_queryset(self):
         documentos = super(documentoView, self).get_queryset()
-        get_object_or_404(
+        porta = get_object_or_404(
             Portafolio, UserID_id=self.request.user.id, Ruc=self.kwargs['ruc'])
-        return documentos.filter(rucDocumento=self.kwargs['ruc'])
+        print(porta)
+        return documentos.filter(rucDocumento=porta)
 
 
 @login_required
