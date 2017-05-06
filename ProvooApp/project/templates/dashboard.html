@@ -51,38 +51,15 @@
             <small>
               {{ portafolio.Ruc }}
             |
-              <a href="{% url 'user_documentos' request.user portafolio.Ruc %}">Ver facturas</a>
+              <a href="{% url 'user_documentos' request.user.id portafolio.Ruc %}">Ver facturas</a>
             </small>
           </p>
 
     {% block javascript %}
         <!-- <script src="'/site_media/static/js/upload.js'"></script> -->
     {% endblock %}
-
-    <section class="jumbotron ">
-        {#TODO: DashBoard tempalte modal Agragar mensaje de subida satisfactoria de archivos#}
-        {#TODO: DashBoard tempalte Modal Sí la factura no pertenece al protafolio mandar mensaje de que se creo uno nuevo#}
-        {#TODO: Borrar Factura#}
-        <div class=" m12">
-            <div class="card">
-                <h4 class="center">
-                    Portafolio: {{ portafolio.Nombre }}
-                </h4>
-                <div class="mdl-layout-spacer"></div>
-                <div class="mdl-card__actions mdl-card--border center">
-                    <small> nombre: {{ portafolio.Nombre }} |</small>
-                    <small> RUC: {{ portafolio.Ruc }} |</small>
-                    <small> Email: {{ portafolio.UserID }} |</small>
-                    <small> Total Portafolio: ${{ portafolio.total_portafolio }} |</small>
-                    <small>
-                        <a href="{% url 'user_documentos' request.user.id portafolio.Ruc %}">Ver facturas</a>
-                    </small>
-                </div>
-            </div>
-
-        </section>
-
-        <section class="container-fluid">
+    
+      <section class="container-fluid">
           <div class="row">
             <div class="col s12 m4">
               <div class="card row">
