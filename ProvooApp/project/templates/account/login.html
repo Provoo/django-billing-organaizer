@@ -7,11 +7,6 @@
 {% block head_title %}{% trans "Log in" %}{% endblock %}
 
 {% block body %}
-
-<<<<<<< HEAD
-    <div class="row">
-        <div class="col m4 offset-m4">
-=======
     <div class="row" layout="row" layout-align="center center" layout-margin >
         <md-card class="col m4 offset-m4 grey lighten-4" layout-margin>
           <md-toolbar class="md-theme-light">
@@ -31,7 +26,6 @@
             </md-card-header-text>
           </md-card-header>
           <md-card-content>
->>>>>>> d0166c96f780b1fb30ec3cfdad8c66dad12b2599
             <form method="POST" action="{% url "account_login" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
 
                 {% csrf_token %}
