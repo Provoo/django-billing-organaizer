@@ -7,11 +7,8 @@
 {% endblock %}
 {% block body_class %}home{% endblock %}
 {% block body %}
-    <div class="background">
-      <img src="{% static 'img/invmachine.svg' %}" class="img-bg"/>
-    </div>
-    <section class="center homeSection" style="padding: 0; height: 90vh;">
-      <div class="white black-text row valign-wrapper">
+    <section class="center homeSection" style="padding: 0; height: 90vh; background: url({% static 'img/bg1.png' %})">
+      <div class="black-text row valign-wrapper">
         <div class="col m6 row s12">
           <div class="col s12">
             <h4 class="teal-text">¿Te has dado cuenta que mientras más ganas más gastas?</h4>
@@ -34,7 +31,6 @@
         </div>
       </div>
     </section>
-
     <section class="jumbotron teal lighten-5">
       <div class="container row">
           {% include "_messages.html" %}
@@ -120,7 +116,6 @@
         </div>
     </section>
 {% endblock %}
-
 {% block footer_base %}
     {% include "_footer.html" %}
 {% endblock %}
