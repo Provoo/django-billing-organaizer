@@ -8,7 +8,6 @@
   <!-- Sidebar -->
   <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
-
           {% if request.user.is_authenticated %}
           <li>
             <a href="{% url 'account_settings' %}" tabindex="-1">Settings</a>
@@ -42,6 +41,13 @@
   <div id="page-content-wrapper" class="white">
     <div class="white margin-zero  portfolio-title">
       <p class="teal-text text-accent-4 margin-zero portfolio-title">Bienvenido {{ request.user }}</p>
+      {% load notifications_tags %}
+      {% notifications_unread as unread_count %}
+      {% if unread_count %}
+        <a href="{% url 'user_notifications' request.user.id %}"><p>:<strong>{{ unread_count }}</strong> unread notifications.</p></a>
+      {% else %}
+        <p>{% notifications_unread %}</p>
+      {% endif %}
     </div>
 
     <div class="container">

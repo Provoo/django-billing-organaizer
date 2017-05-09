@@ -22,7 +22,7 @@ services:
     build:
       args:
         - DJANGO_ENV=$DJANGO_ENV
-    command: bash -c "chown -R www-data /ProvooApp/project/site_media/ && chmod -R 755 /ProvooApp/project/site_media/ && python manage.py collectstatic --noinput && gunicorn -c /ProvooApp/gunicorn.conf project.wsgi:application"
+    command: bash -c "chown -R www-data /ProvooApp/project/site_media/ && chmod -R 775 /ProvooApp/project/site_media/ && python manage.py collectstatic --noinput && gunicorn -c /ProvooApp/gunicorn.conf project.wsgi:application"
     volumes:
       - ./ProvooApp:/ProvooApp
     ports:

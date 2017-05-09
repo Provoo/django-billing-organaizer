@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 
 # Models Import
-from dashboard.models import Portafolio, documento, CredentialsModel, documento_error
+from dashboard.models import Portafolio, documento, documento_error
 from django.db.models.functions import ExtractMonth, ExtractYear
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -134,6 +134,15 @@ class documentoView(ListView):
             Portafolio, UserID_id=self.request.user.id, Ruc=self.kwargs['ruc'])
         print(porta)
         return documentos.filter(rucDocumento=porta)
+
+class notificationsView(ListView):
+    model = User
+    template_name = 'notifications.html'
+
+    def get_queryset(self):
+        notifica = super(notificationsView, self).get_queryset().get(pk=self.request.user.id).notifications.unread()
+        print(notifica)
+        return notifica
 
 
 @login_required

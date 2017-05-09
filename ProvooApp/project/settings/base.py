@@ -162,6 +162,7 @@ INSTALLED_APPS = [
     "account",
     "pinax.eventlog",
     "pinax.webanalytics",
+    "notifications",
     # "pinax-api",
 
     # project
