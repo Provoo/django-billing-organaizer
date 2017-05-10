@@ -45,9 +45,13 @@ def get_xml_tree(xml_file):
             imp = imp.replace(u'\xd3', 'c393')
             imp = imp.replace(u'\xd1', 'c391')
 
-            print(imp)
-            myxml = ET.fromstring(imp, parser=None)
-            return myxml
+            # print(imp)
+            try:
+                myxml = ET.fromstring(imp, parser=None)
+            except Exception as e:
+                print('error: {}'.format(e))
+            else:
+                return myxml
         else:
             return tree.getroot()
 
@@ -59,9 +63,6 @@ def readDocumentXML(xml_document):
     for child in root.iter('ruc'):
         if child.text:
             search_ruc = child.text
-    # document_object['TOTAL_GASTOSF'],
-    # document_object['TOTAL_IMPUESTOS'],
-    # document_object['TOTAL_DOCUMENTO'],
     try:
         Variables_Enterprise = MetaData.objects.get(IdDocument=search_ruc)
     except:
@@ -156,16 +157,19 @@ def readDocumentXML(xml_document):
                 document_object['DEDUCIBLE_VIVIENDA'] = Decimal(a.text)
                 print("probando busqueda de atributo: %s" % (a.text))
 
+    # Taxes
+    document_object['TOTAL_IMPUESTOS'] = document_object['TOTAL_DOCUMENTO'] -\
+        document_object['TOTAL_GASTOSF']
+
+
     document_object['NO_DEDUCIBLE'] = document_object['TOTAL_DOCUMENTO'] -\
         document_object['DEDUCIBLE_COMIDA'] -\
         document_object['DEDUCIBLE_VESTIMENTA'] -\
         document_object['DEDUCIBLE_EDUCACION'] -\
         document_object['DEDUCIBLE_SALUD'] -\
-        document_object['DEDUCIBLE_VIVIENDA']
+        document_object['DEDUCIBLE_VIVIENDA'] -\
+        document_object['TOTAL_IMPUESTOS']
 
-    # Taxes
-    document_object['TOTAL_IMPUESTOS'] = document_object['TOTAL_DOCUMENTO'] -\
-        document_object['TOTAL_GASTOSF']
 
     document_object['TAX'] = Decimal(14)
 

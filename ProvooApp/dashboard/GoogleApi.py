@@ -9,6 +9,7 @@ import base64
 import email
 from django.core.files.base import ContentFile
 import re
+import zipfile
 
 
 # ----Variables para utilizar la Api Stand Alone------
@@ -114,8 +115,6 @@ def GetAttachments(service, user_id, msg_id):
                     file_data = base64.urlsafe_b64decode(data.encode('UTF-8'))
                     print("estes esle archivo: %s" % (part['filename']))
                     file_return = ContentFile(str(file_data), name=str(part['filename']))
-                    # file_return['name'] = part['filename']
-                    # file_return['data'] = file_data
     except errors.HttpError, error:
         print 'An error occurred: %s' % error
 

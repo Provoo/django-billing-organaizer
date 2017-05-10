@@ -11,6 +11,12 @@ class PortafolioAdmin(admin.ModelAdmin):
         'total_comida', 'total_salud', 'total_no_deducible')
 
 
+class DocumentoAdmin(admin.ModelAdmin):
+    list_display = (
+        'rucDocumento', 'NombreEmisor', 'numeroDeDocumento', 'totalGastosf', 'totalImpuestos',
+        'totalDocumento')
+
+
 admin.site.register(Portafolio, PortafolioAdmin)
-admin.site.register(documento)
+admin.site.register(documento,DocumentoAdmin )
 admin.site.register(documento_error)
