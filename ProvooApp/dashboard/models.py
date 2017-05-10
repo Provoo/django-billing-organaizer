@@ -12,7 +12,7 @@ from oauth2client.contrib.django_util.models import CredentialsField
 
 class Portafolio(models.Model):
     UserID = models.ForeignKey(User)
-    Ruc = models.CharField(max_length=13, primary_key=True)
+    Ruc = models.CharField(max_length=13)
     Nombre = models.CharField(max_length=50)
 
     def slug(self):
@@ -27,47 +27,47 @@ class Portafolio(models.Model):
     @property
     def total_gastos(self):
         return documento.objects.filter(
-            rucDocumento=self.Ruc).aggregate(total=Sum("totalGastosf"))["total"]
+            rucDocumento=self.pk).aggregate(total=Sum("totalGastosf"))["total"]
 
     @property
     def total_impuestos(self):
         return documento.objects.filter(
-            rucDocumento=self.Ruc).aggregate(total=Sum("totalImpuestos"))["total"]
+            rucDocumento=self.pk).aggregate(total=Sum("totalImpuestos"))["total"]
 
     @property
     def total_portafolio(self):
         return documento.objects.filter(
-            rucDocumento=self.Ruc).aggregate(total=Sum("totalDocumento"))["total"]
+            rucDocumento=self.pk).aggregate(total=Sum("totalDocumento"))["total"]
 
     @property
     def total_vestimenta(self):
         return documento.objects.filter(
-            rucDocumento=self.Ruc).aggregate(total=Sum("deducible_vestimenta"))["total"]
+            rucDocumento=self.pk).aggregate(total=Sum("deducible_vestimenta"))["total"]
 
     @property
     def total_educacion(self):
         return documento.objects.filter(
-            rucDocumento=self.Ruc).aggregate(total=Sum("deducible_educacion"))["total"]
+            rucDocumento=self.pk).aggregate(total=Sum("deducible_educacion"))["total"]
 
     @property
     def total_comida(self):
         return documento.objects.filter(
-            rucDocumento=self.Ruc).aggregate(total=Sum("deducible_comida"))["total"]
+            rucDocumento=self.pk).aggregate(total=Sum("deducible_comida"))["total"]
 
     @property
     def total_salud(self):
         return documento.objects.filter(
-            rucDocumento=self.Ruc).aggregate(total=Sum("deducible_salud"))["total"]
+            rucDocumento=self.pk).aggregate(total=Sum("deducible_salud"))["total"]
 
     @property
     def total_vivienda(self):
         return documento.objects.filter(
-            rucDocumento=self.Ruc).aggregate(total=Sum("deducible_vivienda"))["total"]
+            rucDocumento=self.pk).aggregate(total=Sum("deducible_vivienda"))["total"]
 
     @property
     def total_no_deducible(self):
         return documento.objects.filter(
-            rucDocumento=self.Ruc).aggregate(total=Sum("no_deducible"))["total"]
+            rucDocumento=self.pk).aggregate(total=Sum("no_deducible"))["total"]
 
     def __str__(self):
         return '%s %s' % (self.UserID, self.Ruc)
@@ -96,6 +96,8 @@ class documento(models.Model):
     deducible_vivienda = models.DecimalField(max_digits=20, decimal_places=2)
     no_deducible = models.DecimalField(max_digits=20, decimal_places=2)
     archivo = models.FileField(upload_to=user_directory_path)
+    def __str__(self):
+        return '%s %s' % (self.rucDocumento, self.nombreDocumento)
 
 
 def user_directory_error_path(instance, filename):
@@ -112,17 +114,4 @@ class documento_error(models.Model):
         return slugify(self.rucDocumento)
 
     def __str__(self):
-        return '%s %s' % (self.rucDocumento, self.numeroDeDocumento)
-
-
-#google api models for credentials
-class CredentialsModel(models.Model):
-    id = models.OneToOneField(User, primary_key=True)
-    credential = CredentialsField()
-
-
-class CredentialsAdmin(admin.ModelAdmin):
-    pass
-
-
-admin.site.register(CredentialsModel, CredentialsAdmin)
+        return '%s %s' % (self.user_documento, self.file_dcoumento)
