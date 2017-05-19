@@ -13,7 +13,7 @@ services:
     build:
       args:
         - DJANGO_ENV=$DJANGO_ENV
-    command: python manage.py runserver 0.0.0.0:8000
+    command: bash -c "chown -R www-data /ProvooApp/project/site_media/ && chmod -R 775 /ProvooApp/project/site_media/ && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./ProvooApp:/ProvooApp
     ports:
