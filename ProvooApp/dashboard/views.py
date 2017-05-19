@@ -80,7 +80,6 @@ def saveDocumentPorfolio(document_object, user_id):
             UserID_id=user_id, Ruc=objeto_xml_paser['RUC_XML'],
             Nombre=objeto_xml_paser['NOMBRE_DOCUMENTO'])
         p.save()
-        #ps = Portafolio.objects.get(Ruc=document_object['RUC_XML'], UserID_id=user_id)
         print(p)
         modelDocumentoSave(objeto_xml_paser, p)
     else:
