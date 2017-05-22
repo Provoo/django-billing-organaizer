@@ -6,48 +6,12 @@
 {% block body_base %}
 <div id="wrapper">
   <!-- Sidebar -->
-  <div id="sidebar-wrapper">
-      <ul class="sidebar-nav">
-          {% if request.user.is_authenticated %}
-          <li>
-            <a href="{% url 'account_settings' %}" tabindex="-1">Settings</a>
-          </li>
-          <li>
-            <a href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>
-          </li>
-          <li>
-            <a href="{% url 'account_settings' %}">
-            {# <i class="fa fa-cog"></i>#}
-             {% trans "Settings" %}
-            </a>
-          </li>
-          <li>
-            <a id="account_logout" href="{% url 'account_logout' %}">
-              {# <i class="fa fa-power-off"></i>#}
-              {% trans "Log out" %}
-            </a>
-          </li>
-          {% else %}
-              <li><a class="white-text" href="{% url 'account_login' %}">{% trans "Log in" %}</a></li>
-              {% if ACCOUNT_OPEN_SIGNUP %}
-                  <li><a class="white-text" href="{% url 'account_signup' %}">{% trans "Sign up" %}</a></li>
-              {% endif %}
-          {% endif %}
-          <li>
-              <a href="#">Contact</a>
-          </li>
-      </ul>
-  </div>
+  {% block sidebar %}
+      {% include "_sidebar.html" %}
+  {% endblock %}
   <div id="page-content-wrapper" class="white">
     <div class="white margin-zero  portfolio-title">
       <p class="teal-text text-accent-4 margin-zero portfolio-title">Bienvenido {{ request.user }}</p>
-      {% load notifications_tags %}
-      {% notifications_unread as unread_count %}
-      {% if unread_count %}
-        <a href="{% url 'user_notifications' request.user.id %}"><p>:<strong>{{ unread_count }}</strong> unread notifications.</p></a>
-      {% else %}
-        <p>{% notifications_unread %}</p>
-      {% endif %}
     </div>
 
     <div class="container">

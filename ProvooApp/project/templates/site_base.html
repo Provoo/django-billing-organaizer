@@ -14,20 +14,20 @@
 {% endblock %}
 {% block wrapper_class %}{% endblock %}
 {% block body_class %}fullBody row{% endblock %}
-{% block navbar_class %}navbar-fixed-top navbar-inverse bg-inverse {% endblock %}
+{# {% block wrapper_class %}blue-grey darken-4{% endblock %} #}
+{% block navbar_class %}navbar-fixed-top bg-inverse blue-grey darken-4 nav {% endblock %}
 {% block topbar %}
-    <div class="navbar-header">
+    <div class="navbar-header ">
         {# TODO: verificar que estoy en home y de ser asi no mostrar el icono #}
-        {# {% if URL  %}#}
+        {% block menu-icon %}
           <a class="navbar-brand" href="#menu-toggle" id="menu-toggle">
             <i class="fa fa-bars"></i>
           </a>
-        {# {% endif %}#}
+        {% endblock %}
     </div>
-    <div class="collapse navbar-collapse blue-grey darken-4" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="{% url 'home' %}">InvMachine <span class="sr-only">(current)</span></a></li>
-
+        <li ><a href="{% url 'home' %}" class="white-text">InvMachine <span class="sr-only">(current)</span></a></li>
       </ul>
       <div class="collapse navbar-collapse navbar-responsive-collapse">
           {% block nav %}

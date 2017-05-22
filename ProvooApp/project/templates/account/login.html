@@ -1,13 +1,10 @@
 {% extends "site_base.html" %}
-
 {% load account_tags %}
 {% load i18n %}
 {% load bootstrap %}
-
 {% block head_title %}{% trans "Log in" %}{% endblock %}
 
 {% block body %}
-
     <div class="row whitesmoke" layout="row" layout-align="center center" layout-margin >
       <div class="col m4 offset-m4  ">
         <md-card  class="grey lighten-2">
@@ -26,24 +23,23 @@
             <form method="POST" action="{% url "account_login" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %} class="center">
                 <span class="left col s12">
                   {% csrf_token %}
-                  {{ form|bootstrap }}
+                  {{ form}}
+
                   {% if redirect_field_value %}
                       <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" class="input-field  white"/>
-                  {% endif %}
-                </span>
 
+                  {% endif %}
+
+                </span>
                 <button type="submit" class="btn white black-text ">{% trans "Log in" %}</button>
             </form>
           </md-card-content>
-
            <md-card-actions layout="row" layout-align="start center">
             {% if ACCOUNT_OPEN_SIGNUP %}
                 <p class="login-signup">
                     <small class="col s6 center">
                       <a href="{% url "account_password_reset" %}" class="">{% trans "¿Olvidaste tu contraseña?" %}</a>
                     </small>
-
-
                     <small class="center col s6">
                         <strong><a href="{% urlnext 'account_signup' %}">{% trans "Crear un cuenta" %}</a></strong>
                     </small>
@@ -57,7 +53,6 @@
         </div>
     </div>
 {% endblock %}
-
 {% block scripts %}
     {{ block.super }}
     <script type="text/javascript">
