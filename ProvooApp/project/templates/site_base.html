@@ -15,28 +15,33 @@
 {% block wrapper_class %}{% endblock %}
 {% block body_class %}fullBody row{% endblock %}
 {# {% block wrapper_class %}blue-grey darken-4{% endblock %} #}
-{% block navbar_class %}navbar-fixed-top bg-inverse blue-grey darken-4 nav {% endblock %}
-{% block topbar %}
-    <div class="navbar-header ">
-        {# TODO: verificar que estoy en home y de ser asi no mostrar el icono #}
-        {% block menu-icon %}
-          <a class="navbar-brand" href="#menu-toggle" id="menu-toggle">
-            <i class="fa fa-bars"></i>
-          </a>
-        {% endblock %}
-    </div>
-    <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li ><a href="{% url 'home' %}" class="white-text">InvMachine <span class="sr-only">(current)</span></a></li>
-      </ul>
-      <div class="collapse navbar-collapse navbar-responsive-collapse">
-          {% block nav %}
-            {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}
-          {% endblock %}
+
+{% block topbar_base %}
+<header>
+  <div class="navbar navbar-default {% block navbar_class %}navbar-fixed-top bg-inverse blue-grey darken-4 nav{% endblock %}">
+      <div class="container-fluid">
+        <div class="navbar-header ">
+            {# TODO: verificar que estoy en home y de ser asi no mostrar el icono #}
+            {% block menu-icon %}
+              <a class="navbar-brand" href="#menu-toggle" id="menu-toggle">
+                <i class="fa fa-bars"></i>
+              </a>
+            {% endblock %}
+        </div>
+        <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li ><a href="{% url 'home' %}" class="white-text">InvMachine <span class="sr-only">(current)</span></a></li>
+          </ul>
+          <div class="collapse navbar-collapse navbar-responsive-collapse">
+              {% block nav %}
+                {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}
+              {% endblock %}
+          </div>
+        </div>
       </div>
     </div>
-
-{% endblock %}
+  </header>
+  {% endblock %}
 
 <main class="mdl-layout__content">
     {#TODO: barra lateral, tener un icono portafolios => click => datos y estadísticas dashboard actual#}

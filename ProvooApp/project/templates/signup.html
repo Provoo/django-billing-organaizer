@@ -1,13 +1,14 @@
 {% extends "site_base.html" %}
-
-{% load account_tags %}
+{% load staticfiles %}
 {% load i18n %}
-{% load bootstrap %}
-
 {% block head_title %}{% trans "Registro" %}{% endblock %}
-{% block body_class %}{% endblock %}
+{% block extra_head %}
+    <title>InvMachine | Registro </title>
+{% endblock %}
+{% block body_class %}home{% endblock %}
 {% block menu-icon %}{% endblock %}
-
+{% load account_tags %}
+{% load bootstrap %}
 
 {% block styles %}
     {{ block.super }}

@@ -9561,7 +9561,7 @@ html.rtl .yay-notransition .yaybar.yay-overlap-content ~ footer:after {
       padding-left: 15px;
       padding-right: 90px; }
 
-/* 
+/*
  * Top Navbar
  */
 .navbar-top {
@@ -11568,7 +11568,6 @@ table.dataTable.no-footer {
   height: 100%;
   min-height: 100%;
   min-height: 100vh;
-  padding-top: 80px;
   background: #35384C; }
   #sign-in .logo,
   #sign-up .logo,
