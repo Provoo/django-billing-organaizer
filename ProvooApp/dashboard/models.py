@@ -5,13 +5,14 @@ from django.db import models
 from django.db.models import Sum
 from django.template.defaultfilters import slugify
 #google api credentials
-import pickle
-import base64
-from django.contrib import admin
-from oauth2client.contrib.django_util.models import CredentialsField
+# import pickle
+# import base64
+# from django.contrib import admin
+# from oauth2client.contrib.django_util.models import CredentialsField
+
 
 class Portafolio(models.Model):
-    UserID = models.ForeignKey(User)
+    UserID = models.ForeignKey(User, default=1)
     Ruc = models.CharField(max_length=13)
     Nombre = models.CharField(max_length=50)
 
@@ -78,7 +79,7 @@ def user_directory_path(instance, filename):
     return 'documents/{0}/{1}'.format(instance.rucDocumento, filename)
 
 class documento(models.Model):
-    rucDocumento = models.ForeignKey(Portafolio)
+    rucDocumento = models.ForeignKey(Portafolio, default=1)
     nombreDocumento = models.CharField(max_length=50)
     numeroDeDocumento = models.CharField(max_length=30)
     RucEmisor = models.CharField(max_length=13)

@@ -25,8 +25,7 @@ def get_xml_tree(xml_file):
                 flag = True
         print('good')
         if not flag:
-            print(tree.findall('ruc'))
-            print("no existe el ruc")
+            print("Hay que recontruir xml")
             myxml = tree.getroot()
             parser = ET.XMLParser(encoding="utf-8")
             root = tree.iter('comprobante')
@@ -69,7 +68,7 @@ def readDocumentXML(xml_document):
         Variables_Enterprise = MetaData.objects.get(IdDocument="default")
 
 
-    print("imprimiendo objeto de la base: %s " % (Variables_Enterprise))
+    print("imprimiendo Meta Empresa de la base: %s " % (Variables_Enterprise))
     # Seteamos Diccionario con los valores por defecto
     document_object['NUMERO_DOCUMENTO'] = ''
     document_object['DEDUCIBLE_COMIDA'] = Decimal(0.00)
@@ -172,6 +171,8 @@ def readDocumentXML(xml_document):
 
 
     document_object['TAX'] = Decimal(14)
+
+    print("Imprimiendo dentro del xml Reader %s" % (document_object))
 
     return document_object
 

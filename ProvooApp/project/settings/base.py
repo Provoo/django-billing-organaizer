@@ -163,12 +163,14 @@ INSTALLED_APPS = [
     "pinax.eventlog",
     "pinax.webanalytics",
     "notifications",
-    # "pinax-api",
+    # Django Rest Framework
+    "rest_framework",
 
     # project
     "project",
     "dashboard",
     "DocumentReader",
+    "api",
 ]
 
 # A sample logging configuration. The only tangible logging
