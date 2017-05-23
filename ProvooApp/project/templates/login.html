@@ -1,35 +1,30 @@
 {% extends "site_base.html" %}
 {% load i18n %}
-{% block head_title %}Dashboard{% endblock %}
+{% block head_title %}login{% endblock %}
+{% block body_class %}{% endblock %}
+{% block menu-icon %}{% endblock %}
 
-{# {% block scripts %}#}
-    {# {% include "_scripts.html" %}#}
-    {# {% include "_conScripts.html" %}#}
-{# {% endblock %}#}
+{% block scripts %}
+    {{ block.super }}
+    {% include "_conScripts.html" %}
+{% endblock %}
 
-{# {% block styles %}#}
-    {# {% include "_styles.html" %}#}
-    {# {% include "_conStyles.html" %}#}
-{# {% endblock %}#}
-
+{% block styles %}
+    {{ block.super }}
+    {% include "_conStyles.html" %}
+{% endblock %}
 
 {% block body_base %}
 
-<section id="sign-in" class="ROW">
+<section id="sign-in">
 
     <!-- Background Bubbles -->
     <canvas id="bubble-canvas"></canvas>
     <!-- /Background Bubbles -->
 
     <!-- Sign In Form -->
-    <form action="dashboard.html" class="col s6 offset-s3">
-        <div class="row links">
-            <div class="col s6 logo">
-                <img src="assets/_con/images/logo-white.png" alt="">
-            </div>
-            <div class="col s6 right-align">
-                <strong>Sign In</strong> / <a href="page-sign-up.html">Sign Up</a></div>
-        </div>
+    <form action="dashboard.html" >
+
 
         <div class="card-panel clearfix">
 
@@ -81,7 +76,11 @@
         <div class="links right-align">
             <a href="page-forgot-password.html">Forgot Password?</a>
         </div>
-
+        <div class="row links">
+            <div class="col s6 offset-s3 center-align">
+                <strong>Sign In</strong> / <a href="page-sign-up.html">Sign Up</a>
+              </div>
+        </div>
     </form>
     <!-- /Sign In Form -->
 
