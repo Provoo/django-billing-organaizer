@@ -19,6 +19,7 @@ urlpatterns = [
     url(r"^$", TemplateView.as_view(template_name="homepage.html"),
         name="home"),
     url(r"^login/", TemplateView.as_view(template_name="login.html"), name="login"),
+    url(r"^dashboard2/", TemplateView.as_view(template_name="dashboard_v2.html"), name="dashboard2"),
     url(r"^signup/", TemplateView.as_view(template_name="signup.html"), name="signup"),
     url(r"^notifications/(?P<pk>[-\w]+)$", notificationsView.as_view(), name='user_notifications'),
     url(r"^account/signup/$", SignupView.as_view(), name='account_signup'),
