@@ -1,4 +1,3 @@
-
 from django.contrib import admin
 from dashboard.models import Portafolio, documento, documento_error
 # Register your models here.

@@ -70,9 +70,9 @@
             responsive-table highlight">
                 <thead>
                 <tr>
+                    <th>RUC</th>
                     <th>Nro. Fact</th>
                     <th class="mdl-data-table__cell--non-numeric">Empresa</th>
-                    <th>RUC</th>
                     <th>Deducible Educacion</th>
                     <th>Deducible Salud</th>
                     <th>Deducible Vestimenta</th>
@@ -86,9 +86,10 @@
                 {% if object_list %}
                     {% for documentos in object_list %}
                         <tr>
+                            <td>{{ documentos.rucDocumento }}</td>
+                            <td>{{ documentos.fecha |date:"M d, Y" }}</td>
                             <td>{{ documentos.numeroDeDocumento }}</td>
                             <td>{{ documentos.NombreEmisor }}</td>
-                            <td>{{ documentos.rucDocumento }}</td>
                             <td>{{ documentos.deducible_educacion }}</td>
                             <td>{{ documentos.deducible_salud }}</td>
                             <td>{{ documentos.deducible_vestimenta }}</td>

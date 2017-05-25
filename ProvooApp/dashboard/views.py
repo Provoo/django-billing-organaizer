@@ -141,7 +141,7 @@ class dashboardView(ListView):
 
 
 class portafolioView(ListView):
-    template_name = 'portfolios.html'
+    template_name = 'portafolios.html'
     model = Portafolio
 
     def get_queryset(self):
