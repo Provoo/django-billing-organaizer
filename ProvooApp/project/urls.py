@@ -25,7 +25,7 @@ urlpatterns = [
     url(r"^account/signup/$", SignupView.as_view(), name='account_signup'),
     url(r"^googleimp/", googleImport, name="googleImport"),
     url(r"^upload/", upLoad, name="upload"),
-    url(r"^portfolios/(?P<pk>[-\w]+)$", portafolioView.as_view(),
+    url(r"^portafolios/(?P<pk>[-\w]+)$", portafolioView.as_view(),
         name="portafolios"),
     url(r"^dashboard/(?P<pk>[-\w]+)/(?P<ruc>[0-9]+)/$",
         dashboardView.as_view(), name="user_dashboard"),
