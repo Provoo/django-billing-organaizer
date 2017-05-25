@@ -99,8 +99,7 @@ STATICFILES_DIRS = [
 # various locations.
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    'djangobower.finders.BowerFinder',
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder"
 ]
 
 # Make this unique, and don't share it with anybody.
@@ -155,7 +154,6 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.staticfiles",
     "social_django",
-    'djangobower',
 
     # theme
     "bootstrapform",
@@ -252,7 +250,3 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.yahoo.YahooOpenId',
 
 ]
-
-BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_ROOT, "static", "components"),
-
-# BOWER_INSTALLED_APPS = ()
