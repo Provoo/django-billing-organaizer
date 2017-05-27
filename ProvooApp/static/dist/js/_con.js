@@ -79,7 +79,7 @@ window.conApp = {};
     _this.$window.on('resize', function() {
       _this.windowResize();
     });
-    
+
     _this.windowResize();
 
     // no transition disable
@@ -100,7 +100,7 @@ window.conApp = {};
         // find toggle menu item
         var toggle = item.parent('li').parent('ul').siblings('.yay-sub-toggle');
         var subClosed = !toggle.parent('.open').length
-        
+
         // open submenu
         if(toggle.length && subClosed) {
           _this.toggleSub(toggle);
@@ -220,7 +220,7 @@ window.conApp = {};
       // reinit nano scroller
       _this.$nano.nanoScroller();
     });
-    
+
     subMenu.parent().removeClass('open');
     subMenu.find('li a.yay-sub-toggle').parent().removeClass('open');
   }
@@ -338,7 +338,7 @@ window.conApp = {};
 */
 !function($) {
   "use strict";
-  
+
   var Weather = function(element, options) {
     this.options   = options;
     this.$element  = $(element);
@@ -386,8 +386,8 @@ window.conApp = {};
           '</div>',
           '<div class="icon"><i class="wi '+_this.options.icons[weather.code]+'"></i></div>',
           '<div class="currently">'+weather.currently+'</div>'
-        ].join('');  
-        
+        ].join('');
+
         _this.$element.html(html);
       },
       error: function(error) {
@@ -411,14 +411,14 @@ window.conApp = {};
 
 
 
-/* 
-* 
+/*
+*
 * Cards
-* 
+*
 */
 !function($) {
   "use strict";
-  
+
   var Card = function(element, options) {
     this.options      = options;
     this.$card        = $(element);
@@ -463,7 +463,7 @@ window.conApp = {};
       opacity: 0,
       translateY: -20
     }, _this.options.duration )
-    
+
     .velocity('slideUp', _this.options.duration, function() {
       _this.$card.remove();
       resize();
@@ -503,7 +503,7 @@ window.conApp = {};
       curCard.init();
     });
   }
-  
+
   if(typeof conAngular === 'undefined') {
     conApp.initCards();
   }
@@ -512,10 +512,10 @@ window.conApp = {};
 
 
 
-/* 
-* 
+/*
+*
 * Open Layers with ripple effect
-* 
+*
 * Usage:
 
   // Init layer
@@ -543,7 +543,7 @@ window.conApp = {};
 */
 !function($) {
   "use strict";
-  
+
   var Layer = function(element, options) {
     this.options     = options;
     this.$body       = $('body');
@@ -857,8 +857,8 @@ window.conApp = {};
 
   /* Mouse Position - global */
   window.mousePos = {x: 0, y: 0};
-  $(document).on('mousemove', function(e){ 
-    window.mousePos.x = e.clientX || e.pageX; 
+  $(document).on('mousemove', function(e){
+    window.mousePos.x = e.clientX || e.pageX;
     window.mousePos.y = e.clientY || e.pageY;
   });
 
@@ -888,7 +888,7 @@ window.conApp = {};
     msgDuration: 300,
 
     // set false to prevent demo message send
-    msgDemo: 'Demo chat message ;)' 
+    msgDemo: 'Demo chat message ;)'
   };
 
   Chat.prototype.init = function() {
@@ -916,7 +916,7 @@ window.conApp = {};
       e.preventDefault();
       _this.$chat.removeClass('open-messages');
     });
-    
+
     _this.$chat.on('click', function(e) {
       if(!$(e.target).hasClass('chat-toggle') && !$(e.target).parent().hasClass('chat-toggle')) {
         e.stopPropagation();
@@ -1003,7 +1003,7 @@ window.conApp = {};
       curChat.init();
     });
   }
-  
+
   if(typeof conAngular === 'undefined') {
     conApp.initChat();
   }
@@ -1012,10 +1012,10 @@ window.conApp = {};
 
 
 
-/* 
-* 
+/*
+*
 * conSparkline extend sparkline (responsive fix)
-* 
+*
 */
 !function($) {
   "use strict";
@@ -1029,7 +1029,7 @@ window.conApp = {};
       if(!$.fn.sparkline) {
         return;
       }
-      
+
       // change width
       var newOpts = {};
       if(options.type == 'bar' && /%/g.test(options.width)) {
@@ -1054,14 +1054,14 @@ window.conApp = {};
 
 
 
-/* 
-* 
+/*
+*
 * TODO
-* 
+*
 */
 !function($) {
   "use strict";
-  
+
   var TODO = function(element, options) {
     this.options  = options;
     this.$todo    = $(element);
@@ -1142,7 +1142,7 @@ window.conApp = {};
       curTodo.init();
     });
   }
-  
+
   if(typeof conAngular === 'undefined') {
     conApp.initCardTodo();
   }
@@ -1151,12 +1151,12 @@ window.conApp = {};
 
 
 
-/* 
-* 
+/*
+*
 * Bubble Canvas
 * background effect with bubbles
-* 
-* 
+*
+*
 */
 !function($) {
   "use strict";
@@ -1166,10 +1166,10 @@ window.conApp = {};
 
   var Bubbles = function(element) {
     if(!element) return;
-    
+
     this.bubbles = [];
     this.$element = $(element);
-    
+
     ctx = element.getContext('2d');
 
     this.init();
@@ -1211,7 +1211,7 @@ window.conApp = {};
   // init
   Bubbles.prototype.init = function() {
     var _this = this;
-    
+
     // update width and height of canvas
     _this.updateSizes();
     $(window).on('resize', function() {
@@ -1231,7 +1231,7 @@ window.conApp = {};
       var c = new OneBubble();
       _this.bubbles.push(c);
     }
-    
+
     // start animate
     _this.animate();
   }
@@ -1242,7 +1242,7 @@ window.conApp = {};
     width = window.innerWidth;
     height = window.innerHeight;
 
-    // enable 
+    // enable
     this.$element.attr({
       width: width,
       height: height
@@ -1298,7 +1298,7 @@ conApp.initMaterialPlugins = function() {
   if(typeof $.fn.scrollSpy !== 'undefined') {
     $('.scrollspy').scrollSpy();
   }
-  
+
   // init datepicker
   if(typeof $.fn.pickadate !== 'undefined') {
     $('.datepicker').pickadate();
@@ -1451,7 +1451,7 @@ conApp.initPlugins = function() {
       opacity: 0,
       translateY: -20
     }, 300 )
-    
+
     .velocity('slideUp', 300, function() {
       $(this).remove();
     });
@@ -1545,7 +1545,7 @@ conApp.initPlugins = function() {
 
         for(var i = 0; i < numNodes; i++) {
           el = thumbElements[i];
-          // include only element nodes 
+          // include only element nodes
           if(el.nodeType !== 1) {
             continue;
           }
@@ -1619,8 +1619,8 @@ conApp.initPlugins = function() {
             index;
 
         for (var i = 0; i < numChildNodes; i++) {
-          if(childNodes[i].nodeType !== 1) { 
-            continue; 
+          if(childNodes[i].nodeType !== 1) {
+            continue;
           }
 
           if(childNodes[i] === clickedListItem) {
@@ -1649,10 +1649,10 @@ conApp.initPlugins = function() {
           if(!vars[i]) {
             continue;
           }
-          var pair = vars[i].split('=');  
+          var pair = vars[i].split('=');
           if(pair.length < 2) {
             continue;
-          }           
+          }
           params[pair[0]] = pair[1];
         }
 
@@ -1678,7 +1678,7 @@ conApp.initPlugins = function() {
             // See Options->getThumbBoundsFn section of docs for more info
             var thumbnail = items[index].el.children[0],
                 pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
-                rect = thumbnail.getBoundingClientRect(); 
+                rect = thumbnail.getBoundingClientRect();
 
             return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
           },
@@ -1694,7 +1694,7 @@ conApp.initPlugins = function() {
 
         if(fromURL) {
           if(options.galleryPIDs) {
-            // parse real index when custom PIDs are used 
+            // parse real index when custom PIDs are used
             // http://photoswipe.com/documentation/faq.html#custom-pid-in-url
             for(var j = 0; j < items.length; j++) {
               if(items[j].pid == index) {

@@ -5,6 +5,8 @@ services:
     extends:
       file: base.yml
       service: db
+    ports:
+      - "8001:5432"
 
   web:
     extends:
@@ -20,7 +22,24 @@ services:
       - "8000:8000"
     depends_on:
       - db
+      - celery
 
+  celery:
+    extends:
+      file: base.yml
+      service: celery
+    build:
+      args:
+        - DJANGO_ENV=$DJANGO_ENV
+    command:  bash -c "celery -A project worker -l info"
+    volumes:
+      - ./ProvooApp:/ProvooApp
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    
 volumes:
   db_data:
     external: true

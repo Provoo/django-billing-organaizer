@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from dashboard.views import dashboardView, documentoView, portafolioView, googleImport, upLoad, notificationsView
 import notifications.urls
-from .views import SignupView
+# from .views import SignupView
 
 urlpatterns = [
     # Include URLS
@@ -19,10 +19,8 @@ urlpatterns = [
     url(r"^$", TemplateView.as_view(template_name="homepage.html"),
         name="home"),
     url(r"^login/", TemplateView.as_view(template_name="login.html"), name="login"),
-    url(r"^dashboard2/", TemplateView.as_view(template_name="dashboard_v2.html"), name="dashboard2"),
-    url(r"^signup/", TemplateView.as_view(template_name="signup.html"), name="signup"),
     url(r"^notifications/(?P<pk>[-\w]+)$", notificationsView.as_view(), name='user_notifications'),
-    url(r"^account/signup/$", SignupView.as_view(), name='account_signup'),
+    # url(r"^account/signup/$", SignupView.as_view(), name='account_signup'),
     url(r"^googleimp/", googleImport, name="googleImport"),
     url(r"^upload/", upLoad, name="upload"),
     url(r"^portafolios/(?P<pk>[-\w]+)$", portafolioView.as_view(),

@@ -1,66 +1,93 @@
 {% extends "site_base.html" %}
-{% load account_tags %}
 {% load i18n %}
-{% load bootstrap %}
-{% block head_title %}{% trans "Log in" %}{% endblock %}
+{% block head_title %}login{% endblock %}
+{% block body_class %}{% endblock %}
+{% block menu-icon %}{% endblock %}
 
-{% block body %}
-    <div class="row whitesmoke" layout="row" layout-align="center center" layout-margin >
-      <div class="col m4 offset-m4  ">
-        <md-card  class="grey lighten-2">
-          <md-card-header class="white">
-            <md-card-avatar>
-              <i class="fa fa-user"></i>
-            </md-card-avatar>
-            <md-card-header-text>
-              <span class="md-title">
-                {% trans "Log in" %}
-              </span>
-              {# <span class="md-subhead">Sub header</span>#}
-            </md-card-header-text>
-          </md-card-header>
-          <md-card-content class="grey lighten-3">
-            <form method="POST" action="{% url "account_login" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %} class="center">
-                <span class="left col s12">
-                  {% csrf_token %}
-                  {{ form}}
-
-                  {% if redirect_field_value %}
-                      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" class="input-field  white"/>
-
-                  {% endif %}
-
-                </span>
-                <button type="submit" class="btn white black-text ">{% trans "Log in" %}</button>
-            </form>
-          </md-card-content>
-           <md-card-actions layout="row" layout-align="start center">
-            {% if ACCOUNT_OPEN_SIGNUP %}
-                <p class="login-signup">
-                    <small class="col s6 center">
-                      <a href="{% url "account_password_reset" %}" class="">{% trans "¿Olvidaste tu contraseña?" %}</a>
-                    </small>
-                    <small class="center col s6">
-                        <strong><a href="{% urlnext 'account_signup' %}">{% trans "Crear un cuenta" %}</a></strong>
-                    </small>
-                </p>
-            {% endif %}
-             <md-card-actions >
-        </md-card>
-        </div>
-        <div class="col-md-4">
-            {% include "account/_login_sidebar.html" %}
-        </div>
-    </div>
-{% endblock %}
 {% block scripts %}
     {{ block.super }}
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#id_username').focus();
-        });
-    </script>
+    {% include "_conScripts.html" %}
 {% endblock %}
-{% block footer_base %}
-    {% include "_footer.html" %}
+
+{% block styles %}
+    {{ block.super }}
+    {% include "_conStyles.html" %}
+{% endblock %}
+
+{% block body_base %}
+
+<section id="sign-in">
+
+    <!-- Background Bubbles -->
+    <canvas id="bubble-canvas"></canvas>
+    <!-- /Background Bubbles -->
+
+    <!-- Sign In Form -->
+    <form method="POST" action="{% url "account_login" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+          {% csrf_token %}
+
+        <div class="card-panel clearfix">
+
+            <!-- Social Sign Up -->
+            <div class="row socials">
+                <div class="col s4">
+                    <a class="btn blue darken-2 z-depth-0 z-depth-1-hover" href="#"><i class="fa fa-2x fa-facebook"></i></a>
+                </div>
+                <div class="col s4">
+                    <a class="btn blue lighten-2 z-depth-0 z-depth-1-hover" href="#"><i class="fa fa-2x fa-twitter"></i></a>
+                </div>
+                <div class="col s4">
+                    <a class="btn red z-depth-0 z-depth-1-hover" href="{% url "social:begin" "google-oauth2" %}"><i class="fa fa-2x fa-google-plus"></i></a>
+                </div>
+            </div>
+            <!-- /Social Sign Up -->
+
+            <div class="row">
+                <div class="col s12"></div>
+            </div>
+
+            <!-- Username -->
+            <div class="input-field">
+                <i class="fa fa-user prefix"></i>
+                {{form.username}}
+                <label for="username-input">Username</label>
+            </div>
+            <!-- /Username -->
+
+            <!-- Password -->
+            <div class="input-field">
+                <i class="fa fa-unlock-alt prefix"></i>
+                {{form.password}}
+                <label for="password-input">Password</label>
+            </div>
+            <!-- /Password -->
+
+            <div class="switch">
+                <label>
+                    <input type="checkbox" checked />
+                    <span class="lever"></span>
+                    Remember
+                </label>
+            </div>
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" class="input-field  white"/>
+
+            {% endif %}
+
+            <button class="waves-effect waves-light btn-large z-depth-0 z-depth-1-hover">Sign In</button>
+        </div>
+
+        <div class="links right-align">
+            <a href="page-forgot-password.html">Forgot Password?</a>
+        </div>
+        <div class="row links">
+            <div class="col s6 offset-s3 center-align">
+                <strong>Sign In</strong> / <a href="page-sign-up.html">Sign Up</a>
+              </div>
+        </div>
+    </form>
+    <!-- /Sign In Form -->
+
+</section>
+
 {% endblock %}

@@ -44,9 +44,7 @@
   {% endblock %}
 
 <main class="mdl-layout__content">
-    {#TODO: barra lateral, tener un icono portafolios => click => datos y estadísticas dashboard actual#}
-    {#TODO: barra lateral también icno de lista de facturas#}
-    {#TODO: barra lateral que haya un icono de busqueda#}
+
 
     {% block body_base %}
     <section id="content_body">
@@ -68,8 +66,10 @@
         {% analytics %}
         {% block extra_body %}
             {% if  user.is_authenticated %}
+                                    <!-- Modal Trigger -->
+
                 <div class="fixed-action-btn">
-                    <a class="btn-floating btn-large pulse btn teal accent-4" data-toggle="modal" data-target=".bd-example-modal-lg">
+                    <a class="btn-floating btn-large modal-trigger pulse btn  pink " href="#modal1">
                         <i class="material-icons" style="font-size:40px;">add</i>
                     </a>
                     <ul>
@@ -79,13 +79,13 @@
                         </li>
                         <li><a href="{% url "social:begin" "msn-live-connect" %}" class="btn-floating blue"><i
                                 class="material-icons">mail_outline</i></a></li>
-                        <li><a class="btn-floating green" data-toggle="modal" data-target=".invCreate"><i class="material-icons">create</i></a></li>
+                        <li><a class="btn-floating green modal-trigger" href="#modal2"><i class="material-icons">create</i></a></li>
 
                     </ul>
                 </div>
-                <div class="modal modal-dialog modal fade bd-example-modal-lg modal-content container mdl-grid"
+                <div id="modal1" class="modal modal-dialog modal fade bd-example-modal-lg modal-content container mdl-grid"
                      tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                    <div class="mdl-card col-md-12" style="width: 100%">
+                    <div class="mdl-card col-md-12">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">
                                 <br>
@@ -114,17 +114,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal modal-dialog modal fade invCreate modal-content container mdl-grid"
+                <div id="modal2" class="modal modal-dialog modal fade invCreate modal-content container mdl-grid"
                      tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     <div class="mdl-card col-md-12" style="width: 100%">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">
+                            <h5 class="modal-title">
                                 <br>
                                 Agregar Factura Manualmente
-                            </h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <i class="fa fa-close"></i>
-                            </button>
+                            </h5>                          
                         </div>
                         <div class="modal-body">
                             <form id=uploadInvoice action="" method="post" enctype="multipart/form-data">

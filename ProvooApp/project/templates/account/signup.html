@@ -1,59 +1,127 @@
 {% extends "site_base.html" %}
-
-{% load account_tags %}
+{% load staticfiles %}
 {% load i18n %}
-{% load bootstrap %}
-
+{% load account_tags %}
 {% block head_title %}{% trans "Registro" %}{% endblock %}
+{% block extra_head %}
+    <title>InvMachine | Registro </title>
+{% endblock %}
+{% block body_class %}{% endblock %}
+{% block menu-icon %}{% endblock %}
 
-{% block body %}
-    <div class="row">
-        <div class="col m6 s12 offset-m3 ">
-          <md-card  class="grey lighten-2">
-            <md-card-header class="white">
-              <md-card-avatar>
-                <i class="fa fa-user" style="font-size: 2em;"></i>
-              </md-card-avatar>
-              <md-card-header-text>
-                <span class="md-title valgrim-align ">
-                  <h5 class="margin-zero">{% trans "Registrarse" %}</h5>
-                </span>
-                {# <span class="md-subhead">Sub header</span>#}
-              </md-card-header-text>
-            </md-card-header>
-            <md-card-content class="grey lighten-3">
+{% block styles %}
+    {{ block.super }}
+    {% include "_conStyles.html" %}
+{% endblock %}
 
-            <form id="signup_form" method="post" action="{% url "account_signup" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-                
-                {% csrf_token %}
-                {{ form|bootstrap }}
+
+{% block body_base %}
+  <section id="sign-up" >
+        <!-- Background Bubbles -->
+        <canvas id="bubble-canvas"></canvas>
+        <!-- /Background Bubbles -->
+
+        <!-- Sign Up Form -->
+        <form id="signup_form" method="post" action="{% url "account_signup" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+            {% csrf_token %}
+            <div class="card-panel clearfix">
+
+                <!-- Social Sign Up -->
+                <div class="row socials">
+                    <div class="col s4">
+                        <a class="btn blue darken-2 z-depth-0 z-depth-1-hover" href="#"><i class="fa fa-2x fa-facebook"></i></a>
+                    </div>
+                    <div class="col s4">
+                        <a class="btn blue lighten-2 z-depth-0 z-depth-1-hover" href="#"><i class="fa fa-2x fa-twitter"></i></a>
+                    </div>
+                    <div class="col s4">
+                        <a class="btn red z-depth-0 z-depth-1-hover" href="{% url "social:begin" "google-oauth2" %}"><i class="fa fa-2x fa-google-plus"></i></a>
+                    </div>
+                </div>
+                <!-- /Social Sign Up -->
+
+                <div class="row">
+
+                    <!-- First Name -->
+                    <div class="col m6 s12">
+                        <div class="input-field">
+
+                            <label for="input_fname">First Name</label>
+                        </div>
+                    </div>
+                    <!-- /First Name -->
+
+                    <!-- Last Name -->
+                    <div class="col m6 s12">
+                        <div class="input-field">
+                            <label for="input_lname">Last Name</label>
+                        </div>
+                    </div>
+                    <!-- /Last Name -->
+                </div>
+
+                <!-- Email -->
+                <div class="input-field">
+                    <i class="fa fa-envelope prefix"></i>
+                    {{ form.email}}
+                    <label for="input_email">Email</label>
+                </div>
+                <!-- /Email -->
+
+                <!-- Username -->
+                <div class="input-field">
+                    <i class="fa fa-user prefix"></i>
+                    {{ form.username}}
+                    <label for="input_username">Username</label>
+                </div>
+                <!-- /Username -->
+
+                <!-- Password -->
+                <div class="input-field">
+                    <i class="fa fa-unlock-alt prefix"></i>
+                    {{ form.password}}
+                    <label for="input_password">Password</label>
+                </div>
+                <!-- /Password -->
+
+                <!-- Password -->
+                <div class="input-field">
+                    <i class="fa fa-unlock-alt prefix"></i>
+                    {{ form.password_confirm}}
+                    <label for="input_password">Confirm Password</label>
+                </div>
+                <!-- /Password -->
+
+
+                <p>
+                    <input type="checkbox" id="checkbox_terms" />
+                    <label for="checkbox_terms">I agree to the <a href="#">terms of use</a>.</label>
+                </p>
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
-                <button type="submit" class="btn btn-primary">{% trans "Sign up" %}</button>
-            </form>
-            <p class="login-signup">
-                <small>
-                    {% trans "¿Ya tienes cuenta?" %}  <strong><a href="{% urlnext 'account_login' %}">{% trans "Log in" %}</a></strong>
-                </small>
-            </p>
 
-            <a href="{% url "social:begin" "google-o  auth2" %}" class="btn red">
-            <i class="fa fa-google"></i> Log in with google</a>
 
-          </md-card>
-        </div>
-        <div class="col-md-4">
-            {% include "account/_signup_sidebar.html" %}
-        </div>
-    </div>
-{% endblock %}
+                <button  type="submit" class="waves-effect waves-light btn-large z-depth-0 z-depth-1-hover">Sign Up</button>
+            </div>
+            <div class="row links">
+                <div class="col s6 offset-s3 center-align">
+                    <strong>Sign In</strong> / <a href="page-sign-up.html">Sign Up</a>
+                  </div>
+            </div>
+        </form>
+        <!-- /Sign Up Form -->
 
-{% block scripts %}
-    {{ block.super }}
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#id_username').focus();
-        });
-    </script>
-{% endblock %}
+    </section>
+
+  {% endblock %}
+
+  {% block scripts %}
+      {{ block.super }}
+      {% include "_conScripts.html" %}
+      <script type="text/javascript">
+          $(document).ready(function() {
+              $('#id_username').focus();
+          });
+      </script>
+  {% endblock %}
