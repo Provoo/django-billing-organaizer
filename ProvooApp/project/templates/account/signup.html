@@ -17,9 +17,6 @@
 
 {% block body_base %}
   <section id="sign-up" >
-        <!-- Background Bubbles -->
-        <!-- /Background Bubbles -->
-
         <!-- Sign Up Form -->
         <form id="signup_form" method="post" action="{% url "account_signup" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
             {% csrf_token %}
