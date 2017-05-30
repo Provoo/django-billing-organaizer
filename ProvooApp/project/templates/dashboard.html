@@ -14,7 +14,7 @@
     <small>
       {{ portafolio.Ruc }}
     |
-      <a href="{% url 'user_documentos' request.user.id portafolio.Ruc %}">Ver facturas</a>
+      <a href="{% url 'user_documentos' portafolio.Ruc %}">Ver facturas</a>
     </small>
   </p>
 </div>
@@ -167,5 +167,5 @@
 
 {% block scripts %}
     {{ block.super }}
-    
+
 {% endblock %}

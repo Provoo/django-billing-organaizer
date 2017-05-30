@@ -9,9 +9,7 @@
 {% block menu-icon %}{% endblock %}
 
 {% block body_base %}
-{%if request.user.is_authenticated %}
-  <meta http-equiv="REFRESH" content="0;url={% url 'portafolios' request.user.id %}">
-{% endif %}
+
     <section class="center homeSection" style="padding: 0; height: 90vh; background: url({% static 'img/bg1.png' %})">
       <div class="black-text row valign-wrapper">
         <div class="col m6 row s12">

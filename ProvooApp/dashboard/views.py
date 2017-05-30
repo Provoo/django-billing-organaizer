@@ -119,7 +119,6 @@ class homeView(TemplateView):
 class dashboardView(ListView):
     context_object_name = 'portafolio'
     template_name = 'dashboard.html'
-    pk_url_kwarg = 'pk'
     queryset = Portafolio.objects.all()
 
     # Query para buscar el Portafolio que le corresponde al usuario
@@ -140,12 +139,12 @@ class dashboardView(ListView):
         return context
 
 
-class portafolioView(ListView):
-    template_name = 'portafolios.html'
+class portfoliosView(ListView):
+    template_name = 'portfolios.html'
     model = Portafolio
 
     def get_queryset(self):
-        portafolio_User = super(portafolioView, self).get_queryset()
+        portafolio_User = super(portfoliosView, self).get_queryset()
         print(portafolio_User)
         return portafolio_User.filter(UserID_id=self.request.user.id)
 
@@ -164,7 +163,7 @@ class documentoView(ListView):
 
 class notificationsView(ListView):
     model = User
-    template_name = 'notifications.html'
+    template_name = 'notifications1.html'
 
     def get_queryset(self):
         notifica = super(
@@ -178,8 +177,6 @@ class notificationsView(ListView):
 @require_http_methods(["POST"])
 def upLoad(request, *args, **kwargs):
     # ajax = request.is_ajax()
-    prueba = request.POST
-    usuario = request.user.id
     documentos = request.FILES.getlist('docfile')
     print("los documentos del upload %s" % (documentos))
     print("es usuario es  %s" % (usuario))
@@ -210,4 +207,4 @@ def googleImport(request):
             xml_handler(f_buffer, request.user.id)
         f_buffer = None
     return HttpResponseRedirect(
-            reverse('portafolios', kwargs={'pk': request.user.id}))
+            reverse('user_portfolios'))
