@@ -57,3 +57,26 @@ nav {
   background: #35384C;
 
 }
+
+.nav_f.tran {
+  background:#5051a0 !important;
+	visibility:visible !important;
+	position: fixed !important;
+  	top: 0 !important;
+  height: 75px !important;
+
+
+}
+
+.nav_f.tran ul a{
+  font-size: 1rem !important;
+  line-height: 5rem;
+
+}
+
+.nav_f.tran a.button-collapse {
+  font-size: 1rem !important;
+}
+.nav_f.tran .brand-logo {
+  line-height: 5rem;
+}

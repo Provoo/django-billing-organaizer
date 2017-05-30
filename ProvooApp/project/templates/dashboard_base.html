@@ -61,9 +61,9 @@
                           <div id="test-dropdown" class="dropdown-content dropdown-media">
                               <div class="card-panel">
 
-                                  <div class="media-heading">Messages <a href="{% url 'user_notifications' request.user.id %}"><i class="mdi-content-add-circle-outline"></i></a></div>
+                                  <div class="media-heading">Messages <a href="{% url 'user_notifications' %}"><i class="mdi-content-add-circle-outline"></i></a></div>
 
-                                  <div class="media-footer"><a href="{% url 'user_notifications' request.user.id %}"><i class="mdi-hardware-keyboard-control"></i></a></div>
+                                  <div class="media-footer"><a href="{% url 'user_notifications'%}"><i class="mdi-hardware-keyboard-control"></i></a></div>
 
                                   <div class="row mt-0">
                                       <div class="col s2">
@@ -170,7 +170,7 @@
 
                   <ul>
                       <li class="yay-user-info">
-                          <a href="{% url 'portafolios' request.user.id %}">
+                          <a href="{% url 'user_portfolios' %}">
                               <img src="" alt="" class="circle">
                               <h3 class="yay-user-info-name">{{request.user}}</h3>
                               <div class="yay-user-location">
@@ -188,7 +188,7 @@
                           <ul>
 
                               <li class="active">
-                                    <a href="{% url 'portafolios' request.user.id %}" class=" waves-effect waves-blue">dashboard  </a>
+                                    <a href="{% url 'user_portfolios' %}" class=" waves-effect waves-blue">dashboard  </a>
                               </li>
                           </ul>
                       </li>
