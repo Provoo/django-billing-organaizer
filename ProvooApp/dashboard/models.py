@@ -41,16 +41,6 @@ class Portafolio(models.Model):
             rucDocumento=self.pk).aggregate(total=Sum("totalDocumento"))["total"]
 
     @property
-    def total_vestimenta(self):
-        return documento.objects.filter(
-            rucDocumento=self.pk).aggregate(total=Sum("deducible_vestimenta"))["total"]
-
-    @property
-    def total_educacion(self):
-        return documento.objects.filter(
-            rucDocumento=self.pk).aggregate(total=Sum("deducible_educacion"))["total"]
-
-    @property
     def total_comida(self):
         return documento.objects.filter(
             rucDocumento=self.pk).aggregate(total=Sum("deducible_comida"))["total"]
@@ -60,6 +50,16 @@ class Portafolio(models.Model):
         return documento.objects.filter(
             rucDocumento=self.pk).aggregate(total=Sum("deducible_salud"))["total"]
 
+    @property
+    def total_vestimenta(self):
+        return documento.objects.filter(
+            rucDocumento=self.pk).aggregate(total=Sum("deducible_vestimenta"))["total"]
+
+    @property
+    def total_educacion(self):
+        return documento.objects.filter(
+            rucDocumento=self.pk).aggregate(total=Sum("deducible_educacion"))["total"]
+            
     @property
     def total_vivienda(self):
         return documento.objects.filter(
