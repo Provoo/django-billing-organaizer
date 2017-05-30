@@ -23,7 +23,7 @@
       .navbar-static - static navbar
       .navbar-under - under sidebar
     -->
-    <nav class="navbar-top">
+    <nav class="navbar-top navbar-dark">
       <div class="nav-wrapper">
 
                   <!-- Sidebar toggle -->
@@ -36,7 +36,7 @@
 
                   <!-- Logo -->
                   <a href="index.html" class="brand-logo">
-                      {# <img src="assets/_con/images/logo.png" alt="Con">#}
+                      <h5>InvMachine</h5>
                   </a>
                   <!-- /Logo -->
 
@@ -48,16 +48,22 @@
                           </a>
                       </li>
                       <li>
+                        {% load notifications_tags %}
+                        {% notifications_unread as unread_count %}
                           <a class="dropdown-button" data-activates="test-dropdown" href="#!">
                               <i class="mdi-communication-email"></i>
-                              <span class="badge new">2</span>
+                              {% if unread_count %}
+                              <span class="badge new">{{ unread_count }}</span>
+                              {% else %}
+                                <span class="badge new">{% notifications_unread %}</span>
+                              {% endif %}
                           </a>
                           <div id="test-dropdown" class="dropdown-content dropdown-media">
                               <div class="card-panel">
 
-                                  <div class="media-heading">Messages <a href="mail-compose.html"><i class="mdi-content-add-circle-outline"></i></a></div>
+                                  <div class="media-heading">Messages <a href="{% url 'user_notifications' request.user.id %}"><i class="mdi-content-add-circle-outline"></i></a></div>
 
-                                  <div class="media-footer"><a href="mail-inbox.html"><i class="mdi-hardware-keyboard-control"></i></a></div>
+                                  <div class="media-footer"><a href="{% url 'user_notifications' request.user.id %}"><i class="mdi-hardware-keyboard-control"></i></a></div>
 
                                   <div class="row mt-0">
                                       <div class="col s2">
@@ -90,8 +96,8 @@
                       </li>
                       <li class="user">
                           <a class="dropdown-button" data-activates="user-dropdown" href="#!">
-                              {# <img src="assets/_con/images/user.jpg" alt="John Doe" class="circle"> John Doe <i class="mdi-navigation-expand-more right"></i>#}
-                              {{ request.user }}
+                             <img src="assets/_con/images/user.jpg" alt="" class="circle"> {{ request.user }} <i class="mdi-navigation-expand-more right"></i>
+
                           </a>
 
                           <ul id="user-dropdown" class="dropdown-content">
@@ -101,19 +107,13 @@
                                   </a>
                               </li>
                               <li>
-                                  <a href="mail-inbox.html">
-                                      <i class="fa fa-envelope"></i> Messages
-                                      <span class="badge new">2 new</span>
-                                  </a>
-                              </li>
-                              <li>
-                                  <a href="#!">
+                                  <a href="{% url 'account_settings' %}">
                                       <i class="fa fa-cogs"></i> Settings
                                   </a>
                               </li>
                               <li class="divider"></li>
                               <li>
-                                  <a href="page-sign-in.html">
+                                  <a href="{% url 'account_logout' %}">
                                       <i class="fa fa-sign-out"></i> Logout
                                   </a>
                               </li>
@@ -145,7 +145,7 @@
           .yay-shrink   - shrink content width
       -->
 
-      <aside class="yaybar yay-shrink yay-hide-to-small yay-gestures yay-light yay-static">
+      <aside class="yaybar yay-shrink yay-hide-to-small yay-gestures  yay-static">
 
           <div class="top">
               <div>
@@ -170,11 +170,11 @@
 
                   <ul>
                       <li class="yay-user-info">
-                          <a href="page-profile.html">
-                              <img src="" alt="John Doe" class="circle">
+                          <a href="{% url 'portafolios' request.user.id %}">
+                              <img src="" alt="" class="circle">
                               <h3 class="yay-user-info-name">{{request.user}}</h3>
                               <div class="yay-user-location">
-                                  <i class="fa fa-map-marker"></i> Las Vegas, NV
+                                  <i class="fa fa-map-marker"></i> Quito, ECU
                               </div>
                           </a>
                       </li>
@@ -182,31 +182,20 @@
                       <li class="label">Menu</li>
 
                       <li class="open">
-                          <a href="dashboard.html" class="yay-sub-toggle waves-effect waves-blue"> <i class="fa fa-dashboard"></i> Dashboards
+                          <a href="dashboard.html" class="yay-sub-toggle waves-effect waves-blue"> <i class="fa fa-dashboard"></i> Portafolios
                               <span class="yay-collapse-icon mdi-navigation-expand-more"></span>
                           </a>
                           <ul>
 
                               <li class="active">
-                                  <a href="dashboard.html" class=" waves-effect waves-blue">  Protafolios   </a>
-
+                                    <a href="{% url 'portafolios' request.user.id %}" class=" waves-effect waves-blue">dashboard  </a>
                               </li>
-
-                              <li>
-                                  <a href="dashboard-v1.html" class=" waves-effect waves-blue">  Dashboard v1   </a>
-
-                              </li>
-
                           </ul>
                       </li>
 
-                      <li>
-                          <a href="widgets.html" class=" waves-effect waves-blue"> <i class="fa fa-magic"></i> Widgets </a>
-
-                      </li>
 
                       <li>
-                          <a href="layouts.html" class=" waves-effect waves-blue"> <i class="mdi mdi-av-web"></i> Layouts
+                          <a href="#" class=" waves-effect waves-blue"> <i class="mdi mdi-av-web"></i> Facturas
                               <span class="badge new">new</span>
                           </a>
 

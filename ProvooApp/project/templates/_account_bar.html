@@ -2,6 +2,7 @@
 {% load account_tags %}
 <ul class="nav navbar-nav pull-right white-text">
     {% if request.user.is_authenticated %}
+
         <li class="white-text dropdown">
             <a href="" class="white-text dropdown-toggle" data-toggle="dropdown">
                 <i class="white-text fa fa-user"></i> {% user_display request.user %}

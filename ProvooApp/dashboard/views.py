@@ -152,7 +152,7 @@ class portafolioView(ListView):
 
 class documentoView(ListView):
     model = documento
-    template_name = 'documento.html'
+    template_name = 'documents.html'
 
     def get_queryset(self):
         documentos = super(documentoView, self).get_queryset()
