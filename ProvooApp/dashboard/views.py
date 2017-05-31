@@ -10,6 +10,8 @@ from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
+import json
+from django.core.serializers.json import DjangoJSONEncoder
 
 # Models Import
 from dashboard.models import Portafolio, documento, documento_error
@@ -121,21 +123,27 @@ class dashboardView(ListView):
     template_name = 'dashboard.html'
     queryset = Portafolio.objects.all()
 
+
     # Query para buscar el Portafolio que le corresponde al usuario
     def get_queryset(self):
         portafolio_user = super(dashboardView, self).get_queryset()
-        return portafolio_user.filter(Ruc=self.kwargs['ruc'])[:1].get()
+        return Portafolio.objects.get(Ruc=self.kwargs['ruc'], UserID_id=self.request.user.id)
 
     def get_context_data(self, **kwargs):
+        port = Portafolio.objects.get(UserID=self.request.user.id, Ruc=self.kwargs["ruc"])
+        print(port)
         context = super(dashboardView, self).get_context_data(**kwargs)
-        member = documento.objects.select_related('rucDocumento').filter(
-            rucDocumento=self.request.user.id) \
+        query = documento.objects.select_related('rucDocumento').filter(
+                rucDocumento=port)\
             .annotate(mes=ExtractMonth('fecha'), anio=ExtractYear('fecha')) \
             .values('mes', 'anio').annotate(
             gastos_sin_impuestos=Sum('totalGastosf')) \
             .values('mes', 'anio', 'gastos_sin_impuestos')
-        print(member)
-        context['member'] = member
+
+        monthly_expenses = json.dumps(list(query), cls=DjangoJSONEncoder)
+        print(monthly_expenses)
+
+        context['monthly_expenses'] = monthly_expenses
         return context
 
 
@@ -178,8 +186,6 @@ class notificationsView(ListView):
 def upLoad(request, *args, **kwargs):
     # ajax = request.is_ajax()
     documentos = request.FILES.getlist('docfile')
-    print("los documentos del upload %s" % (documentos))
-    print("es usuario es  %s" % (usuario))
     for documento_it in documentos:
         xml_handler(documento_it, request.user.id)
     mensaje = "Tu factura se guardo se ha guardado exitosamente"

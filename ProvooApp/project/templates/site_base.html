@@ -69,7 +69,8 @@
                                     <!-- Modal Trigger -->
 
                 <div class="fixed-action-btn">
-                    <a class="btn-floating btn-large modal-trigger pulse btn  pink " href="#modal1">
+
+                    <a class="btn-floating btn-large modal-trigger pulse btn tooltipped pink " href="#modal1" data-position="left" data-delay="50" data-tooltip="Agregar facturas">
                         <i class="material-icons" style="font-size:40px;">add</i>
                     </a>
                     <ul>
@@ -77,27 +78,29 @@
                           <a href="{% url 'googleImport' %}" class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="Agregar cuenta de Google">
                           <i class="fa fa-google"></i></a>
                         </li>
-                        <li><a href="{% url "social:begin" "msn-live-connect" %}" class="btn-floating blue"><i
-                                class="material-icons">mail_outline</i></a></li>
-                        <li><a class="btn-floating green modal-trigger" href="#modal2"><i class="material-icons">create</i></a></li>
-
+                        <li>
+                          <a href="{% url "social:begin" "msn-live-connect" %}" class="btn-floating blue tooltipped" data-position="left" data-delay="40" data-tooltip="Agregar cuenta de Outlook">
+                          <i class="material-icons">mail_outline</i></a></li>
+                        <li>
+                          <a class="btn-floating green modal-trigger tooltipped" data-position="left" data-delay="60" data-tooltip="Agregar factura manualmente" href="#modal2">
+                            <i class="material-icons">create</i>
+                          </a>
+                        </li>
                     </ul>
                 </div>
-                <div id="modal1" class="modal modal-dialog modal fade bd-example-modal-lg modal-content container mdl-grid"
-                     tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                    <div class="mdl-card col-md-12">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">
-                                <br>
+                <div id="modal1" class="modal modal-dialog modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="card-panel content">
+                        <div class="modal-header card-title">
+                            <h2 class="center blue-text text-darken-2" id="exampleModalLabel">
                                 Subir Factura
-                            </h5>
+                            </h2>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body card-content">
                             <form id=uploadForm action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="file-field input-field">
                                     <div class="btn">
-                                        <span>Sube tu documento</span>
+                                        <span>Encuentra tus facturas</span>
                                         <input type="file" name="docfile" multiple>
                                     </div>
                                     <div class="file-path-wrapper">
@@ -106,7 +109,7 @@
                                     </div>
                                 </div>
                                 <br>
-                                <input type="submit" value="Upload" id="but_upload"/>
+                                <input type="submit" value="Subir" id="but_upload" class="btn"/>
                             </form>
                         </div>
                     </div>
