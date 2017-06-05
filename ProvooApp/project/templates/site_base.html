@@ -19,29 +19,29 @@
 {% block topbar_base %}
 <header>
   <div class="navbar navbar-default {% block navbar_class %}navbar-fixed-top bg-inverse  nav{% endblock %}">
-      <div class="container-fluid">
-        <div class="navbar-header ">
-            {# TODO: verificar que estoy en home y de ser asi no mostrar el icono #}
-            {% block menu-icon %}
-              <a class="navbar-brand" href="#menu-toggle" id="menu-toggle">
-                <i class="fa fa-bars"></i>
-              </a>
+    <div class="container-fluid">
+      <div class="navbar-header ">
+          {# TODO: verificar que estoy en home y de ser asi no mostrar el icono #}
+          {% block menu-icon %}
+            <a class="navbar-brand" href="#menu-toggle" id="menu-toggle">
+              <i class="fa fa-bars"></i>
+            </a>
+          {% endblock %}
+      </div>
+      <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li ><a href="{% url 'home' %}" class="white-text">InvMachine <span class="sr-only">(current)</span></a></li>
+        </ul>
+        <div class="collapse navbar-collapse navbar-responsive-collapse">
+            {% block nav %}
+              {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}
             {% endblock %}
-        </div>
-        <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li ><a href="{% url 'home' %}" class="white-text">InvMachine <span class="sr-only">(current)</span></a></li>
-          </ul>
-          <div class="collapse navbar-collapse navbar-responsive-collapse">
-              {% block nav %}
-                {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}
-              {% endblock %}
-          </div>
         </div>
       </div>
     </div>
-  </header>
-  {% endblock %}
+  </div>
+</header>
+{% endblock %}
 
 <main class="mdl-layout__content">
 
@@ -88,38 +88,50 @@
                         </li>
                     </ul>
                 </div>
-                <div id="modal1" class="modal modal-dialog modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                    <div class="card-panel content">
+                <div id="modal1" class="modal-fixed-footer modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-content flow-text card-panel content">
                         <div class="modal-header card-title">
-                            <h2 class="center blue-text text-darken-2" id="exampleModalLabel">
+                            <h3 class="center blue-text text-darken-2" id="exampleModalLabel">
                                 Subir Factura
-                            </h2>
+                            </h3>
                         </div>
                         <div class="modal-body card-content">
-                            <form id=uploadForm action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
-                                {% csrf_token %}
+                             <form id=uploadForm action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
                                 <div class="file-field input-field">
                                     <div class="btn">
-                                        <span>Encuentra tus facturas</span>
+                                        <small>
+                                            Encuentra tus facturas
+                                        </small>
                                         <input type="file" name="docfile" multiple>
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text" accept=".xml"
-                                               placeholder="Upload one or more files">
+                                               placeholder="Sube tus archivos">
                                     </div>
                                 </div>
                                 <br>
-                                <input type="submit" value="Subir" id="but_upload" class="btn"/>
+                                <input type="submit" value="Subir" id="but_upload" class="center waves-effect waves-light btn-large z-depth-0 z-depth-1-hover"/>
                             </form>
+                            {# <form id=uploadForm action="{% url 'upload' %}" method="post" enctype="multipart/form-data" class="dropzone dz-clickable"> #}
+                              {# {% csrf_token %} #}
+                              {# <div class="dz-default dz-message"> #}
+                                {# <span>Encuentra tus facturas</span> #}
+                              {# </div> #}
+                            {# </form> #}
                         </div>
                     </div>
                 </div>
-                <div id="modal2" class="modal modal-dialog modal fade invCreate modal-content container mdl-grid"
+
+                <!-- Modal Trigger -->
+                {# <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Modal</a> <!-- Modal Structure --> #}
+                {# <div id="modal2" class="modal "> <div class="modal-content flow-text"> <h4>Modal Header</h4> <p>Text</p> </div> <div class="modal-footer"> <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Disagree</a> <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a> </div> </div> #}
+
+
+                <div id="modal2" class="modal-fixed-footer modal"
                      tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                    <div class="mdl-card col-md-12" style="width: 100%">
+                    <div class="modal-content flow-text" style="width: 100%">
                         <div class="modal-header">
                             <h5 class="modal-title">
-                                <br>
                                 Agregar Factura Manualmente
                             </h5>
                         </div>
