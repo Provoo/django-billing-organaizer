@@ -80,3 +80,20 @@ nav {
 .nav_f.tran .brand-logo {
   line-height: 5rem;
 }
+
+.btn span {
+    text-transform: capitalize !important;
+}
+
+
+.gradiant{
+  background-color: linear-gradient(50deg, HSLA(205, 62%, 44%, 1), #da539d);
+
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e570e7+0,c85ec7+47,a849a3+100;Pink+3D+%233 */
+  background: #e570e7; /* Old browsers */
+  background: -moz-linear-gradient(left,  #347ab5 0%, #c85ec7 47%, #da539d 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left,  #347ab5 0%,#c85ec7 47%,#da539d 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right,  #347ab5 0%,#c85ec7 47%,#da539d 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e570e7', endColorstr='#a849a3',GradientType=1 ); /* IE6-9 */
+
+}
