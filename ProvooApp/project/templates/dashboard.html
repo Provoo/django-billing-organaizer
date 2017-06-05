@@ -71,8 +71,8 @@
                     <div class="purple darken-1" style="width: 42%"></div>
                 </div>
                 <i class="fa fa-home"></i>
-                <span class="count">USD {{ portafolio.total_vivienda }}</span>
-                <div class="name">Vivienda</div>
+                <span class="count">USD {{ portafolio.total_comida }}</span>
+                <div class="name">Alimentacion</div>
                 <div class="name">1 de enero - 30 de abril</div>
             </div>
           </div>
@@ -94,8 +94,8 @@
                         <div class="purple darken-1" style="width: 42%"></div>
                     </div>
                     <i class="fa fa-dollar"></i>
-                    <span class="count">USD {{ portafolio.total_portafolio }}</span>
-                    <div class="name">Total</div>
+                    <span class="count">USD {{ portafolio.total_salud }}</span>
+                    <div class="name">Salud</div>
                     <div class="name">1 de enero - 30 de abril</div>
                 </div>
               </div>
@@ -105,8 +105,8 @@
                           <div class="purple darken-1" style="width: 42%"></div>
                       </div>
                       <i class="fa fa-dollar"></i>
-                      <span class="count">USD {{ portafolio.total_portafolio }}</span>
-                      <div class="name">Total</div>
+                      <span class="count">USD {{ portafolio.total_vestimenta }}</span>
+                      <div class="name">Vestimenta</div>
                       <div class="name">1 de enero - 30 de abril</div>
                   </div>
                 </div>
@@ -116,20 +116,20 @@
                             <div class="purple darken-1" style="width: 42%"></div>
                         </div>
                         <i class="fa fa-dollar"></i>
-                        <span class="count">USD {{ portafolio.total_portafolio }}</span>
-                        <div class="name">Total</div>
+                        <span class="count">USD {{ portafolio.total_educacion }}</span>
+                        <div class="name">Educacion</div>
                         <div class="name">1 de enero - 30 de abril</div>
                     </div>
                   </div>
 
                   <div class="col l4 s12">
-                      <div class="card-panel stats-card grey-text grey lighten-5">
+                      <div class="card-panel stats-card  blue-grey-text text-darken-3">
                           <div class="progress small purple lighten-1">
                               <div class="purple darken-1" style="width: 42%"></div>
                           </div>
                           <i class="fa fa-dollar"></i>
-                          <span class="count">USD {{ portafolio.total_portafolio }}</span>
-                          <div class="name">Total</div>
+                          <span class="count">USD {{ portafolio.total_vivienda }}</span>
+                          <div class="name">Vivienda</div>
                           <div class="name">1 de enero - 30 de abril</div>
                       </div>
                     </div>
@@ -260,15 +260,7 @@
 
   var proces_var = unescape("{{ monthly_expenses  | safe | escapejs }}");
   var monthly_expenses = JSON.parse(proces_var);
-  console.log("uno");
-   console.log(monthly_expenses);
-   var data3=[];
-   var data2= [
-     [3, 50],
-       [1, 95],
-       [4,66 ],
-       [2, 95],
-   ];
+  var data3=[];
    proces_data = monthly_expenses.forEach(function(obj){
 
      if(obj.anio == 2017)
@@ -276,11 +268,7 @@
           data3.push([obj.mes, parseFloat(obj.gastos_sin_impuestos)]);
      }
    });
-   console.log("dos");
-  console.log(data3);
   data3.sort();
-  console.log("tres");
- console.log(data2);
   (function() {
       var chart = $("#flotLineChart");
       var data1 = {
