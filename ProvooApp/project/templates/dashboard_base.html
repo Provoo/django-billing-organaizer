@@ -74,13 +74,25 @@
                       <li class="label">Menu</li>
 
                       <li class="open">
-                          <a href="dashboard.html" class="yay-sub-toggle waves-effect waves-blue"> <i class="fa fa-dashboard"></i> Portafolios
+                          <a href="{% url 'user_portfolios' %}" class="yay-sub-toggle waves-effect waves-blue"> <i class="fa fa-dashboard"></i> Portafolios
                               <span class="yay-collapse-icon mdi-navigation-expand-more"></span>
                           </a>
                           <ul>
 
                               <li class="active">
-                                    <a href="{% url 'user_portfolios' %}" class=" waves-effect waves-blue">dashboard  </a>
+                                    <a href="{% url 'user_portfolios' %}" class=" waves-effect waves-blue">portafolio 1  </a>
+                              </li>
+                          </ul>
+                      </li>
+
+                      <li class="open">
+                          <a href="{% url 'user_wallets' %}" class="yay-sub-toggle waves-effect waves-blue"> <i class="material-icons">account_balance_wallet</i> Wallets
+                              <span class="yay-collapse-icon mdi-navigation-expand-more"></span>
+                          </a>
+                          <ul>
+
+                              <li class="active">
+                                    <a href="{% url 'user_wallets' %}" class=" waves-effect waves-blue">Wallet 1</a>
                               </li>
                           </ul>
                       </li>
@@ -88,7 +100,6 @@
 
                       <li>
                           <a href="#" class=" waves-effect waves-blue"> <i class="mdi mdi-av-web"></i> Facturas
-                              <span class="badge new">new</span>
                           </a>
 
                       </li>

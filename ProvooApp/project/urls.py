@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from dashboard.views import dashboardView, documentoView, portfoliosView, googleImport, upLoad, notificationsView
 import notifications.urls
+from wallet.views import walletsView
 # from .views import SignupView
 
 urlpatterns = [
@@ -28,7 +29,8 @@ urlpatterns = [
     url(r"^dashboard/(?P<ruc>[0-9]+)/$",
         dashboardView.as_view(), name="user_dashboard"),
     url(r"^documentos/(?P<ruc>[0-9]+)/$",
-        documentoView.as_view(), name="user_documentos")
+        documentoView.as_view(), name="user_documentos"),
+    url(r"^wallets/", walletsView.as_view(), name="user_wallets")
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

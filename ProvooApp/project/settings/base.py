@@ -172,6 +172,7 @@ INSTALLED_APPS = [
     "dashboard",
     "DocumentReader",
     "api",
+    "wallet"
 ]
 
 # A sample logging configuration. The only tangible logging

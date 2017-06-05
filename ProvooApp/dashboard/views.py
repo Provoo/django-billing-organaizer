@@ -118,11 +118,20 @@ class homeView(TemplateView):
     template_name = "homepage.html"
 
 
+class portfoliosView(ListView):
+    template_name = 'portfolios.html'
+    model = Portafolio
+
+    def get_queryset(self):
+        portafolio_User = super(portfoliosView, self).get_queryset()
+        print(portafolio_User)
+        return portafolio_User.filter(UserID_id=self.request.user.id)
+
+
 class dashboardView(ListView):
     context_object_name = 'portafolio'
     template_name = 'dashboard.html'
     queryset = Portafolio.objects.all()
-
 
     # Query para buscar el Portafolio que le corresponde al usuario
     def get_queryset(self):
@@ -147,14 +156,6 @@ class dashboardView(ListView):
         return context
 
 
-class portfoliosView(ListView):
-    template_name = 'portfolios.html'
-    model = Portafolio
-
-    def get_queryset(self):
-        portafolio_User = super(portfoliosView, self).get_queryset()
-        print(portafolio_User)
-        return portafolio_User.filter(UserID_id=self.request.user.id)
 
 
 class documentoView(ListView):
