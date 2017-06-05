@@ -10,6 +10,8 @@ from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
+import json
+from django.core.serializers.json import DjangoJSONEncoder
 
 # Models Import
 from dashboard.models import Portafolio, documento, documento_error
@@ -119,40 +121,45 @@ class homeView(TemplateView):
 class dashboardView(ListView):
     context_object_name = 'portafolio'
     template_name = 'dashboard.html'
-    pk_url_kwarg = 'pk'
     queryset = Portafolio.objects.all()
+
 
     # Query para buscar el Portafolio que le corresponde al usuario
     def get_queryset(self):
         portafolio_user = super(dashboardView, self).get_queryset()
-        return portafolio_user.filter(Ruc=self.kwargs['ruc'])[:1].get()
+        return Portafolio.objects.get(Ruc=self.kwargs['ruc'], UserID_id=self.request.user.id)
 
     def get_context_data(self, **kwargs):
+        port = Portafolio.objects.get(UserID=self.request.user.id, Ruc=self.kwargs["ruc"])
+        print(port)
         context = super(dashboardView, self).get_context_data(**kwargs)
-        member = documento.objects.select_related('rucDocumento').filter(
-            rucDocumento=self.request.user.id) \
+        query = documento.objects.select_related('rucDocumento').filter(
+                rucDocumento=port)\
             .annotate(mes=ExtractMonth('fecha'), anio=ExtractYear('fecha')) \
             .values('mes', 'anio').annotate(
             gastos_sin_impuestos=Sum('totalGastosf')) \
             .values('mes', 'anio', 'gastos_sin_impuestos')
-        print(member)
-        context['member'] = member
+
+        monthly_expenses = json.dumps(list(query), cls=DjangoJSONEncoder)
+        print(monthly_expenses)
+
+        context['monthly_expenses'] = monthly_expenses
         return context
 
 
-class portafolioView(ListView):
+class portfoliosView(ListView):
     template_name = 'portfolios.html'
     model = Portafolio
 
     def get_queryset(self):
-        portafolio_User = super(portafolioView, self).get_queryset()
+        portafolio_User = super(portfoliosView, self).get_queryset()
         print(portafolio_User)
         return portafolio_User.filter(UserID_id=self.request.user.id)
 
 
 class documentoView(ListView):
     model = documento
-    template_name = 'documento.html'
+    template_name = 'documents.html'
 
     def get_queryset(self):
         documentos = super(documentoView, self).get_queryset()
@@ -164,7 +171,7 @@ class documentoView(ListView):
 
 class notificationsView(ListView):
     model = User
-    template_name = 'notifications.html'
+    template_name = 'notifications1.html'
 
     def get_queryset(self):
         notifica = super(
@@ -178,11 +185,7 @@ class notificationsView(ListView):
 @require_http_methods(["POST"])
 def upLoad(request, *args, **kwargs):
     # ajax = request.is_ajax()
-    prueba = request.POST
-    usuario = request.user.id
     documentos = request.FILES.getlist('docfile')
-    print("los documentos del upload %s" % (documentos))
-    print("es usuario es  %s" % (usuario))
     for documento_it in documentos:
         xml_handler(documento_it, request.user.id)
     mensaje = "Tu factura se guardo se ha guardado exitosamente"
@@ -210,4 +213,4 @@ def googleImport(request):
             xml_handler(f_buffer, request.user.id)
         f_buffer = None
     return HttpResponseRedirect(
-            reverse('portafolios', kwargs={'pk': request.user.id}))
+            reverse('user_portfolios'))

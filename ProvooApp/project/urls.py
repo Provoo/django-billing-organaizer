@@ -3,9 +3,9 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
-from dashboard.views import dashboardView, documentoView, portafolioView, googleImport, upLoad, notificationsView
+from dashboard.views import dashboardView, documentoView, portfoliosView, googleImport, upLoad, notificationsView
 import notifications.urls
-from .views import SignupView
+# from .views import SignupView
 
 urlpatterns = [
     # Include URLS
@@ -18,15 +18,16 @@ urlpatterns = [
     # Static URLS
     url(r"^$", TemplateView.as_view(template_name="homepage.html"),
         name="home"),
-    url(r"^notifications/(?P<pk>[-\w]+)$", notificationsView.as_view(), name='user_notifications'),
-    url(r"^account/signup/$", SignupView.as_view(), name='account_signup'),
+    url(r"^login/", TemplateView.as_view(template_name="login.html"), name="login"),
+    url(r"^inbox/notifications/", notificationsView.as_view(), name='user_notifications'),
+    # url(r"^account/signup/$", SignupView.as_view(), name='account_signup'),
     url(r"^googleimp/", googleImport, name="googleImport"),
     url(r"^upload/", upLoad, name="upload"),
-    url(r"^portfolios/(?P<pk>[-\w]+)$", portafolioView.as_view(),
-        name="portafolios"),
-    url(r"^dashboard/(?P<pk>[-\w]+)/(?P<ruc>[0-9]+)/$",
+    url(r"^portfolios/", portfoliosView.as_view(),
+        name="user_portfolios"),
+    url(r"^dashboard/(?P<ruc>[0-9]+)/$",
         dashboardView.as_view(), name="user_dashboard"),
-    url(r"^documentos/(?P<pk>[-\w]+)/(?P<ruc>[0-9]+)/$",
+    url(r"^documentos/(?P<ruc>[0-9]+)/$",
         documentoView.as_view(), name="user_documentos")
 ]
 

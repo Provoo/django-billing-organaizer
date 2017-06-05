@@ -99,8 +99,7 @@ STATICFILES_DIRS = [
 # various locations.
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    'djangobower.finders.BowerFinder',
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder"
 ]
 
 # Make this unique, and don't share it with anybody.
@@ -155,7 +154,6 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.staticfiles",
     "social_django",
-    'djangobower',
 
     # theme
     "bootstrapform",
@@ -214,7 +212,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 ACCOUNT_OPEN_SIGNUP = True
 ACCOUNT_EMAIL_UNIQUE = True
 ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = False
-ACCOUNT_LOGIN_REDIRECT_URL = "home"
+ACCOUNT_LOGIN_REDIRECT_URL = "user_portfolios"
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
 ACCOUNT_USE_AUTH_AUTHENTICATE = True
@@ -252,51 +250,3 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.yahoo.YahooOpenId',
 
 ]
-
-BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_ROOT, "static", "components")
-
-BOWER_INSTALLED_APPS = (
-    "jquery#1.12.0",
-    "materialize#0.97.5",
-    "fontawesome#4.5.0",
-    "ionicons#2.0.1",
-    "weather-icons#2.0.10",
-    "nanoscroller#0.8.7",
-    "html5shiv#3.7.3",
-    "photoswipe#4.1.1",
-    "wow#1.1.0",
-    "animate.css#3.5.1",
-    "ckeditor#4.5.6",
-    "markitup-1x#1.1.14",
-    "squire#https://github.com/neilj/Squire.git",
-    "d3#3.5.14",
-    "nvd3#1.8.2",
-    "flot#0.8.3",
-    "flot.tooltip#0.8.5",
-    "rickshaw#1.5.1",
-    "jquery.sparkline#2.1.2",
-    "datatables#1.10.10",
-    "datatables-tabletools#2.2.4",
-    "datatables-scroller#1.4.0",
-    "dropzone#4.2.0",
-    "fullcalendar#2.6.0",
-    "jquery-ui#1.11.4",
-    "gmaps#0.4.22",
-    "code-prettify#https://github.com/google/code-prettify.git",
-    "isotope#2.2.2",
-    "clockpicker#0.0.7",
-    "jquery.inputmask#3.2.7",
-    "jquery.tagsinput#1.3.6",
-    "pikaday#1.4.0",
-    "spectrum#1.8.0",
-    "select2#4.0.1",
-    "parsleyjs#2.2.0",
-    "simpleWeather#https://github.com/monkeecreate/jquery.simpleWeather.git",
-    "Sortable#1.4.0",
-    "video.js#4.12.11",
-    "videojs-youtube#1.2.13",
-    "videojs-vimeo#1.0.2",
-    "jquery-requestAnimationFrame#0.1.2",
-    "nestable#https://github.com/dbushell/Nestable.git",
-    "jstree#3.2.1"
-    )

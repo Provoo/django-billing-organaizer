@@ -6,8 +6,18 @@
     <title>InvMachine</title>
 {% endblock %}
 {% block body_class %}home{% endblock %}
-{% block body %}
-    <section class="center homeSection" style="padding: 0; height: 90vh; background: url({% static 'img/bg1.png' %})">
+{% block menu-icon %}{% endblock %}
+
+{% block body_base %}
+
+   {# <div class="parallax-container">#}
+      {# <div class="parallax">#}
+      {# <img src="{% static 'img/bg1.png' %}">#}
+        {# <div class="gradiant"></div>#}
+      {# </div>#}
+    {# </div>#}
+
+    <section class="parallax-container center homeSection" style="padding: 0; height: 90vh; background: url({% static 'img/bg1.png' %})">
       <div class="black-text row valign-wrapper">
         <div class="col m6 row s12">
           <div class="col s12">
@@ -31,90 +41,89 @@
         </div>
       </div>
     </section>
-    <section class="jumbotron teal lighten-5">
-      <div class="container row">
-          {% include "_messages.html" %}
-          <div class="col s12 m12 row">
-            <h2 class="blue-grey-text section-title center">{% blocktrans %}Tus Finanzas en una App{% endblocktrans %}</h2>
-          </div>
-          <div class="col s12 m7 row">
-            <div class="col s12 center">
-              <img src='{% static "img/computer.svg" %}'  alt="" style="width:60%;"/>
-            </div>
-            <div class="col s12">
-              {% if not user.is_authenticated %}
-                  {% url "account_login" as login_url %}
-                  {% url "account_signup" as signup_url %}
-                  <p>{% blocktrans %}You can <a href="{{ login_url }}" class="btn btn-default">Log In</a> or
-                      <a href="{{ signup_url }}" class="btn btn-primary">Sign Up</a> to try out the
-                      site.{% endblocktrans %}</p>
-                  <p><a href="{% url "social:begin" "google-oauth2" %}">Google+</a></p>
-                  <p><a href="{% url "social:begin" "msn-live-connect" %}">outlook</a></p>
-              {% endif %}
-            </div>
-          </div>
-          <div class="col s12 m5 ">
-              <div class="blue-grey-text text-darken-4">
-                  <h5 style="line-height:2rem; font-size:1.3rem;" class="valgrim-wraper">
-                      {% blocktrans %}
-                          Te presentamos una forma inteligente de ahorrar y llevar tu contabilidad de una forma
-                          ordenada y a la vista en todo momento, con invMachine, podrás saber, Dónde estás gastando
-                          cómo estas gastando y  cuales son todos tus gastos y te podemos decir cómo realmente ahorrar
-                          y aprender a manejar tus finanzas personales, todo a través de un solo click.
-                      {% endblocktrans %}
-                  </h5>
+    <section>
+      <div id="intro" class="section scrollspy ">
+    <div class="container">
+        <div class="row card-panel top-card z-depth-3">
+          <div class="container row">
+              {% include "_messages.html" %}
+              <div class="col s12 m12 row">
+                <h2 class="blue-grey-text section-title center">{% blocktrans %}Tus Finanzas en una App{% endblocktrans %}</h2>
+              </div>
+              <div class="col s12 m7 row">
+                <div class="col s12 center">
+                  <img src='{% static "img/computer.svg" %}'  alt="" style="width:60%;"/>
+                </div>
+                <div class="col s12">
+                </div>
+              </div>
+              <div class="col s12 m5 ">
+                  <div class="blue-grey-text text-darken-4">
+                      <h5 style="line-height:2rem; font-size:1.3rem;" class="valgrim-wraper">
+                          {% blocktrans %}
+                              Te presentamos una forma inteligente de ahorrar y llevar tu contabilidad de una forma
+                              ordenada y a la vista en todo momento, con invMachine, podrás saber, Dónde estás gastando
+                              cómo estas gastando y  cuales son todos tus gastos y te podemos decir cómo realmente ahorrar
+                              y aprender a manejar tus finanzas personales, todo a través de un solo click.
+                          {% endblocktrans %}
+                      </h5>
+                  </div>
               </div>
           </div>
-      </div>
-    </section>
-    <section class="row">
-      <div class="col s4">
-        <div class="card-panel center">
-            <i class="fa fa-clock-o blue-text " style="font-size:5rem"></i><br>
-            <h5 class="text-center blue-text">
-              {% blocktrans %} Es tu <b>tiempo</b> <br>
-              y vale mucho{% endblocktrans %}
-            </h5>
-            <p class="whyUs">
-                {% blocktrans %}
-                    No lo desperdicies calculando presupuestos te ayudamos
-                    calculando y ajustando tu presupuesto, para que puedas
-                    ahorrar y usar de forma más inteligente tus ingresos.
-                {% endblocktrans %}
-            </p>
         </div>
-        </div>
-        <div class="col s4">
-          <div class="card-panel center">
-            <span class="glyphicon glyphicon-piggy-bank orange-text" style="font-size:5rem"></span><br>
-            <h5 class="text-center orange-text">
-              {% blocktrans %} <b>Ahorrar</b> para <br> cumplir tus metas.{% endblocktrans %}
-            </h5>
-            <p class="whyUs">
-                {% blocktrans %}
-                    No necesita ser un sacrificio, <b>InvMachine</b> aprenderá de todos tus consumos y te
-                    ayudará a encontrar los mejores precios en todo momento.
-                {% endblocktrans %}
-            </p>
+        <section class="row">
+          <div class="col s4">
+            <div class="card-panel center">
+                <i class="fa fa-clock-o blue-text " style="font-size:5rem"></i><br>
+                <h5 class="text-center blue-text">
+                  {% blocktrans %} Es tu <b>tiempo</b> <br>
+                  y vale mucho{% endblocktrans %}
+                </h5>
+                <p class="whyUs">
+                    {% blocktrans %}
+                        No lo desperdicies calculando presupuestos te ayudamos
+                        calculando y ajustando tu presupuesto, para que puedas
+                        ahorrar y usar de forma más inteligente tus ingresos.
+                    {% endblocktrans %}
+                </p>
             </div>
-        </div>
-        <div class="col s4">
-          <div class="card-panel center">
-            <i class="fa fa-dollar green-text" style="font-size:5rem"></i>
-            <br>
-            <h5 class="center green-text">
-              <b>Invertir</b> no es <br> solo para los ricos.
-            </h5>
-            <p class="whyUs">
-                {% blocktrans %}
-                    Si estas listo para dar el siguiente paso hacia la libertad
-                    financiera, nosotros te ayudamos con inversiónes de corto,
-                    mediano y largo plazo que se ajusten a tu presupuesto.
-                {% endblocktrans %}
-            </p>
             </div>
-        </div>
+            <div class="col s4">
+              <div class="card-panel center">
+                <span class="glyphicon glyphicon-piggy-bank orange-text" style="font-size:5rem"></span><br>
+                <h5 class="text-center orange-text">
+                  {% blocktrans %} <b>Ahorrar</b> para <br> cumplir tus metas.{% endblocktrans %}
+                </h5>
+                <p class="whyUs">
+                    {% blocktrans %}
+                        No necesita ser un sacrificio, <b>InvMachine</b> aprenderá de todos tus consumos y te
+                        ayudará a encontrar los mejores precios en todo momento.
+                    {% endblocktrans %}
+                </p>
+                </div>
+            </div>
+            <div class="col s4">
+              <div class="card-panel center">
+                <i class="fa fa-dollar green-text" style="font-size:5rem"></i>
+                <br>
+                <h5 class="center green-text">
+                  <b>Invertir</b> no es <br> solo para los ricos.
+                </h5>
+                <p class="whyUs">
+                    {% blocktrans %}
+                        Si estas listo para dar el siguiente paso hacia la libertad
+                        financiera, nosotros te ayudamos con inversiónes de corto,
+                        mediano y largo plazo que se ajusten a tu presupuesto.
+                    {% endblocktrans %}
+                </p>
+                </div>
+            </div>
+        </secti
+    </div>
+</div>
     </section>
+
+
 {% endblock %}
 {% block footer_base %}
     {% include "_footer.html" %}

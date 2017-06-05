@@ -1,241 +1,477 @@
-{% extends "site_base.html" %}
+{% extends "dashboard_base.html" %}
 {% load i18n %}
 {% block head_title %}Dashboard{% endblock %}
 
-{% block body_base %}
-    {# TODO: DashBoard tempalte modal agragar mensaje de subida satisfactoria de archivos#}
-    {# TODO: DashBoard tempalte modal Agragar mensaje de subida satisfactoria de archivos#}
-    {# TODO: DashBoard tempalte Modal Sí la factura no pertenece al protafolio mandar mensaje de que se creo uno nuevo#}
-    {# TODO: Borrar Factura#}
-    <div id="wrapper">
-      <!-- Sidebar -->
-      <div id="sidebar-wrapper">
-          <ul class="sidebar-nav">
-              {% if request.user.is_authenticated %}
-              <li>
-                <a href="{% url 'account_settings' %}" tabindex="-1">Settings</a>
-              </li>
-              <li>
-                <a href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>
-              </li>
-              <li>
-                <a href="{% url 'account_settings' %}">
-                {# <i class="fa fa-cog"></i>#}
-                 {% trans "Settings" %}
-                </a>
-              </li>
-              <li>
-                <a id="account_logout" href="{% url 'account_logout' %}">
-                  {# <i class="fa fa-power-off"></i>#}
-                  {% trans "Log out" %}
-                </a>
-              </li>
-              {% else %}
-                  <li><a class="white-text" href="{% url 'account_login' %}">{% trans "Log in" %}</a></li>
-                  {% if ACCOUNT_OPEN_SIGNUP %}
-                      <li><a class="white-text" href="{% url 'account_signup' %}">{% trans "Sign up" %}</a></li>
-                  {% endif %}
-              {% endif %}
-              <li>
-                  <a href="#">Contact</a>
-              </li>
-          </ul>
+{% block dashboard-content %}
+
+<div class="page-title">
+  {# <h1>Portafolio</h1>#}
+  <p class="dashboard-title">
+    <h1 class="">Portafolio</h1>
+    <br>
+    <span>{{ portafolio.Nombre }}</span>
+    <br>
+    <small>
+      {{ portafolio.Ruc }}
+    |
+      <a href="{% url 'user_documentos' portafolio.Ruc %}">Ver facturas</a>
+    </small>
+  </p>
+</div>
+
+<div class="row">
+       <div class="col l4 s12">
+           <a href="#" class="card-panel stats-card gradiant-purple indigo-text text-lighten-5">
+             <div class="progress small purple lighten-1">
+                 <div class="purple darken-1" style="width: 42%"></div>
+             </div>
+             <i class="fa fa-credit-card"></i>
+             <span class="count">USD {{ portafolio.total_gastos }}</span>
+             <div class="name">CONSUMOS</div>
+             <div class="name">1 de enero - 30 de abril</div>
+           </a>
+       </div>
+       <div class="col l4 s12">
+           <a href="#" class="card-panel stats-card gradiant-purple blue-text text-lighten-5">
+             <div class="progress small purple lighten-1">
+                 <div class="purple darken-1" style="width: 42%"></div>
+             </div>
+             <i class="fa fa-percent"></i>
+             <span class="count">USD {{ portafolio.total_impuestos }}</span>
+             <div class="name">Impuestos</div>
+             <div class="name">1 de enero - 30 de abril</div>
+
+           </a>
+       </div>
+       <div class="col l4 s12">
+           <div class="card-panel stats-card gradiant-purple green-text text-lighten-5">
+               <div class="progress small purple lighten-1">
+                   <div class="purple darken-1" style="width: 42%"></div>
+               </div>
+
+               <i class="fa fa-dollar"></i>
+               <span class="count">USD {{ portafolio.total_portafolio }}</span>
+               <div class="name">Total</div>
+               <div class="name">1 de enero - 30 de abril</div>
+
+           </div>
+       </div>
+   </div>
+  <div class="row">
+
+    <div class="card">
+      <div class="title">
+        <h5>Deducibles</h5>
+        <a class="minimize" href="#"> <i class="mdi-navigation-expand-less"></i> </a>
       </div>
-      <div id="page-content-wrapper">
-        <section class="container-fluid jumbotron" style="padding: 1em 2em !important;">
-          <p class="dashboard-title">
-            <span class="teal-text">Portafolio</span>
-            <br>
-            <span>{{ portafolio.Nombre }}</span>
-            <br>
-            <small>
-              {{ portafolio.Ruc }}
-            |
-              <a href="{% url 'user_documentos' request.user.id portafolio.Ruc %}">Ver facturas</a>
-            </small>
-          </p>
-
-    {% block javascript %}
-        <!-- <script src="'/site_media/static/js/upload.js'"></script> -->
-    {% endblock %}
-
-        <section class="container-fluid">
-          <div class="row">
-            <div class="col s12 m4">
-              <div class="card row">
-                <div class="card-title blue darken-1 margin-zero" style="padding:3px"></div>
-                <div class="card-title">
-                  <p class="dashboard-card-title blue-grey-text text-lighten-2">CONSUMOS</p>
-                  <p role="separator" class="divider"></p>
+      <div class="content">
+        <div class="col l4 s12">
+            <div class="card-panel stats-card grey-text grey lighten-5">
+                <div class="progress small purple lighten-1">
+                    <div class="purple darken-1" style="width: 42%"></div>
                 </div>
-                <div >
-                  <span class="dashboard-card-amount">
-                      USD <b class="blue-text text-darken-1">{{ portafolio.total_gastos }}</b>
-                  </span>
-                  <p class="dashboard-card-date blue-grey-text text-lighten-3">1 de enero - 30 de abril</p>
-                </div>
-              </div>
-              </div>
-            <div class="col s12 m4">
-              <div class="card row">
-                <div class="card-title blue darken-1 margin-zero" style="padding:3px"></div>
-                <div class="card-title">
-                  <p class="dashboard-card-title blue-grey-text text-lighten-2">Impuestos</p>
-                  <p role="separator" class="divider"></p>
-                </div>
-                <span class="dashboard-card-amount">
-                  USD <b class="blue-text text-darken-1">{{ portafolio.total_impuestos }}</b>
-                </span>
-                <p class="dashboard-card-date blue-grey-text text-lighten-3">1 de enero - 30 de abril</p>
-              </div>
-            </div>
-
-            <div class="col s12 m4">
-              <div class="card row">
-              <div class="card-title blue darken-1 margin-zero" style="padding:3px"></div>
-              <div class="card-title">
-                <p class="dashboard-card-title blue-grey-text text-lighten-2">Total</p>
-                <p role="separator" class="divider"></p>
-              </div>
-              <span class="dashboard-card-amount">
-                USD <b class="blue-text text-darken-1">{{ portafolio.total_portafolio }}
-                </b>
-              </span>
-              <p class="dashboard-card-date blue-grey-text text-lighten-3">1 de enero - 30 de abril</p>
-              </div>
+                <i class="fa fa-home"></i>
+                <span class="count">USD {{ portafolio.total_comida }}</span>
+                <div class="name">Alimentacion</div>
+                <div class="name">1 de enero - 30 de abril</div>
             </div>
           </div>
-        </section>
-        <section class="container-fluid white">
-            <p class="dashboard-title">Deducibles</p>
-            <hr>
-            <div class="row">
-              <div class="col s12 m4">
+          <div class="col l4 s12">
+              <div class="card-panel stats-card grey-text grey lighten-5">
+                  <div class="progress small purple lighten-1">
+                      <div class="purple darken-1" style="width: 42%"></div>
+                  </div>
+                  <i class="glyphicon glyphicon-education"></i>
+                  <span class="count">USD {{ portafolio.total_educacion }}</span>
+                  <div class="name">EducaciÃ³n</div>
+                  <div class="name">1 de enero - 30 de abril</div>
+              </div>
+            </div>
 
-                <div class="card-title blue darken-1 margin-zero" style="padding:3px"></div>
-                <div class="card white z-depth-2 row margin-zero">
-                  <div class="card-content blue-text col s12 m4">
-                      <div class="card-title center">
-                        <i class="fa fa-home" style="font-size: 3rem"></i>
+            <div class="col l4 s12">
+                <div class="card-panel stats-card grey-text grey lighten-5">
+                    <div class="progress small purple lighten-1">
+                        <div class="purple darken-1" style="width: 42%"></div>
+                    </div>
+                    <i class="fa fa-dollar"></i>
+                    <span class="count">USD {{ portafolio.total_salud }}</span>
+                    <div class="name">Salud</div>
+                    <div class="name">1 de enero - 30 de abril</div>
+                </div>
+              </div>
+              <div class="col l4 s12">
+                  <div class="card-panel stats-card grey-text grey lighten-5">
+                      <div class="progress small purple lighten-1">
+                          <div class="purple darken-1" style="width: 42%"></div>
                       </div>
+                      <i class="fa fa-dollar"></i>
+                      <span class="count">USD {{ portafolio.total_vestimenta }}</span>
+                      <div class="name">Vestimenta</div>
+                      <div class="name">1 de enero - 30 de abril</div>
                   </div>
-                  <div class="card-content col s12 m8">
-                        <div class="card-title center">
-                            <p>Vivienda</p>
-                            ${{ portafolio.total_vestimenta }}
+                </div>
+                <div class="col l4 s12">
+                    <div class="card-panel stats-card grey-text grey lighten-5">
+                        <div class="progress small purple lighten-1">
+                            <div class="purple darken-1" style="width: 42%"></div>
                         </div>
-                        <div class="center"></div>
-                    </div>
-                </div>
-              </div>
-              <div class="col s12 m4">
-                <div class="card-title blue darken-1 margin-zero" style="padding:3px"></div>
-                <div class="card white z-depth-2 row margin-zero">
-                  <div class="card-content blue-text col s12 m4">
-                    <div class="card-title center">
-                        <span class="glyphicon glyphicon-education" style="font-size:3rem;"></span>
+                        <i class="fa fa-dollar"></i>
+                        <span class="count">USD {{ portafolio.total_educacion }}</span>
+                        <div class="name">Educacion</div>
+                        <div class="name">1 de enero - 30 de abril</div>
                     </div>
                   </div>
-                  <div class="card-content  col s12 m8">
-                    <div class="card-title center">
-                      <p>Educación</p>
-                      <div class=" center">${{ portafolio.total_educacion }}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col s12 m4">
-                <div class="card-title blue darken-1 margin-zero" style="padding:3px"></div>
-                <div class="card white z-depth-2 row margin-zero">
-                  <div class="card-content blue-text col s12 m4">
-                      <div class="card-title center">
-                        <i class="material-icons" style="font-size:3rem;">restaurant</i>
+
+                  <div class="col l4 s12">
+                      <div class="card-panel stats-card  blue-grey-text text-darken-3">
+                          <div class="progress small purple lighten-1">
+                              <div class="purple darken-1" style="width: 42%"></div>
+                          </div>
+                          <i class="fa fa-dollar"></i>
+                          <span class="count">USD {{ portafolio.total_vivienda }}</span>
+                          <div class="name">Vivienda</div>
+                          <div class="name">1 de enero - 30 de abril</div>
                       </div>
-                  </div>
-                  <div class="card-content col s12 m8">
-                    <div class="card-title center">
-                      <p>Alimentación</p>
-                      <div class="center">${{ portafolio.total_comida }}</div>
                     </div>
-                  </div>
-                </div>
+
+        </div>
+
+
+   </div>
+   <div class="row">
+     <!-- Pie Chart -->
+      <div class="col s12 l5">
+          <div class="card">
+              <div class="title">
+                  <h5>Gastos</h5>
+                  <a class="close" href="#">
+                      <i class="mdi-content-clear"></i>
+                  </a>
+                  <a class="minimize" href="#">
+                      <i class="mdi-navigation-expand-less"></i>
+                  </a>
               </div>
-            </div>
-            <div class="row">
-              <div class="col s12 m4">
-                <div class="card-title blue darken-1 margin-zero" style="padding:3px"></div>
-                <div class="card white z-depth-2 row margin-zero">
-                  <div class="card-content blue-text col s12 m4">
-                      <div class="card-title center">
-                        <i class="fa fa-stethoscope" style="font-size:3rem;"></i>
-                      </div>
-                  </div>
-                  <div class="card-content col s12 m8">
-                    <div class="card-title center">
-                      <p>Salud</p>
-                      <div class=" center">${{ portafolio.total_salud }}</div>
-                    </div>
-                  </div>
-                </div>
+              <div class="content">
+                  <div id="flotPieChart" style="height: 300px"></div>
               </div>
-              <div class="col s12 m4">
-                <div class="card-title blue darken-1 margin-zero" style="padding:3px"></div>
-                <div class="card white z-depth-2 row margin-zero">
-                  <div class="card-content blue-text col s12 m4">
-                      <div class="card-title center">
-                        <i class="fa fa-stethoscope" style="font-size:3rem;"></i>
-                      </div>
-                  </div>
-                  <div class="card-content col s12 m8">
-                    <div class="card-title center">
-                      <p>Vestimenta</p>
-                      <div class=" center">${{ portafolio.total_vestimenta }}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col s12 m4">
-                <div class="card-title blue darken-1 margin-zero" style="padding:3px"></div>
-                <div class="card white z-depth-2 row margin-zero">
-                  <div class="card-content blue-text col s12 m4">
-                      <div class="card-title center">
-                        <i class="fa fa-stethoscope" style="font-size:3rem;"></i>
-                      </div>
-                  </div>
-                  <div class="card-content col s12 m8">
-                    <div class="card-title center">
-                      <p>No deducible</p>
-                      <div class=" center">${{ portafolio.total_no_deducible }}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </section>
-        <section class="jumbotron container-fluid ">
-              <div id="chart-dashboard">
-                <div class="row center-align center-block center ">
-                    <div class="card white text-darken-4 col s12 m12">
-                        <div class="line-chart-wrapper">
-                            <h2 class="chart-title">Total deducibles</h2>
-                            <div class="chart-revenue cyan darken-2 white-text">
-                                <p class="chart-revenue-total">Total de gastos 2017: ${{ portafolio.total_gastos }}</p>
-                            </div>
-                            <canvas id="line-chart" class="canvas"></canvas>
-                            <div class="col s12 s12 m2 l2">
-                                <ul class="doughnut-chart-legend align-left">
-                                    <li class="mobile ultra-small"><span class="legend-col s12or"></span>Vivienda</li>
-                                    <li class="kitchen ultra-small"><span class="legend-col s12or"></span> Salud</li>
-                                    <li class="home ultra-small"><span class="legend-col s12or"></span> Educacion</li>
-                                    <li class="mobile ultra-small"><span class="legend-col s12or"></span> Vestimenta</li>
-                                    <li class="kitchen ultra-small"><span class="legend-col s12or"></span> Alimentación</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+          </div>
       </div>
-    </div>
+      <div class="col s12 l7">
+          <div class="card">
+              <div class="title">
+                  <h5>Mensual</h5>
+                  <a class="close" href="#">
+                      <i class="mdi-content-clear"></i>
+                  </a>
+                  <a class="minimize" href="#">
+                      <i class="mdi-navigation-expand-less"></i>
+                  </a>
+              </div>
+              <div class="content">
+                <div id="flotLineChart" style="height: 250px"></div>
+              </div>
+          </div>
+      </div>
+
+      <!-- /Pie Chart -->
+
+   </div>
+  </div>
+
+{% endblock %}
+{% block scripts %}
+    {{ block.super }}
+    <script>
+    /*
+     * Flot Pie Chart
+     */
+
+    (function() {
+        var chart = $("#flotPieChart");
+        var total_sin_impuesto = parseFloat({{ portafolio.total_portafolio }});
+        var alimentacion = parseFloat({{ portafolio.total_comida }})* 100 / total_sin_impuesto;
+        var salud = parseFloat({{ portafolio.total_salud }}) * 100 /total_sin_impuesto;
+        var vestimenta = parseFloat({{ portafolio.total_vestimenta }})* 100 / total_sin_impuesto;
+        var educacion = parseFloat({{ portafolio.total_educacion }}) * 100 / total_sin_impuesto;
+        var vivienda = parseFloat({{ portafolio.total_vivienda }}) * 100 /total_sin_impuesto;
+        var no_deducible = parseFloat({{ portafolio.total_no_deducible }}) *100 / total_sin_impuesto;
+        var data = [{
+            label: "Alimentacion",
+            data: alimentacion ,
+            color: "#90a4ae"
+        }, {
+            label: "Salud",
+            data: salud,
+            color: "#7986cb"
+        }, {
+            label: "Vestimenta",
+            data: vestimenta,
+            color: "#9575cd"
+        }, {
+            label: "Educacion",
+            data: educacion,
+            color: "#4db6ac"
+        }, {
+            label: "Vivienda",
+            data: vivienda,
+            color: "#64b5f6"
+        }, {
+            label: "No deducible",
+            data: no_deducible,
+            color: "#64b5f6"
+        }];
+        var options = {
+            series: {
+                pie: {
+                    innerRadius: 0.5,
+                    show: true
+                }
+            },
+            grid: {
+                hoverable: true
+            },
+            legend: {
+                backgroundOpacity: 0,
+                labelBoxBorderColor: "#fff"
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+                shifts: {
+                    x: 20,
+                    y: 0
+                },
+                defaultTheme: false
+            }
+        };
+
+        function initFlot() {
+            $.plot(chart, data, options);
+            chart.find('.legend table').css('width', 'auto')
+                .find('td').css('padding', 5);
+        }
+        initFlot();
+        $(window).on('resize', initFlot);
+
+    }());
+  /*
+   * Flot Line Chart
+   */
+
+  var proces_var = unescape("{{ monthly_expenses  | safe | escapejs }}");
+  var monthly_expenses = JSON.parse(proces_var);
+  var data3=[];
+   proces_data = monthly_expenses.forEach(function(obj){
+
+     if(obj.anio == 2017)
+     {
+          data3.push([obj.mes, parseFloat(obj.gastos_sin_impuestos)]);
+     }
+   });
+  data3.sort();
+  (function() {
+      var chart = $("#flotLineChart");
+      var data1 = {
+          data: data3,
+          label: "Gastos"
+      };
+
+      var options = {
+          series: {
+              lines: {
+                  show: true,
+                  lineWidth: 1,
+                  fill: true,
+                  fillColor: {
+                      colors: [{
+                          opacity: 0.1
+                      }, {
+                          opacity: 0.13
+                      }]
+                  }
+              },
+              points: {
+                  show: true,
+                  lineWidth: 2,
+                  radius: 3
+              },
+              shadowSize: 0,
+              stack: true
+          },
+          grid: {
+              hoverable: true,
+              clickable: true,
+              tickColor: "#f9f9f9",
+              borderWidth: 0
+          },
+          legend: {
+              // show: false
+              backgroundOpacity: 0,
+              labelBoxBorderColor: "#fff"
+          },
+          colors: ["#3f51b5", "#009688", "#2196f3"],
+          xaxis: {
+              ticks: [
+                  [1, "Jan"],
+                  [2, "Feb"],
+                  [3, "Mar"],
+                  [4, "Apr"],
+                  [5, "May"],
+                  [6, "Jun"],
+                  [7, "Jul"],
+                  [8, "Aug"],
+                  [9, "Sep"],
+                  [10, "Oct"],
+                  [11, "Nov"],
+                  [12, "Dec"]
+              ],
+              font: {
+                  family: "Roboto,sans-serif",
+                  color: "#ccc"
+              }
+          },
+          yaxis: {
+              ticks: 7,
+              tickDecimals: 0,
+              font: {
+                  color: "#ccc"
+              }
+          }
+      };
+
+      function initFlot() {
+          $.plot(chart, [data1], options);
+          chart.find('.legend table').css('width', 'auto')
+              .find('td').css('padding', 5);
+      }
+      initFlot();
+      $(window).on('resize', initFlot);
+
+      function showTooltip(x, y, contents) {
+          $('<div id="tooltip">' + contents + '</div>').css({
+              position: 'absolute',
+              display: 'none',
+              top: y - 40,
+              left: x - 55,
+              color: "#fff",
+              padding: '5px 10px',
+              'border-radius': '3px',
+              'background-color': 'rgba(0,0,0,0.6)'
+          }).appendTo("body").fadeIn(200);
+      }
+
+      var previousPoint = null;
+      chart.bind("plothover", function(event, pos, item) {
+          if (item) {
+              if (previousPoint != item.dataIndex) {
+                  previousPoint = item.dataIndex;
+
+                  $("#tooltip").remove();
+                  var x = item.datapoint[0].toFixed(0),
+                      y = item.datapoint[1].toFixed(0);
+
+                  var month = item.series.xaxis.ticks[item.dataIndex].label;
+
+                  showTooltip(item.pageX, item.pageY,
+                      item.series.label + " of " + month + ": " + y);
+              }
+          } else {
+              $("#tooltip").remove();
+              previousPoint = null;
+          }
+      });
+  }());
+
+
+
+
+
+
+  /*
+   * MAP 1
+   */
+  (function() {
+      $('#map1').vectorMap({
+          map: 'world_mill_en',
+          zoom: 2,
+          series: {
+              regions: [{
+                  values: gdpData,
+                  scale: ['#e3f2fd', '#2196f3'],
+                  normalizeFunction: 'polynomial'
+              }]
+          },
+          backgroundColor: '#fff',
+          onRegionTipShow: function(e, el, code) {
+              el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
+          }
+      });
+  }());
+
+
+
+
+  /*
+   * Rickshaw
+   */
+  (function() {
+      var rickshawSeries = [
+          [],
+          []
+      ];
+
+      // Create random data
+      var randomData = new Rickshaw.Fixtures.RandomData(50);
+      for (var i = 0; i < 40; i++) {
+          randomData.addData(rickshawSeries);
+      }
+
+      // Init Richshaw graph
+      var element = $("#rickshawGraph");
+      var graph = new Rickshaw.Graph({
+          element: element[0],
+          height: 253,
+          interpolation: 'cardinal',
+          renderer: 'area',
+          series: [{
+              data: rickshawSeries[0],
+              color: '#4db6ac',
+              name: 'HDD'
+          }, {
+              data: rickshawSeries[1],
+              color: '#b2dfdb',
+              name: 'CPU'
+          }]
+      });
+
+      // Add hover info
+      new Rickshaw.Graph.HoverDetail({
+          graph: graph
+      });
+
+      // Render graph
+      graph.render();
+
+      // Live Update
+      setInterval(function() {
+          randomData.removeData(rickshawSeries);
+          randomData.addData(rickshawSeries);
+          graph.update();
+      }, 1000);
+
+      // Responsive
+      $(window).on('resize', function() {
+          graph.configure({
+              width: element.width()
+          });
+          graph.render();
+      });
+
+  }());
+
+
+  setTimeout(function() {
+      Materialize.toast('Welcome to Con!', 1000);
+  }, 1000);
+  </script>
 {% endblock %}

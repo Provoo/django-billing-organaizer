@@ -6,13 +6,19 @@ services:
     env_file: .env
     volumes:
       - db_data:/var/lib/postgresql/data/pgdata
-    ports:
-      - "8001:5432"
 
   web:
     build:
       context: ./ProvooApp
     env_file: .env
+
+  celery:
+    build:
+        context: ./ProvooApp
+    env_file: .env
+
+  redis:
+    image: redis:latest
 
   nginx:
     image: nginx:latest

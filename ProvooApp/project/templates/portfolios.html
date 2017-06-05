@@ -1,111 +1,63 @@
-{% extends "site_base.html" %}
+{% extends "dashboard_base.html" %}
 {% load i18n %}
 {% block head_title %}Dashboard{% endblock %}
-{% block body_class %}Home{% endblock %}
 
-{% block body_base %}
-<div id="wrapper">
-  <!-- Sidebar -->
-  <div id="sidebar-wrapper">
-      <ul class="sidebar-nav">
-          {% if request.user.is_authenticated %}
-          <li>
-            <a href="{% url 'account_settings' %}" tabindex="-1">Settings</a>
-          </li>
-          <li>
-            <a href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>
-          </li>
-          <li>
-            <a href="{% url 'account_settings' %}">
-            {# <i class="fa fa-cog"></i>#}
-             {% trans "Settings" %}
-            </a>
-          </li>
-          <li>
-            <a id="account_logout" href="{% url 'account_logout' %}">
-              {# <i class="fa fa-power-off"></i>#}
-              {% trans "Log out" %}
-            </a>
-          </li>
-          {% else %}
-              <li><a class="white-text" href="{% url 'account_login' %}">{% trans "Log in" %}</a></li>
-              {% if ACCOUNT_OPEN_SIGNUP %}
-                  <li><a class="white-text" href="{% url 'account_signup' %}">{% trans "Sign up" %}</a></li>
-              {% endif %}
-          {% endif %}
-          <li>
-              <a href="#">Contact</a>
-          </li>
-      </ul>
-  </div>
-  <div id="page-content-wrapper" class="white">
-    <div class="white margin-zero  portfolio-title">
-      <p class="teal-text text-accent-4 margin-zero portfolio-title">Bienvenido {{ request.user }}</p>
-      {% load notifications_tags %}
-      {% notifications_unread as unread_count %}
-      {% if unread_count %}
-        <a href="{% url 'user_notifications' request.user.id %}"><p>:<strong>{{ unread_count }}</strong> unread notifications.</p></a>
-      {% else %}
-        <p>{% notifications_unread %}</p>
-      {% endif %}
-    </div>
+{% block dashboard-content %}
 
-    <div class="container">
-            {% include "_messages.html" %}
-            {% block body %}
-            {#TODO: completar template Portafolios #}
-            <div class="row container">
-              <hr class="portfolio-divider col s12 m12">
-              {% if object_list %}
-                  {% for portafolios  in object_list %}
-                      <div class="col s12 m4">
-                        <div class="card">
-                          <div class="card-image blue " style="padding:2em 3em 1em 2em;">
-                            <a href="{% url 'user_dashboard' request.user.id portafolios.Ruc %}" class="btn-floating btn-large halfway-fab waves-effect waves-light red">
-                                <i class="material-icons">chevron_right</i></a>
-                                <div class="portfolio-card-header">
-                                  <p class="portfolios-card-title white-text truncate">{{ portafolios.Nombre }} </p>
-                                  <h5 class="white-text ">
-                                    USD{{ portafolios.total_gastos }}
-                                  </h5>
-                                  <hr>
-                                  <p class="portfolios-card-title white-text ">{{ portafolios.Ruc }}</p>
-                                </div>
-                          </div>
-                          <div class="portfolio-card-content">
-                              <p class="details">Detalles</p>
-                              <span class="portfolio-card-amount">
-                                <i class="fa fa-credit-card btn-floating center grey"></i>
-                                Consumos
-                                <span class="right">
-                                  ${{ portafolios.total_portafolio }}
-                                </span>
-                              </span>
-                              <hr>
-                              <span class="portfolio-card-amount">
-                                <i class="fa fa-percent btn-floating center grey"></i>
-                                Impuestos
-                                <span class="right">
-                                  ${{ portafolios.total_impuestos }}
+<div class="page-title">
+    {# <div class="row">#}
+        {# <div class="col s12 m9 l10">#}
+            <h1>Dashboard</h1>
+        {# </div>#}
+    {# </div>#}
+</div>
 
-                                </span>
-                              </span>
 
-                          </div>
-                        </div>
+<div class="row ">
+  <hr class="portfolio-divider col s12 m12">
+  {% if object_list %}
+      {% for portafolios  in object_list %}
+          <div class="col s12 m4">
+            <div class="card">
+              <a href="{% url 'user_dashboard' portafolios.Ruc %}">
+                <div class="card-image gradiant-purple " style="padding:2em 3em 1em 2em;">
+                      <div class="portfolio-card-header">
+                        <p class="portfolios-card-title white-text truncate">{{ portafolios.Nombre }} </p>
+                        <h5 class="white-text ">
+                          USD{{ portafolios.total_gastos }}
+                        </h5>
+                        <hr>
+                        <p class="portfolios-card-title white-text ">{{ portafolios.Ruc }}</p>
                       </div>
-                  {% endfor %}
-              {% else %}
-                  <h4>No hay portfolios registrados.</h4>
+                </div>
+                <div class="portfolio-card-content">
+                  <p class="details">Detalles</p>
+                  <span class="portfolio-card-amount">
+                    <i class="fa fa-credit-card btn-floating center grey"></i>
+                    Consumos
+                    <span class="right">
+                      ${{ portafolios.total_portafolio }}
+                    </span>
+                  </span>
                   <hr>
-                  <h5>Agrega un porfafolio haciendo click <br>en el simbolo de <i class="fa fa-plus-circle"></i></h5>
-              {% endif %}
-            </div>
+                  <span class="portfolio-card-amount">
+                    <i class="fa fa-percent btn-floating center grey"></i>
+                    Impuestos
+                    <span class="right">
+                      ${{ portafolios.total_impuestos }}
 
-            {% endblock %}
+                    </span>
+                  </span>
+
+              </div>
+              </a>
+            </div>
           </div>
-        </div>
-    </div>
-  </div>
+      {% endfor %}
+  {% else %}
+      <h4>No hay portfolios registrados.</h4>
+      <hr>
+      <h5>Agrega un porfafolio haciendo click <br>en el simbolo de <i class="fa fa-plus-circle"></i></h5>
+  {% endif %}
 </div>
 {% endblock %}
