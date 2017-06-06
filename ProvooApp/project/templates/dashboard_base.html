@@ -5,7 +5,7 @@
 {% block extra_head %}
     <title>InvMachine | Registro </title>
 {% endblock %}
-{% block body_class %}home{% endblock %}
+{% block body_class %}home yay-hide{% endblock %}
 {% block menu-icon %}{% endblock %}
 {% load account_tags %}
 {% load bootstrap %}
@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block topbar_base %}
-  {% include "componets/_topbar_base.html" %}
+  {% include "components/_topbar_base.html" %}
 {% endblock %}
 
 {% block body_base %}
@@ -38,7 +38,6 @@
       -->
 
       <aside class="yaybar yay-shrink yay-hide-to-small yay-gestures">
-
           <div class="top">
               <div>
                   <!-- Sidebar toggle -->
@@ -78,23 +77,16 @@
                               <span class="yay-collapse-icon mdi-navigation-expand-more"></span>
                           </a>
                           <ul>
-
                               <li class="active">
                                     <a href="{% url 'user_portfolios' %}" class=" waves-effect waves-blue">dashboard  </a>
                               </li>
                           </ul>
                       </li>
-
-
                       <li>
                           <a href="#" class=" waves-effect waves-blue"> <i class="mdi mdi-av-web"></i> Facturas
                               <span class="badge new">new</span>
                           </a>
-
                       </li>
-
-
-
                       <li class="label">Stats</li>
                       <li class="content">
                           <span><i class="fa fa-spinner"></i> Server Load</span>

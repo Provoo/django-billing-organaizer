@@ -1,4 +1,5 @@
 {% block topbar %}
+
 <!--
   Top Navbar
   Options:
@@ -6,106 +7,103 @@
   .navbar-static - static navbar
   .navbar-under - under sidebar
 -->
+
 <nav class="navbar-top navbar-dark">
   <div class="nav-wrapper">
+      <!-- Sidebar toggle -->
+      <a href="#" class="yay-toggle">
+          <div class="burg1"></div>
+          <div class="burg2"></div>
+          <div class="burg3"></div>
+      </a>
+      <!-- Sidebar toggle -->
 
-              <!-- Sidebar toggle -->
-              <a href="#" class="yay-toggle">
-                  <div class="burg1"></div>
-                  <div class="burg2"></div>
-                  <div class="burg3"></div>
+      <!-- Logo -->
+      <a href="index.html" class="brand-logo">
+          <h5>InvMachine</h5>
+      </a>
+      <!-- /Logo -->
+
+      <!-- Menu -->
+      <ul>
+          <li>
+            <a href="#!" class="search-bar-toggle">
+                <i class="mdi-action-search"></i>
+            </a>
+          </li>
+          <li>
+            {% load notifications_tags %}
+            {% notifications_unread as unread_count %}
+              <a class="dropdown-button" data-activates="test-dropdown" href="#!">
+                <i class="mdi-communication-email"></i>
+                {% if unread_count %}
+                <span class="badge new">{{ unread_count }}</span>
+                {% else %}
+                  <span class="badge new">{% notifications_unread %}</span>
+                {% endif %}
               </a>
-              <!-- Sidebar toggle -->
+              <div id="test-dropdown" class="dropdown-content dropdown-media">
+                <div class="card-panel">
+                  <div class="media-heading">Messages <a href="{% url 'user_notifications' %}"><i class="mdi-content-add-circle-outline"></i></a></div>
 
-              <!-- Logo -->
-              <a href="index.html" class="brand-logo">
-                  <h5>InvMachine</h5>
-              </a>
-              <!-- /Logo -->
+                  <div class="media-footer"><a href="{% url 'user_notifications'%}"><i class="mdi-hardware-keyboard-control"></i></a></div>
 
-              <!-- Menu -->
-              <ul>
-                  <li>
-                      <a href="#!" class="search-bar-toggle">
-                          <i class="mdi-action-search"></i>
-                      </a>
-                  </li>
-                  <li>
-                    {% load notifications_tags %}
-                    {% notifications_unread as unread_count %}
-                      <a class="dropdown-button" data-activates="test-dropdown" href="#!">
-                          <i class="mdi-communication-email"></i>
-                          {% if unread_count %}
-                          <span class="badge new">{{ unread_count }}</span>
-                          {% else %}
-                            <span class="badge new">{% notifications_unread %}</span>
-                          {% endif %}
-                      </a>
-                      <div id="test-dropdown" class="dropdown-content dropdown-media">
-                          <div class="card-panel">
-
-                              <div class="media-heading">Messages <a href="{% url 'user_notifications' %}"><i class="mdi-content-add-circle-outline"></i></a></div>
-
-                              <div class="media-footer"><a href="{% url 'user_notifications'%}"><i class="mdi-hardware-keyboard-control"></i></a></div>
-
-                              <div class="row mt-0">
-                                  <div class="col s2">
-                                      {# <img src="assets/_con/images/user2.jpg" alt="" class="circle responsive-img">#}
-                                  </div>
-                                  <div class="col s10">
-                                      <span class="media-date">9:02 AM</span>
-                                      <a href="#" class="media-title">Dianne Chambers</a>
-                                      <span>
-                                          Ut feugiat tempus felis, sit amet mattis dolor accumsan quis...
-                                      </span>
-                                  </div>
-                              </div>
-
-                              <div class="row">
-                                  <div class="col s2">
-                                      <img src="assets/_con/images/user3.jpg" alt="" class="circle responsive-img">
-                                  </div>
-                                  <div class="col s10">
-                                      <span class="media-date">Dec 19</span>
-                                      <a href="#" class="media-title">Joanne Stephens</a>
-                                      <span>
-                                          Proin suscipit lobortis porta. Interdum et malesuada fames ac ante ipsum primis in faucibus...
-                                      </span>
-                                  </div>
-                              </div>
-
-                          </div>
+                  <div class="row mt-0">
+                      <div class="col s2">
+                          {# <img src="assets/_con/images/user2.jpg" alt="" class="circle responsive-img">#}
                       </div>
-                  </li>
-                  <li class="user">
-                      <a class="dropdown-button" data-activates="user-dropdown" href="#!">
-                         <img src="assets/_con/images/user.jpg" alt="" class="circle"> {{ request.user }} <i class="mdi-navigation-expand-more right"></i>
+                      <div class="col s10">
+                          <span class="media-date">9:02 AM</span>
+                          <a href="#" class="media-title">Dianne Chambers</a>
+                          <span>
+                              Ut feugiat tempus felis, sit amet mattis dolor accumsan quis...
+                          </span>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col s2">
+                          <img src="assets/_con/images/user3.jpg" alt="" class="circle responsive-img">
+                      </div>
+                      <div class="col s10">
+                          <span class="media-date">Dec 19</span>
+                          <a href="#" class="media-title">Joanne Stephens</a>
+                          <span>
+                              Proin suscipit lobortis porta. Interdum et malesuada fames ac ante ipsum primis in faucibus...
+                          </span>
+                      </div>
+                  </div>
+                </div>
+            </div>
+          </li>
+          <li class="user">
+              <a class="dropdown-button" data-activates="user-dropdown" href="#!">
+                 <img src="assets/_con/images/user.jpg" alt="" class="circle"> {{ request.user }} <i class="mdi-navigation-expand-more right"></i>
 
-                      </a>
+              </a>
 
-                      <ul id="user-dropdown" class="dropdown-content">
-                          <li>
-                              <a href="page-profile.html">
-                                  <i class="fa fa-user"></i> Profile
-                              </a>
-                          </li>
-                          <li>
-                              <a href="{% url 'account_settings' %}">
-                                  <i class="fa fa-cogs"></i> Settings
-                              </a>
-                          </li>
-                          <li class="divider"></li>
-                          <li>
-                              <a href="{% url 'account_logout' %}">
-                                  <i class="fa fa-sign-out"></i> Logout
-                              </a>
-                          </li>
-                      </ul>
-                  </li>
-              </ul>
-              <!-- /Menu -->
+            <ul id="user-dropdown" class="dropdown-content">
+              <li>
+                  <a href="{% url 'account_settings' %}">
+                      <i class="fa fa-user"></i> Profile
+                  </a>
+              </li>
+              <li>
+                  <a href="{% url 'account_settings' %}">
+                      <i class="fa fa-cogs"></i> Settings
+                  </a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                  <a href="{% url 'account_logout' %}">
+                      <i class="fa fa-sign-out"></i> Logout
+                  </a>
+              </li>
+            </ul>
+          </li>
+      </ul>
+      <!-- /Menu -->
 
-          </div>
+  </div>
 </nav>
 <!-- /Top Navbar -->
 {% endblock %}

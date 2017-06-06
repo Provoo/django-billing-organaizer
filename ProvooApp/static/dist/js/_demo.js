@@ -192,7 +192,7 @@
     /* Prepend Settings panel */
     _this.settingsBar.className = 'demo-bar z-depth-2';
     document.body.appendChild(_this.settingsBar);
-    
+
 
 
     /* Prepend Settings Toggle button */
@@ -300,9 +300,9 @@
               case 'Color':
                 if(value == 'Light') {
                   addClass(this.sidebar, 'yay-light');
-                  this.sidebarLogo.src = 'assets/_con/images/logo.png';
+                  // this.sidebarLogo.src = 'assets/_con/images/logo.png';
                 } else {
-                  this.sidebarLogo.src = 'assets/_con/images/logo-white.png';
+                  // this.sidebarLogo.src = 'assets/_con/images/logo-white.png';
                 }
                 break;
               case 'ShowType':
@@ -335,9 +335,9 @@
                 if(value == 'Dark') {
                   addClass(this.navbar, 'navbar-dark');
 
-                  this.navbarLogo.src = 'assets/_con/images/logo-white.png';
+                  // this.navbarLogo.src = 'assets/_con/images/logo-white.png';
                 } else {
-                  this.navbarLogo.src = 'assets/_con/images/logo.png';
+                  // this.navbarLogo.src = 'assets/_con/images/logo.png';
                 }
                 break;
 
@@ -507,7 +507,7 @@
       bind(current.item, 'click', function() {
         _this.onSelect(current);
       });
-      
+
     }(k, _this.options[k]));
 
     // set active first
@@ -599,7 +599,7 @@
     if (hasClass(o, c)) return;
     o.className = (o.className + " " + c).replace(/\s+/g, " ").replace(/(^ | $)/g, "");
   }
-  
+
   function removeClass(o, c){
     var re = new RegExp("(^|\\s)" + c + "(\\s|$)", "g");
     o.className = o.className.replace(re, "$1").replace(/\s+/g, " ").replace(/(^ | $)/g, "");

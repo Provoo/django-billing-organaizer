@@ -1,0 +1,80 @@
+<!--
+  Yay Sidebar
+  Options [you can use all of theme classnames]:
+    .yay-hide-to-small         - no hide menu, just set it small with big icons
+    .yay-static                - stop using fixed sidebar (will scroll with content)
+    .yay-gestures              - to show and hide menu using gesture swipes
+    .yay-light                 - light color scheme
+    .yay-hide-on-content-click - hide menu on content click
+
+  Effects [you can use one of these classnames]:
+    .yay-overlay  - overlay content
+    .yay-push     - push content to right
+    .yay-shrink   - shrink content width
+-->
+
+<aside class="yaybar yay-shrink yay-hide-to-small yay-gestures">
+    <div class="top">
+      <div>
+        <!-- Sidebar toggle -->
+        <a href="#" class="yay-toggle">
+            <div class="burg1"></div>
+            <div class="burg2"></div>
+            <div class="burg3"></div>
+        </a>
+        <!-- Sidebar toggle -->
+
+        <!-- Logo -->
+        <a href="#!" class="brand-logo">
+            {# <img src="assets/_con/images/logo-white.png" alt="Con">#}
+        </a>
+        <!-- /Logo -->
+      </div>
+    </div>
+
+    <div class="nano">
+      <div class="nano-content">
+        <ul>
+          <li class="yay-user-info">
+              <a href="{% url 'user_portfolios' %}">
+                <img src="" alt="" class="circle">
+                <h3 class="yay-user-info-name">{{request.user}}</h3>
+                <div class="yay-user-location">
+                  <i class="fa fa-map-marker"></i>
+                  Quito, ECU
+                </div>
+              </a>
+          </li>
+          <li class="label">Menu</li>
+          <li class="open">
+            <a href="dashboard.html" class="yay-sub-toggle waves-effect waves-blue"> <i class="fa fa-dashboard"></i> Portafolios
+              <span class="yay-collapse-icon mdi-navigation-expand-more"></span>
+            </a>
+            <ul>
+              <li class="active">
+                <a href="{% url 'user_portfolios' %}" class=" waves-effect waves-blue">dashboard  </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#" class=" waves-effect waves-blue"> <i class="mdi mdi-av-web"></i> Facturas
+              <span class="badge new">new</span>
+            </a>
+          </li>
+          <li class="label">Stats</li>
+          <li class="content">
+            <span><i class="fa fa-spinner"></i> Server Load</span>
+            <div class="progress small light-green lighten-4">
+              <div class="light-green accent-5" style="width: 37%">
+              </div>
+            </div>
+            <span><i class="fa fa-thumbs-o-up"></i> User Satisfaction</span>
+            <div class="progress small">
+              <div style="width: 91%"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+</aside>
+<!-- /Yay Sidebar -->
