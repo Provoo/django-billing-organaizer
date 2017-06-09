@@ -4,108 +4,106 @@
 {% block body_class %}home{% endblock %}
 {% block body_base %}
 <div id="wrapper">
-  <!-- Sidebar -->
-  <div id="sidebar-wrapper">
-      <ul class="sidebar-nav">
-          <li class="sidebar-brand">
-              <a href="{% url 'home' %}">
-                  InvMachine
-              </a>
-          </li>
-
-          <li role="separator" class="divider"></li>
-          {% if request.user.is_authenticated %}
-          <li>
-            <a href="{% url 'account_settings' %}" tabindex="-1">Settings</a>
-          </li>
-          <li>
-            <a href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>
-          </li>
-          <li>
-            <a href="{% url 'account_settings' %}">
-            {# <i class="fa fa-cog"></i>#}
-             {% trans "Settings" %}
-            </a>
-          </li>
-          <li>
-            <a id="account_logout" href="{% url 'account_logout' %}">
-              {# <i class="fa fa-power-off"></i>#}
-              {% trans "Log out" %}
-            </a>
-          </li>
-          {% else %}
-              <li><a class="white-text" href="{% url 'account_login' %}">{% trans "Log in" %}</a></li>
-              {% if ACCOUNT_OPEN_SIGNUP %}
-                  <li><a class="white-text" href="{% url 'account_signup' %}">{% trans "Sign up" %}</a></li>
-              {% endif %}
-          {% endif %}
-          <li>
-              <a href="#">Contact</a>
-          </li>
-      </ul>
-  </div>
-  <div id="page-content-wrapper">
-    <section class="container-fluid">
-      <h2>Facturas de {{ portafolio.Ruc }}</h2>
-      <div class="card-panel white row">
-        <div class="input-field col s4">
-          <select>
-            <option value="" disabled selected>Choose your option</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-          </select>
-          <label>Materialize Select</label>
-        </div>
-        <div class="input-field col s8">
-           <i class="material-icons prefix">search</i>
-           <input id="icon_prefix" type="text" class="validate">
-           <label for="icon_prefix"> Buscar </label>
-        </div>
-
-      </div>
-        <div class="white black-text z-depth-4 center card-panel">
-
-            <table class="container-fluid white black-text
-            responsive-table highlight">
-                <thead>
-                <tr>
-                    <th>RUC</th>
-                    <th>Nro. Fact</th>
-                    <th class="mdl-data-table__cell--non-numeric">Empresa</th>
-                    <th>Deducible Educacion</th>
-                    <th>Deducible Salud</th>
-                    <th>Deducible Vestimenta</th>
-                    <th>Deducible Alimentación</th>
-                    <th>Deducible Alimentación</th>
-                    <th>No Deducible</th>
-                    <th>Total</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% if object_list %}
-                    {% for documentos in object_list %}
-                        <tr>
-                            <td>{{ documentos.rucDocumento }}</td>
-                            <td>{{ documentos.fecha |date:"M d, Y" }}</td>
-                            <td>{{ documentos.numeroDeDocumento }}</td>
-                            <td>{{ documentos.NombreEmisor }}</td>
-                            <td>{{ documentos.deducible_educacion }}</td>
-                            <td>{{ documentos.deducible_salud }}</td>
-                            <td>{{ documentos.deducible_vestimenta }}</td>
-                            <td>{{ documentos.deducible_comida }}</td>
-                            <td>{{ documentos.deducible_comida }}</td>
-                            <td>{{ documentos.no_deducible }}</td>
-                            <td>{{ documentos.totalGastosf }}</td>
-                        </tr>
-                    {% endfor %}
-                {% else %}
-                    <p>No hay portfolios registrados.</p>
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="{% url 'home' %}">
+                    InvMachine
+                </a>
+            </li>
+            <li role="separator" class="divider"></li>
+            {% if request.user.is_authenticated %}
+            <li>
+                <a href="{% url 'account_settings' %}" tabindex="-1">Settings</a>
+            </li>
+            <li>
+                <a href="{% url 'portafolios' request.user.id %}" tabindex="-1">Portafolios</a>
+            </li>
+            <li>
+                <a href="{% url 'account_settings' %}">
+                    {# <i class="fa fa-cog"></i>#}
+                    {% trans "Settings" %}
+                </a>
+            </li>
+            <li>
+                <a id="account_logout" href="{% url 'account_logout' %}">
+                    {# <i class="fa fa-power-off"></i>#}
+                    {% trans "Log out" %}
+                </a>
+            </li>
+            {% else %}
+                <li><a class="white-text" href="{% url 'account_login' %}">{% trans "Log in" %}</a></li>
+                {% if ACCOUNT_OPEN_SIGNUP %}
+                <li><a class="white-text" href="{% url 'account_signup' %}">{% trans "Sign up" %}</a></li>
                 {% endif %}
-                </tbody>
-            </table>
-        </div>
-    </section>
-  </div>
+            {% endif %}
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </div>
+    <div id="page-content-wrapper">
+        <section class="container-fluid">
+            <h2>Facturas de {{ portafolio.Ruc }}</h2>
+            <div class="card-panel white row">
+                <div class="input-field col s4">
+                    <select>
+                        <option value="" disabled selected>Choose your option</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                    </select>
+                    <label>Materialize Select</label>
+                </div>
+                <div class="input-field col s8">
+                    <i class="material-icons prefix">search</i>
+                    <input id="icon_prefix" type="text" class="validate">
+                    <label for="icon_prefix"> Buscar </label>
+                </div>
+
+            </div>
+            <div class="white black-text z-depth-4 center card-panel">
+
+                <table class="container-fluid white black-text responsive-table highlight">
+                    <thead>
+                    <tr>
+                        <th>RUC</th>
+                        <th>Nro. Fact</th>
+                        <th class="mdl-data-table__cell--non-numeric">Empresa</th>
+                        <th>Deducible Educacion</th>
+                        <th>Deducible Salud</th>
+                        <th>Deducible Vestimenta</th>
+                        <th>Deducible Alimentación</th>
+                        <th>Deducible Alimentación</th>
+                        <th>No Deducible</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if object_list %}
+                    {% for documentos in object_list %}
+                    <tr>
+                        <td>{{ documentos.rucDocumento }}</td>
+                        <td>{{ documentos.fecha |date:"M d, Y" }}</td>
+                        <td>{{ documentos.numeroDeDocumento }}</td>
+                        <td>{{ documentos.NombreEmisor }}</td>
+                        <td>{{ documentos.deducible_educacion }}</td>
+                        <td>{{ documentos.deducible_salud }}</td>
+                        <td>{{ documentos.deducible_vestimenta }}</td>
+                        <td>{{ documentos.deducible_comida }}</td>
+                        <td>{{ documentos.deducible_comida }}</td>
+                        <td>{{ documentos.no_deducible }}</td>
+                        <td>{{ documentos.totalGastosf }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <p>No hay portfolios registrados.</p>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
 </div>
 {% endblock %}

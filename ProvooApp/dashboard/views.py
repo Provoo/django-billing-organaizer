@@ -172,7 +172,7 @@ class documentoView(ListView):
 
 class notificationsView(ListView):
     model = User
-    template_name = 'notifications1.html'
+    template_name = 'notifications.html'
 
     def get_queryset(self):
         notifica = super(

@@ -1,130 +1,340 @@
 {% extends "site_base.html" %}
 {% load staticfiles %}
 {% load i18n %}
-{% block head_title %}Home{% endblock %}
+<!--{% block head_title %}Home{% endblock %}-->
 {% block extra_head %}
-    <title>InvMachine</title>
+<title>InvMachine</title>
 {% endblock %}
 {% block body_class %}home{% endblock %}
 {% block menu-icon %}{% endblock %}
+{% block styles %}
+  {{ block.super }}
+  {% load static from staticfiles %}
+  <link href='{% static "min/custom.css" %}' rel='stylesheet'/>
+  <link href='{% static "min/plugin.css" %}' rel='stylesheet'/>
+  <link href='{% static "css/animate.css" %}' rel='stylesheet'/>
+  <link href='{% static "css/site.css" %}' rel='stylesheet'/>
 
+  {# <link href='{% static "css/con-base.css" %}' rel='stylesheet'/>#}
+{% endblock %}
+{% block scripts %}
+  {% load staticfiles %}
+  <script type="text/javascript" src="{% static "min/plugin-min.js" %}"></script>
+  <script type="text/javascript" src="{% static "min/custom-min.js" %}"></script>
+  <script type="text/javascript" src="{% static "min/classie.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/wow.js" %}"></script>
+  <script type="text/javascript">
+    $( document ).ready(function(){
+      function init() {
+        window.addEventListener('scroll', function(e){
+          var distanceY = window.pageYOffset || document.documentElement.scrollTop,
+          shrinkOn = 300,
+          header = document.querySelector(".nav_f");
+          if (distanceY > shrinkOn) {
+            classie.add(header,"tran");
+          } else {
+            if (classie.has(header,"tran")) {
+              classie.remove(header,"tran");
+            }
+          }
+        });
+      }
+      window.onload = init();
+    })
+  </script>
+{% endblock %}
+
+{% block topbar_base %}
+<div class="wow fadeIn"></div>
+<div class="wow slideInLeft" data-wow-duration="2s" data-wow-delay="5s"></div>
+<div class="wow pulse" data-wow-offset="10" data-wow-iteration="100"></div>
+
+<div class="navbar-fixed navbar">
+    <nav class="default_color nav_f " role="navigation">
+        <div class="container z-depth-5">
+            <div class="nav-wrapper z-depth-5">
+                <a href="#" id="logo-container" class="brand-logo">InvMachine</a>
+                {# <ul class="right hide-on-med-and-down">#}
+                {# account bar #}
+                {% load account_tags %}
+                <ul class="right hide-on-med-and-down">
+                    {% if request.user.is_authenticated %}
+                        <li class="white-text dropdown">
+                          <a href="" >
+                            {% user_display request.user %}
+                            <b class="white-text caret"></b>
+                          </a>
+                        </li>
+                        {# <ul class="dropdown-menu">#}
+                        <li>
+                          <a href="{% url 'account_settings' %}" tabindex="-1">Settings</a>
+                        </li>
+                        <li>
+                          <a href="{% url 'user_portfolios' %}" tabindex="-1">Portafolios</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                          <a href="{% url 'account_settings' %}">
+                            {% trans "Settings" %}
+                          </a>
+                        </li>
+                        <li>
+                          <a id="account_logout" href="{% url 'account_logout' %}">
+                            {% trans "Log out" %}
+                          </a>
+                        </li>
+                    {% else %}
+                      <li><a class="white-text" href="{% url 'account_login' %}">{% trans "Log in" %}</a></li>
+                    {% if ACCOUNT_OPEN_SIGNUP %}
+                      <li><a class="white-text" href="{% url 'account_signup' %}">{% trans "Sign up" %}</a></li>
+                    {% endif %}
+                  {% endif %}
+                  </ul>
+                <form id="accountLogOutForm" style="display: none;" action="{% url 'account_logout' %}" method="POST"
+                      class="white-text">
+                    {% csrf_token %}
+                </form>
+                {# account bar #}
+                <a href="#" data-activates="nav-mobile" class="button-collapse"></a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+{% endblock %}
 {% block body_base %}
+<!--<body id="top" class="scrollspy" data-spy="scroll" data-target=".navbar">-->
 
-   {# <div class="parallax-container">#}
-      {# <div class="parallax">#}
-      {# <img src="{% static 'img/bg1.png' %}">#}
-        {# <div class="gradiant"></div>#}
-      {# </div>#}
-    {# </div>#}
 
-    <section class="parallax-container center homeSection" style="padding: 0; height: 90vh; background: url({% static 'img/bg1.png' %})">
-      <div class="black-text row valign-wrapper">
-        <div class="col m6 row s12">
-          <div class="col s12">
-            <h4 class="teal-text">¿Te has dado cuenta que mientras más ganas más gastas?</h4>
-            <p class="left">
-              Te presentamos una forma inteligente de ahorrar y llevar tu contabilidad de una forma
-              ordenada y a la vista en todo momento, con invMachine, podrás saber, Dónde estás gastando
-              cómo estas gastando y cuales son todos tus gastos y te podemos decir cómo realmente ahorrar
-              y aprender a manejar tus finanzas personales, todo a través de un solo click.
-            </p>
-          </div>
-          <div class="col s6">
-            <img src='{% static "img/apple.svg" %}'  alt="" class="downloadImage"/>
-          </div>
-          <div class="col s6">
-            <img src='{% static "img/playstore.svg" %}'  alt="" class="downloadImage"/>
-          </div>
-        </div>
-        <div class="col m4 offset-m2 s12 ">
-          <img src="{% static 'img/phone.svg' %}" alt="" class="side-img"/>
-        </div>
+<!--Navigation-->
+
+<!--Hero-->
+<div class="section no-pad-bot wow slideInLeft" id="index-banner">
+  <div class="container white-text text-darken-2" style="padding-top:5rem;">
+    <div class="row">
+      <div class="col s6">
+        <h3 class=" wow fadeIn left header cd-headline letters type">
+          <span>¿Te has dado cuenta que mientras más ganas más gastas?</span>
+        </h3>
+        <h5 class="wow pulse left text_h5 ">
+          Te presentamos una forma inteligente de ahorrar y llevar tu contabilidad
+        </h5>
       </div>
-    </section>
-    <section>
-      <div id="intro" class="section scrollspy ">
+      <div class="col s6 wow fadeInDown">
+        <img src="{% static 'img/phone.svg' %}" alt="" class="side-img wow slideInRight"/>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Intro and service-->
+<div id="intro" class="section scrollspy wow fadeInDown">
     <div class="container">
-        <div class="row card-panel top-card z-depth-3">
-          <div class="container row">
-              {% include "_messages.html" %}
-              <div class="col s12 m12 row">
-                <h2 class="blue-grey-text section-title center">{% blocktrans %}Tus Finanzas en una App{% endblocktrans %}</h2>
-              </div>
-              <div class="col s12 m7 row">
-                <div class="col s12 center">
-                  <img src='{% static "img/computer.svg" %}'  alt="" style="width:60%;"/>
+        <div class="row card-panel top-card z-depth-3 wow fadeIn">
+            <!-- <h2 class="header text_b center-align"> Diseñar </h2> -->
+            <div class="col s12">
+                <h4 class="header text_b center-align">
+                  {% blocktrans %}
+                  Tus Finanzas en una App
+                  {% endblocktrans %}
+                </h4>
+                <h5 class="center header text_h2">
+                  {% blocktrans %}
+                  Te presentamos una forma inteligente de ahorrar y llevar tu contabilidad de una forma
+                  ordenada y a la vista en todo momento, con invMachine, podrás saber, Dónde estás
+                  gastando
+                  cómo estas gastando y cuales son todos tus gastos y te podemos decir cómo realmente
+                  ahorrar
+                  y aprender a manejar tus finanzas personales, todo a través de un solo click.
+                  {% endblocktrans %}
+                </h5>
+            </div>
+            <div class="col s12 m4 l4">
+                <div class="center promo promo-example">
+                  <i class="fa fa-clock-o blue-text " style="font-size:5rem"></i>
+                    {# <i class="mdi-image-flash-on"></i>#}
+                    <h5 class="promo-caption">
+                      {% blocktrans %} Es tu <b>tiempo</b> <br>
+                      y vale mucho{% endblocktrans %}
+                    </h5>
+                    <p class="light center">
+                      {% blocktrans %}
+                      No lo desperdicies calculando presupuestos te ayudamos
+                      calculando y ajustando tu presupuesto, para que puedas
+                      ahorrar y usar de forma más inteligente tus ingresos.
+                      {% endblocktrans %}
+                    </p>
                 </div>
-                <div class="col s12">
+            </div>
+            <div class="col s12 m4 l4">
+                <div class="center promo promo-example">
+                    <span class="glyphicon glyphicon-piggy-bank orange-text" style="font-size:5rem"></span><br>
+
+                    <h5 class="promo-caption">
+                      {% blocktrans %} <b>Ahorrar</b> para <br> cumplir tus metas.{% endblocktrans %}
+                    </h5>
+                    <p class="light center">
+                      {% blocktrans %}
+                      No necesita ser un sacrificio, <b>InvMachine</b> aprenderá de todos tus consumos y te
+                      ayudará a encontrar los mejores precios en todo momento.
+                      {% endblocktrans %}
+                    </p>
                 </div>
-              </div>
-              <div class="col s12 m5 ">
-                  <div class="blue-grey-text text-darken-4">
-                      <h5 style="line-height:2rem; font-size:1.3rem;" class="valgrim-wraper">
-                          {% blocktrans %}
-                              Te presentamos una forma inteligente de ahorrar y llevar tu contabilidad de una forma
-                              ordenada y a la vista en todo momento, con invMachine, podrás saber, Dónde estás gastando
-                              cómo estas gastando y  cuales son todos tus gastos y te podemos decir cómo realmente ahorrar
-                              y aprender a manejar tus finanzas personales, todo a través de un solo click.
-                          {% endblocktrans %}
-                      </h5>
-                  </div>
-              </div>
-          </div>
+            </div>
+            <div class="col s12 m4 l4">
+                <div class="center promo promo-example">
+                  <i class="fa fa-dollar green-text" style="font-size:5rem"></i>
+                    <h5 class="promo-caption">
+                      <b>Invertir</b> no es <br> solo para los ricos.
+                    </h5>
+                    <p class="light center">
+                      {% blocktrans %}
+                      Si estas listo para dar el siguiente paso hacia la libertad
+                      financiera, nosotros te ayudamos con inversiónes de corto,
+                      mediano y largo plazo que se ajusten a tu presupuesto.
+                      {% endblocktrans %}
+                    </p>
+                </div>
+            </div>
         </div>
-        <section class="row">
-          <div class="col s4">
-            <div class="card-panel center">
-                <i class="fa fa-clock-o blue-text " style="font-size:5rem"></i><br>
-                <h5 class="text-center blue-text">
-                  {% blocktrans %} Es tu <b>tiempo</b> <br>
-                  y vale mucho{% endblocktrans %}
-                </h5>
-                <p class="whyUs">
-                    {% blocktrans %}
-                        No lo desperdicies calculando presupuestos te ayudamos
-                        calculando y ajustando tu presupuesto, para que puedas
-                        ahorrar y usar de forma más inteligente tus ingresos.
-                    {% endblocktrans %}
-                </p>
-            </div>
-            </div>
-            <div class="col s4">
-              <div class="card-panel center">
-                <span class="glyphicon glyphicon-piggy-bank orange-text" style="font-size:5rem"></span><br>
-                <h5 class="text-center orange-text">
-                  {% blocktrans %} <b>Ahorrar</b> para <br> cumplir tus metas.{% endblocktrans %}
-                </h5>
-                <p class="whyUs">
-                    {% blocktrans %}
-                        No necesita ser un sacrificio, <b>InvMachine</b> aprenderá de todos tus consumos y te
-                        ayudará a encontrar los mejores precios en todo momento.
-                    {% endblocktrans %}
-                </p>
-                </div>
-            </div>
-            <div class="col s4">
-              <div class="card-panel center">
-                <i class="fa fa-dollar green-text" style="font-size:5rem"></i>
-                <br>
-                <h5 class="center green-text">
-                  <b>Invertir</b> no es <br> solo para los ricos.
-                </h5>
-                <p class="whyUs">
-                    {% blocktrans %}
-                        Si estas listo para dar el siguiente paso hacia la libertad
-                        financiera, nosotros te ayudamos con inversiónes de corto,
-                        mediano y largo plazo que se ajusten a tu presupuesto.
-                    {% endblocktrans %}
-                </p>
-                </div>
-            </div>
-        </secti
     </div>
 </div>
-    </section>
 
+<!--Work-->
+<div class="section scrollspy" id="work">
+    <div class="container">
+        <h4 class="header text_b center-align">Servicios </h4>
+        <div class="row">
+            <div class="col s12 m4 l6">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="img/project1.jpg">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4"> InvMachine
+                           <i class="mdi-navigation-more-vert right"></i></span>
+                        <p><a href="#contact">Project link</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Instalación Odoo <i
+                                class="mdi-navigation-close right"></i></span>
+                        <p class="grey-text text-darken-1">
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m4 l6">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="img/project1.jpg">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4"> InvMachine
+                           <i class="mdi-navigation-more-vert right"></i></span>
+                        <p><a href="#contact">Project link</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Instalación Odoo <i
+                                class="mdi-navigation-close right"></i></span>
+                        <p class="grey-text text-darken-1">
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Parallax-->
+<div class="parallax-container">
+    <div class="parallax">
+      <img src="{% static 'img/bg1.png' %}">
+    </div>
+</div>
+
+
+<div class="section scrollspy" id="contact">
+    <div class="container">
+        <div class="row card-panel ">
+            <h4 class="header text_b center-align">¿Quieres saber más?</h4>
+            <h5 class="center header text_h2 grey-text" style="font-size: 1.4rem; font-weight: 300;"> Dejanos tus
+                mensaje nos pondremos en contacto contigo para coordinar una demo!
+            </h5>
+            <div class="col s10 offset-s1 ">
+                <form class="col s12 contact-card " action="http://provoos.com/ftools/process.php" method="post">
+                    <input type="hidden" name="form_tools_form_id" value="2"/>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="icon_prefix" name="name" type="text" class="validate black-text custom-form ">
+                            <label for="icon_prefix" class="grey-text lighten-3">First Name</label>
+                        </div>
+                        <div class="input-field col s6 ">
+                            <input id="icon_email" name="email" type="email" class="validate black-text custom-form ">
+                            <label for="icon_email" class="grey-text lighten-3">Email-id</label>
+                        </div>
+                        <div class="input-field col s12 ">
+                            <textarea id="icon_prefix2" name="message"
+                                      class="materialize-textarea black-text custom-form "></textarea>
+                            <label for="icon_prefix2" class="grey-text lighten-3">Message</label>
+                        </div>
+                        <div class="col offset-s5">
+                            <button class="btn waves-effect waves-light indigo darken-4" type="submit">Submit
+                                <i class="mdi-content-send right white-text"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--Footer-->
+<footer class="page-footer default_color scrollspy">
+    <!-- <div class="container">
+        <div class="row">
+          <div class="col l3 s12">
+                <h5 class="white-text">Contenido</h5>
+                <ul>
+                    <li><a class="white-text" href="http://www.joashpereira.com/">Home</a></li>
+                    <li><a class="white-text" href="http://www.joashpereira.com/blog">Blog</a></li>
+                </ul>
+            </div>
+          <div class="col l3 s12">
+              <h5 class="white-text">Social</h5>
+              <ul>
+                  <li>
+                      <a class="white-text" href="https://www.behance.net/joashp">
+                          <i class="small fa fa-behance-square white-text"></i> Behance
+                      </a>
+                  </li>
+                  <li>
+                      <a class="white-text" href="https://www.facebook.com/joash.c.pereira">
+                          <i class="small fa fa-facebook-square white-text"></i> Facebook
+                      </a>
+                  </li>
+                  <li>
+                      <a class="white-text" href="https://github.com/joashp">
+                          <i class="small fa fa-github-square white-text"></i> Github
+                      </a>
+                  </li>
+                  <li>
+                      <a class="white-text" href="https://www.linkedin.com/in/joashp">
+                          <i class="small fa fa-linkedin-square white-text"></i> Linkedin
+                      </a>
+                  </li>
+              </ul>
+          </div>
+        </div> -->
+    <div class="footer-copyright default_color">
+        <div class="container">
+            © 2017 InvMachine, todos los derechos reservados.
+        </div>
+    </div>
+</footer>
 
 {% endblock %}
 {% block footer_base %}
-    {% include "components/_footer.html" %}
+{# {% include "components/_footer.html" %}#}
 {% endblock %}

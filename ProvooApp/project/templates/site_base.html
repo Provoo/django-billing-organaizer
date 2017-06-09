@@ -8,7 +8,6 @@
 {% block scripts %}
     {% include "_scripts.html" %}
 {% endblock %}
-
 {% block styles %}
     {% include "_styles.html" %}
 {% endblock %}
@@ -42,118 +41,22 @@
   </div>
 </header>
 {% endblock %}
+{% block web_base %}
 
 <main class="mdl-layout__content">
-
-
-    {% block body_base %}
-    <section id="content_body">
-        <div class="container">
-            {% include "_messages.html" %}
-            {% block body %}
-            {% endblock %}
-        </div>
-    </section>
-    {% endblock %}
-
-    {% block extra_head_base %}
-        {% block extra_head %}{% endblock %}
-    {% endblock %}
-
-
-
-    {% block extra_body_base %}
-        {% analytics %}
-        {% block extra_body %}
-            {% if  user.is_authenticated %}
-                                    <!-- Modal Trigger -->
-
-                <div class="fixed-action-btn">
-
-                    <a class="btn-floating btn-large modal-trigger pulse btn tooltipped pink " href="#modal1" data-position="left" data-delay="50" data-tooltip="Agregar facturas">
-                        <i class="material-icons" style="font-size:40px;">add</i>
-                    </a>
-                    <ul>
-                        <li>
-                          <a href="{% url 'googleImport' %}" class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="Agregar cuenta de Google">
-                          <i class="fa fa-google"></i></a>
-                        </li>
-                        <li>
-                          <a href="{% url "social:begin" "msn-live-connect" %}" class="btn-floating blue tooltipped" data-position="left" data-delay="40" data-tooltip="Agregar cuenta de Outlook">
-                          <i class="material-icons">mail_outline</i></a></li>
-                        <li>
-                          <a class="btn-floating green modal-trigger tooltipped" data-position="left" data-delay="60" data-tooltip="Agregar factura manualmente" href="#modal2">
-                            <i class="material-icons">create</i>
-                          </a>
-                        </li>
-                    </ul>
-                </div>
-                <div id="modal1" class="modal-fixed-footer modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                    <div class="modal-content flow-text card-panel content">
-                        <div class="modal-header card-title">
-                            <h3 class="center blue-text text-darken-2" id="exampleModalLabel">
-                                Subir Factura
-                            </h3>
-                        </div>
-                        <div class="modal-body card-content">
-                             <form id=uploadForm action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
-                                <div class="file-field input-field">
-                                    <div class="btn">
-                                        <small>
-                                            Encuentra tus facturas
-                                        </small>
-                                        <input type="file" name="docfile" multiple>
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" accept=".xml"
-                                               placeholder="Sube tus archivos">
-                                    </div>
-                                </div>
-                                <br>
-                                <input type="submit" value="Subir" id="but_upload" class="center waves-effect waves-light btn-large z-depth-0 z-depth-1-hover"/>
-                            </form>
-                            {# <form id=uploadForm action="{% url 'upload' %}" method="post" enctype="multipart/form-data" class="dropzone dz-clickable"> #}
-                              {# {% csrf_token %} #}
-                              {# <div class="dz-default dz-message"> #}
-                                {# <span>Encuentra tus facturas</span> #}
-                              {# </div> #}
-                            {# </form> #}
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal Trigger -->
-                {# <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Modal</a> <!-- Modal Structure --> #}
-                {# <div id="modal2" class="modal "> <div class="modal-content flow-text"> <h4>Modal Header</h4> <p>Text</p> </div> <div class="modal-footer"> <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Disagree</a> <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a> </div> </div> #}
-
-
-                <div id="modal2" class="modal-fixed-footer modal"
-                     tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                    <div class="modal-content flow-text" style="width: 100%">
-                        <div class="modal-header">
-                            <h5 class="modal-title">
-                                Agregar Factura Manualmente
-                            </h5>
-                        </div>
-                        <div class="modal-body">
-                            <form id=uploadInvoice action="" method="post" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                <div class="input-field col s6">
-                                  <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-                                  <label for="first_name">Nombre</label>
-                                </div>
-                                <div class="input-field col s6">
-                                  <input placeholder="RUC" id="RUC" type="text" class="validate">
-                                  <label for="first_name">RUC</label>
-                                </div>
-                                <input type="submit" value="Upload" id="but_upload"/>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-        {% endblock %}
-    {% endblock %}
+  {% block body_base %}
+  <section id="content_body">
+    <div class="container">
+      {% include "_messages.html" %}
+      {% block body %}
+      {% endblock %}
+    </div>
+  </section>
+  {% endblock %}
+  {% block extra_head_base %}
+      {% block extra_head %}{% endblock %}
+  {% endblock %}
 </main>
+{% endblock %}
 
 {% block footer_base %}{% endblock %}
