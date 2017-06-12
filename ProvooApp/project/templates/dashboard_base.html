@@ -54,42 +54,44 @@
           </div>
           <div id="modal1" class="modal-fixed-footer modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-content flow-text card-panel content">
-                  <div class="modal-header card-title">
-                      <h3 class="center blue-text text-darken-2" id="exampleModalLabel">
-                          Subir Factura
-                      </h3>
-                  </div>
-                  <div class="modal-body card-content">
-                       <form id=uploadForm action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
-                          <div class="file-field input-field">
-                              <div class="btn">
-                                  <small>
-                                      Encuentra tus facturas
-                                  </small>
-                                  <input type="file" name="docfile" multiple>
-                              </div>
-                              <div class="file-path-wrapper">
-                                  <input class="file-path validate" type="text" accept=".xml"
-                                         placeholder="Sube tus archivos">
-                              </div>
-                          </div>
-                          <br>
-                          <input type="submit" value="Subir" id="but_upload" class="center waves-effect waves-light btn-large z-depth-0 z-depth-1-hover"/>
-                      </form>
-                      {# <form id=uploadForm action="{% url 'upload' %}" method="post" enctype="multipart/form-data" class="dropzone dz-clickable"> #}
-                        {# {% csrf_token %} #}
-                        {# <div class="dz-default dz-message"> #}
-                          {# <span>Encuentra tus facturas</span> #}
-                        {# </div> #}
-                      {# </form> #}
-                  </div>
+              <div class="modal-header card-title">
+                <h3 class="center blue-text text-darken-2" id="exampleModalLabel">
+                    Subir Factura
+                </h3>
               </div>
+              <div class="modal-body card-content row upload-modal">
+                <form id=uploadForm action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+                  <div class="file-field input-field col s12">
+                    <div class="btn waves-effect waves-light indigo darken-4 z-depth-0 z-depth-1-hover">
+                      <small>
+                        Encuentra tus facturas
+                      </small>
+                      <input type="file" name="docfile" multiple>
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input class="file-path validate" type="text" accept=".xml"
+                               placeholder="Sube tus archivos">
+                    </div>
+                  </div>
+                  <br>
+                  <div class="col offset-s5">
+                    <input type="submit" value="Subir" id="but_upload" class="btn waves-effect waves-light indigo darken-4 z-depth-0 z-depth-1-hover"/>
+                  </div>
+                </form>
+              {# <form id=uploadForm action="{% url 'upload' %}" method="post" enctype="multipart/form-data" class="dropzone dz-clickable"> #}
+                {# {% csrf_token %} #}
+                {# <div class="dz-default dz-message"> #}
+                  {# <span>Encuentra tus facturas</span> #}
+                {# </div> #}
+              {# </form> #}
+              </div>
+            </div>
           </div>
           <!-- Modal Trigger -->
           {# <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Modal</a> <!-- Modal Structure --> #}
           {# <div id="modal2" class="modal "> <div class="modal-content flow-text"> <h4>Modal Header</h4> <p>Text</p> </div> <div class="modal-footer"> <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Disagree</a> <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a> </div> </div> #}
           <div id="modal2" class="modal-fixed-footer modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-content flow-text" style="width: 100%">
+            <div class="modal-content flow-text row" style="width: 100%">
                 <div class="modal-header">
                   <h5 class="modal-title">
                       Agregar Factura Manualmente
@@ -99,14 +101,17 @@
                   <form id=uploadInvoice action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="input-field col s6">
-                      <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                      <input  id="first_name" type="text" class="validate">
                       <label for="first_name">Nombre</label>
                     </div>
                     <div class="input-field col s6">
-                      <input placeholder="RUC" id="RUC" type="text" class="validate">
+                      <input id="RUC" type="text" class="validate">
                       <label for="first_name">RUC</label>
                     </div>
-                    <input type="submit" value="Upload" id="but_upload"/>
+                    <div class="col offset-s5">
+                      <input type="submit" value="Upload" id="but_upload"
+                      class="btn waves-effect waves-light indigo darken-4"/>
+                    </div>
                   </form>
                 </div>
               </div>

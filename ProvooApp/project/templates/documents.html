@@ -5,57 +5,55 @@
 {% block dashboard-content %}
 
 <div class="page-title">
-    {# <div class="row">#}
-        {# <div class="col s12 m9 l10">#}
-            <h1>Facturas</h1>
-        {# </div>#}
-    {# </div>#}
+  <h1>Facturas</h1>
 </div>
 
 <div class="card-panel">
-  <div class="row ">
-    <div class="col s12 l7">
-      <table id="table2" class="display table table-bordered table-striped table-hover">
-        <thead>
-          <tr>
-              <th>RUC</th>
-              <th>Nro. Fact</th>
-              <th class="mdl-data-table__cell--non-numeric">Empresa</th>
-              <th>Deducible Educacion</th>
-              <th>Deducible Salud</th>
-              <th>Deducible Vestimenta</th>
-              <th>Deducible Alimentación</th>
-              <th>Deducible Alimentación</th>
-              <th>No Deducible</th>
-              <th>Total</th>
-          </tr>
-          </thead>
-          <tbody>
-          {% if object_list %}
-              {% for documentos in object_list %}
-                  <tr>
-                      <td>{{ documentos.rucDocumento }}</td>
-                      <td>{{ documentos.fecha |date:"M d, Y" }}</td>
-                      <td>{{ documentos.numeroDeDocumento }}</td>
-                      <td>{{ documentos.NombreEmisor }}</td>
-                      <td>{{ documentos.deducible_educacion }}</td>
-                      <td>{{ documentos.deducible_salud }}</td>
-                      <td>{{ documentos.deducible_vestimenta }}</td>
-                      <td>{{ documentos.deducible_comida }}</td>
-                      <td>{{ documentos.deducible_comida }}</td>
-                      <td>{{ documentos.no_deducible }}</td>
-                      <td>{{ documentos.totalGastosf }}</td>
-                  </tr>
-              {% endfor %}
-          {% else %}
-              <p>No hay portfolios registrados.</p>
-          {% endif %}
-          </tbody>
-      </table>
-    </div>
- </div>
+  <div class="row no-space-arround">
+    <div class="col s12">
+    <table id="table2" class="display table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+            <th>RUC</th>
+            <th>Nro. Fact</th>
+            <th class="mdl-data-table__cell--non-numeric">Empresa</th>
+            <th>Deducible Educacion</th>
+            <th>Deducible Salud</th>
+            <th>Deducible Vestimenta</th>
+            <th>Deducible Alimentación</th>
+            <th>Deducible Alimentación</th>
+            <th>No Deducible</th>
+            <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% if object_list %}
+          {% for documentos in object_list %}
+              <tr>
+                  <td>{{ documentos.rucDocumento }}</td>
+                  <td>{{ documentos.fecha |date:"M d, Y" }}</td>
+                  <td>{{ documentos.numeroDeDocumento }}</td>
+                  <td>{{ documentos.NombreEmisor }}</td>
+                  <td>{{ documentos.deducible_educacion }}</td>
+                  <td>{{ documentos.deducible_salud }}</td>
+                  <td>{{ documentos.deducible_vestimenta }}</td>
+                  <td>{{ documentos.deducible_comida }}</td>
+                  <td>{{ documentos.deducible_comida }}</td>
+                  <td>{{ documentos.no_deducible }}</td>
+                  <td>{{ documentos.totalGastosf }}</td>
+              </tr>
+          {% endfor %}
+      {% else %}
+          <p>No hay portfolios registrados.</p>
+      {% endif %}
+      </tbody>
+    </table>
+  </div>
+  </div>
+
 </div>
 {% endblock %}
+
 {% block scripts %}
     {{ block.super }}
     {% load static from staticfiles %}

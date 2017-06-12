@@ -2,18 +2,22 @@
 {% load account_tags %}
 <ul class="nav navbar-nav pull-right white-text">
     {% if request.user.is_authenticated %}
-
         <li class="white-text dropdown">
             <a href="" class="white-text dropdown-toggle" data-toggle="dropdown">
-                <i class="white-text fa fa-user"></i> {% user_display request.user %}
+                <i class="white-text fa fa-user"></i>
+                {% user_display request.user %}
                 <b class="white-text caret"></b>
             </a>
             <ul class="dropdown-menu">
                 <li>
-                  <a href="{% url 'account_settings' %}" tabindex="-1">Settings</a>
+                  <a href="{% url 'account_settings' %}" tabindex="-1">
+                    {% trans "Settings" %}
+                  </a>
                 </li>
                 <li>
-                  <a href="{% url 'user_portfolios' %}" tabindex="-1">Portafolios</a>
+                  <a href="{% url 'user_portfolios' %}" tabindex="-1">
+                    {% trans "Portafolios" %}
+                  </a>
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
