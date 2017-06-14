@@ -13,11 +13,16 @@ body{
 15px;
 }
 #intro{
-  padding-top: 0rem;
+  padding-top: 1rem;
   height: 60%;
   max-height: 600px;
+  background-color: #fff;
 }
 
+.intro-container{
+  margin-bottom: 3rem;
+
+}
 .top-card{
   position: relative;
   top:-9rem;
@@ -29,7 +34,8 @@ body{
 #index-banner {
     min-height: 700px;
     max-height: 700px;
-    position: relative;
+    padding-top: 8rem;
+    position: inherit;
     background: linear-gradient(50deg, HSLA(205, 62%, 44%, 1), #da539d);
 }
 .nav_f {
@@ -41,10 +47,9 @@ body{
     -ms-transition: height 0.5s !important;
     -o-transition: height 0.5s !important;
     transition: height 0.5s !important;
-    height: 100px !important;
+    height: 56px !important;
 }
 nav .brand-logo {
-font-size: 2rem;
 font-weight: 300;
 }
 
@@ -54,7 +59,6 @@ nav ul a {
     letter-spacing: 1px;
     display: block;
     font-weight: 400;
-    padding: 0px 15px;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -72,12 +76,17 @@ nav a.button-collapse {
 }
 
 .nav_f.tran {
-  background:#3176B0 !important;
+  background:#5051a0 !important;
 	visibility:visible !important;
 	position: fixed !important;
   	top: 0 !important;
-  height: 75px !important;
 
+}
+
+.nav_f.tran ul a{
+  font-size: 1rem !important;
+  line-height: 0rem;
+  padding: 0px 15px;
 
 }
 
@@ -89,9 +98,6 @@ nav a.button-collapse {
 
 .nav_f.tran a.button-collapse {
   font-size: 1rem !important;
-}
-.nav_f.tran .brand-logo {
-  line-height: 5rem;
 }
 
 .text_h {
@@ -111,10 +117,10 @@ nav a.button-collapse {
     letter-spacing: 7px;
 }
 .text_h2 {
-    font-weight: 100;
+    font-weight: 300;
     margin-bottom: 4%;
     line-height: 3rem;
-    margin: 0 5rem 0 5rem;
+    margin: 0 5rem 5rem 5rem;
 }
 .span_h2 {
     font-weight: 300;
