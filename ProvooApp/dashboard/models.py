@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Sum
 from django.template.defaultfilters import slugify
+from django.contrib.postgres.fields import ArrayField
 #google api credentials
 # import pickle
 # import base64
@@ -59,7 +60,7 @@ class Portafolio(models.Model):
     def total_educacion(self):
         return documento.objects.filter(
             rucDocumento=self.pk).aggregate(total=Sum("deducible_educacion"))["total"]
-            
+
     @property
     def total_vivienda(self):
         return documento.objects.filter(
@@ -95,7 +96,9 @@ class documento(models.Model):
     deducible_comida = models.DecimalField(max_digits=20, decimal_places=2)
     deducible_salud = models.DecimalField(max_digits=20, decimal_places=2)
     deducible_vivienda = models.DecimalField(max_digits=20, decimal_places=2)
+    tags = ArrayField(models.CharField(max_length=200), blank=True)
     no_deducible = models.DecimalField(max_digits=20, decimal_places=2)
+
     archivo = models.FileField(upload_to=user_directory_path)
     def __str__(self):
         return '%s %s' % (self.rucDocumento, self.nombreDocumento)

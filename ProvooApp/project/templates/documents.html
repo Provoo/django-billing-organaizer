@@ -3,44 +3,51 @@
 {% block head_title %}Dashboard{% endblock %}
 
 {% block dashboard-content %}
-
 <div class="page-title">
   <h1>Facturas</h1>
 </div>
 
 <div class="card-panel">
-  <div class="row no-space-arround">
-    <div class="col s12">
-    <table id="table2" class="display table table-bordered table-striped table-hover">
+  <div class="row">
+    <div class="col s12 ">
+    <table id="table2" class="display table table-bordered table-striped table-hover "width="20%" cellspacing="0">
       <thead>
         <tr>
+            <th>Fecha</th>
             <th>RUC</th>
-            <th>Nro. Fact</th>
-            <th class="mdl-data-table__cell--non-numeric">Empresa</th>
+            <th>Nro.Fact</th>
+            <th>Empresa</th>
             <th>Deducible Educacion</th>
-            <th>Deducible Salud</th>
+            <th>Deducible  Salud</th>
             <th>Deducible Vestimenta</th>
             <th>Deducible Alimentación</th>
-            <th>Deducible Alimentación</th>
+            <th>Deducibl  Alimentación</th>
             <th>No Deducible</th>
             <th>Total</th>
+            <th>Tags</th>
         </tr>
       </thead>
       <tbody>
       {% if object_list %}
           {% for documentos in object_list %}
               <tr>
-                  <td>{{ documentos.rucDocumento }}</td>
                   <td>{{ documentos.fecha |date:"M d, Y" }}</td>
+                  <td>{{ documentos.rucDocumento }}</td>
                   <td>{{ documentos.numeroDeDocumento }}</td>
                   <td>{{ documentos.NombreEmisor }}</td>
-                  <td>{{ documentos.deducible_educacion }}</td>
+                  <td >{{ documentos.deducible_educacion }}</td>
                   <td>{{ documentos.deducible_salud }}</td>
                   <td>{{ documentos.deducible_vestimenta }}</td>
                   <td>{{ documentos.deducible_comida }}</td>
                   <td>{{ documentos.deducible_comida }}</td>
                   <td>{{ documentos.no_deducible }}</td>
                   <td>{{ documentos.totalGastosf }}</td>
+                  <td>
+                    {% for tag in documentos.tags %}
+                      <div class="chip blue white-text">{{tag}}</div>
+                    {% endfor %}
+                  </td>
+                  <!-- <span class="badge new">{{tag}}</span> -->
               </tr>
           {% endfor %}
       {% else %}
@@ -58,5 +65,11 @@
     {{ block.super }}
     {% load static from staticfiles %}
     <script type="text/javascript" src="{% static "js/jquery.dataTables.min.js" %}"></script>
-    <script> $('#table2').DataTable({ "iDisplayLength": 5, "aLengthMenu": [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "all"] ] }); </script>
+    <script>
+    $('#table2').DataTable({
+      "iDisplayLength": 5,
+      "aLengthMenu": [ [5, 0, 5, 0, -1], [5, 10, 25, 50, "all"] ],
+      "scrollX": true
+    });
+    </script>
 {% endblock %}
