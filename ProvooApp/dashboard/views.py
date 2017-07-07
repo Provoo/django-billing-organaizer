@@ -34,6 +34,10 @@ from googleapiclient.discovery import build
 import httplib2
 from dashboard.GoogleApi import ListMessagesMatchingQuery, GetAttachments
 
+#forms
+
+from .forms import uploadManualForm
+
 
 # funcion para combrar la existencia de un portafolio o crear uno nuevo guardar
 def modelDocumentoSave(document_object, portafolio_instance):
@@ -195,6 +199,29 @@ def upLoad(request, *args, **kwargs):
     data = {
         'mensaje': mensaje}
     return JsonResponse(data)
+
+
+@login_required
+def upLoadManual(request, *args, **kwargs):
+    # ajax = request.is_ajax()
+    # print(mensaje)
+    # return JsonResponse(data)
+    form = uploadManualForm(request.POST)
+
+    if form.is_valid():
+        data = {
+            'mensaje': "tu factura se guardo satisfactoriamente"
+            }
+        return JsonResponse(data)
+    else:
+        form = uploadManualForm()
+        data = {
+            'mensaje': "tu factura no se ha guardo"
+            }
+        return JsonResponse(data)
+
+    return render(request, 'dashboard_base.html', {'form': form})
+
 
 
 @login_required

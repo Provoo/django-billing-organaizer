@@ -3,7 +3,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
-from dashboard.views import dashboardView, documentoView, portfoliosView, googleImport, upLoad, notificationsView
+from dashboard.views import dashboardView, documentoView, portfoliosView, googleImport, upLoad, upLoadManual, notificationsView
 import notifications.urls
 from wallet.views import walletsView
 # from .views import SignupView
@@ -24,6 +24,7 @@ urlpatterns = [
     # url(r"^account/signup/$", SignupView.as_view(), name='account_signup'),
     url(r"^googleimp/", googleImport, name="googleImport"),
     url(r"^upload/", upLoad, name="upload"),
+    url(r"^uploadmanual/", upLoadManual, name="uploadmanual"),
     url(r"^portfolios/", portfoliosView.as_view(),
         name="user_portfolios"),
     url(r"^dashboard/(?P<ruc>[0-9]+)/$",

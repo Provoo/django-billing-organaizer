@@ -21,4 +21,26 @@ $(document).ready(function () {
         });
 
     });
+
+    var manualform = $('#uploadManual');
+    manualform.submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: manualform.attr('method'),
+            url: manualform.attr('action'),
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                //$("#SOME-DIV").html(data);
+                alert(data.mensaje);
+            },
+            error: function (data) {
+                //$("#MESSAGE-DIV").html("Something went wrong!");
+                alert("Something went wrong!");
+            }
+
+        });
+
+    });
 });

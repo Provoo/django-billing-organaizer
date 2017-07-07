@@ -2,7 +2,7 @@ from django import forms
 from dashboard.models import documento
 
 
-class subirDocumentoManual(forms.Form):
+class uploadManualForm(forms.Form):
     model = documento
     fields = (
         'rucDocumento',

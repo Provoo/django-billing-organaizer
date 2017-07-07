@@ -78,12 +78,6 @@
                     <input type="submit" value="Subir" id="but_upload" class="btn waves-effect waves-light indigo darken-4 z-depth-0 z-depth-1-hover"/>
                   </div>
                 </form>
-              {# <form id=uploadForm action="{% url 'upload' %}" method="post" enctype="multipart/form-data" class="dropzone dz-clickable"> #}
-                {# {% csrf_token %} #}
-                {# <div class="dz-default dz-message"> #}
-                  {# <span>Encuentra tus facturas</span> #}
-                {# </div> #}
-              {# </form> #}
               </div>
             </div>
           </div>
@@ -96,21 +90,14 @@
                   </h5>
                 </div>
                 <div class="modal-body">
-                  <form id=uploadInvoice action="" method="post" enctype="multipart/form-data">
+                  <form id=uploadManual action="{% url 'uploadmanual' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div class="input-field col s6">
-                      <input  id="first_name" type="text" class="validate">
-                      <label for="first_name">Nombre</label>
-                    </div>
-                    <div class="input-field col s6">
-                      <input id="RUC" type="text" class="validate">
-                      <label for="first_name">RUC</label>
-                    </div>
-                    <div class="col offset-s5">
-                      <input type="submit" value="Upload" id="but_upload"
+                    {{ form }}
+                      <input type="submit" value="Guardar" id="but_upload"
                       class="btn waves-effect waves-light indigo darken-4"/>
                     </div>
                   </form>
+
                 </div>
               </div>
           </div>
