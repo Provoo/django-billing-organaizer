@@ -55,6 +55,7 @@ def modelDocumentoSave(document_object, portafolio_instance):
         deducible_salud=document_object['DEDUCIBLE_SALUD'],
         deducible_vivienda=document_object['DEDUCIBLE_VIVIENDA'],
         no_deducible=document_object['NO_DEDUCIBLE'],
+        tags=[],
         archivo=document_object['ARCHIVO'])
     p.save()
 
@@ -72,27 +73,26 @@ def saveDocumentPorfolio(document_object, user_id):
         documento_r = documento_error(
             user_documento_id=user_id, file_dcoumento=document_object)
         documento_r.save()
-        return "se gurado un archivo con error"
-
+        return ("El documento %s, se ha guardado con error te comunicaremos por email cuando este listo" % (objeto_xml_paser['NUMERO_DOCUMENTO']))
     try:
         p = Portafolio.objects.get(Ruc=objeto_xml_paser['RUC_XML'], UserID_id=user_id)
     except Portafolio.DoesNotExist:
-        print("El ruc no exite, crearemos un nuevo portafolio para este Ruc")
         p = Portafolio(
             UserID_id=user_id, Ruc=objeto_xml_paser['RUC_XML'],
             Nombre=objeto_xml_paser['NOMBRE_DOCUMENTO'])
         p.save()
         print(p)
         modelDocumentoSave(objeto_xml_paser, p)
+        return("No existe el ruc del documento %s, crearemos un nuevo portafolio para este Ruc %s" % (objeto_xml_paser['NUMERO_DOCUMENTO'], objeto_xml_paser['RUC_XML']))
     else:
         print("El ruc si existe")
         try:
             documento_exist = documento.objects.get(rucDocumento=p, numeroDeDocumento=objeto_xml_paser['NUMERO_DOCUMENTO'])
         except documento.DoesNotExist:
             modelDocumentoSave(objeto_xml_paser, p)
-            print("Tu documento ya se guardo automaticamente")
+            return("Tu %s ya se guardo automaticamente en el portafolio %s" % (objeto_xml_paser['NUMERO_DOCUMENTO'], objeto_xml_paser['RUC_XML']))
         else:
-            print("Este documento ya existe, no necesitas duplicarlo")
+            return("Este %s ya existe, no necesitas duplicarlo" % (objeto_xml_paser['NUMERO_DOCUMENTO']))
 
 
 def xml_handler(document, user_id):
@@ -108,10 +108,10 @@ def xml_handler(document, user_id):
                 if re.search(r"xml", str(ds.filename)):
                     file_data = unzip_file.read(ds.filename)
                     file_return = ContentFile(str(file_data), name=str(ds.filename))
-                    saveDocumentPorfolio(file_return, user_id)
+                    return saveDocumentPorfolio(file_return, user_id)
             unzip_file.close()
     else:
-        saveDocumentPorfolio(document, user_id)
+        return saveDocumentPorfolio(document, user_id)
 
 
 class homeView(TemplateView):
@@ -156,8 +156,6 @@ class dashboardView(ListView):
         return context
 
 
-
-
 class documentoView(ListView):
     model = documento
     template_name = 'documents.html'
@@ -186,10 +184,14 @@ class notificationsView(ListView):
 @require_http_methods(["POST"])
 def upLoad(request, *args, **kwargs):
     # ajax = request.is_ajax()
+    list_message = []
     documentos = request.FILES.getlist('docfile')
     for documento_it in documentos:
-        xml_handler(documento_it, request.user.id)
-    mensaje = "Tu factura se guardo se ha guardado exitosamente"
+        list_message.append(xml_handler(documento_it, request.user.id))
+    print(list_message)
+    mensaje = ', '.join(list_message)
+
+    print(mensaje)
     data = {
         'mensaje': mensaje}
     return JsonResponse(data)

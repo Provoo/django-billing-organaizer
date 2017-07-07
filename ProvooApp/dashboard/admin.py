@@ -17,5 +17,5 @@ class DocumentoAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Portafolio, PortafolioAdmin)
-admin.site.register(documento,DocumentoAdmin )
+admin.site.register(documento, DocumentoAdmin)
 admin.site.register(documento_error)

@@ -2,6 +2,26 @@ from django import forms
 from dashboard.models import documento
 
 
-class subirDocumento(forms.Form):
+class subirDocumentoManual(forms.Form):
     model = documento
-    fields = ('archivo',)
+    fields = (
+        'rucDocumento',
+        'nombreDocumento',
+        'numeroDeDocumento',
+        'RucEmisor',
+        'NombreEmisor',
+        'DireccionEmisor',
+        'fecha',
+        'Impuesto',
+        'totalGastosf',
+        'totalImpuestos',
+        'totalDocumento',
+        'deducible_vestimenta',
+        'deducible_educacion',
+        'deducible_comida',
+        'deducible_salud',
+        'deducible_vivienda',
+        'tags',
+        'no_deducible',
+        'archivo'
+        )

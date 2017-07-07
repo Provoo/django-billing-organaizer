@@ -99,7 +99,7 @@ class documento(models.Model):
     tags = ArrayField(models.CharField(max_length=200), blank=True)
     no_deducible = models.DecimalField(max_digits=20, decimal_places=2)
 
-    archivo = models.FileField(upload_to=user_directory_path)
+    archivo = models.FileField(upload_to=user_directory_path, blank=True)
     def __str__(self):
         return '%s %s' % (self.rucDocumento, self.nombreDocumento)
 

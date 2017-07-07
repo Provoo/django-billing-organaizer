@@ -12,7 +12,6 @@ $(document).ready(function () {
             success: function (data) {
                 //$("#SOME-DIV").html(data);
                 alert(data.mensaje);
-
             },
             error: function (data) {
                 //$("#MESSAGE-DIV").html("Something went wrong!");

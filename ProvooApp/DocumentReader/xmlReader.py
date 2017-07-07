@@ -43,6 +43,7 @@ def get_xml_tree(xml_file):
             imp = imp.replace(u'\xf9', 'c3ba')
             imp = imp.replace(u'\xd3', 'c393')
             imp = imp.replace(u'\xd1', 'c391')
+            imp = imp.replace(u'\ufffd', 'c391')
 
             # print(imp)
             try:
