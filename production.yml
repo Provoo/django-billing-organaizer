@@ -5,6 +5,8 @@ services:
     extends:
       file: base.yml
       service: db
+      ports:
+        - "9002:5432"
 
   nginx:
     extends:
@@ -27,9 +29,9 @@ services:
       - ./ProvooApp:/ProvooApp
     ports:
       - "9000:9000"
-      depends_on:
-        - db
-        - celery
+    depends_on:
+      - db
+      - celery
 
     celery:
       extends:
