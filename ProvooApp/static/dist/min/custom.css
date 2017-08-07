@@ -1,5 +1,5 @@
 body{
-  background: #263238;
+  background: white;
 }
 
 .default_color {
@@ -36,7 +36,7 @@ body{
     max-height: 700px;
     padding-top: 8rem;
     position: inherit;
-    background: linear-gradient(50deg, HSLA(205, 62%, 44%, 1), #da539d);
+    
 }
 .nav_f {
     box-shadow: none !important;
@@ -76,7 +76,7 @@ nav a.button-collapse {
 }
 
 .nav_f.tran {
-  background:#5051a0 !important;
+  background:#35384C !important;
 	visibility:visible !important;
 	position: fixed !important;
   	top: 0 !important;

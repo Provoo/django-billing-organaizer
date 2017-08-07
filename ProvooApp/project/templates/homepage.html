@@ -44,10 +44,10 @@
 
 {% block topbar_base %}
 <div class="navbar-fixed navbar">
-  <nav class="default_color nav_f " role="navigation">
-    <div class="container-fluid z-depth-0">
+  <nav class=" nav_f " role="navigation">
+    <div class="container-fluid z-depth-0 ">
       <div class="nav-wrapper">
-        <a href="#" id="logo-container" class="brand-logo">InvMachine</a>
+        <a href="#" id="logo-container" class="brand-logo">Invoo</a>
         {# account bar #}
         {% load account_tags %}
         <ul class="right hide-on-med-and-down">
@@ -93,16 +93,8 @@
 
 {% endblock %}
 {% block body_base %}
-<!--<body id="top" class="scrollspy" data-spy="scroll" data-target=".navbar">-->
-
-<!--Navigation-->
-<!-- <div class="wow fadeIn">
-</div>
-<div class="wow slideInLeft" data-wow-duration="2s" data-wow-delay="5s"></div>
-<div class="wow pulse" data-wow-offset="10" data-wow-iteration="100"></div> -->
-
 <!--Hero-->
-<div id="index-banner" class="section no-pad-bot wow slideInLeft" >
+<div id="index-banner" class="section no-pad-bot wow slideInLeft gradiant-purple" >
   <div class="container white-text text-darken-2">
   <div class="row">
     <div class="col s6">
@@ -198,46 +190,79 @@
 
 <!--Work-->
 <div class="section scrollspy" id="work">
-    <div class="row">
+  <div class="container">
+    <div class="row ">
       <div class="col s12">
         <h3 class="header text_b center-align">
           Toma el contro de tu dinero!
         </h3>
       </div>
-      <div class="col s12 m4 l6">
+      <div class="col s12 m4 ">
         <div class="card">
           <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="img/project1.jpg">
+            <img class="activator" src="{% static 'img/feature1.png'%}">
           </div>
           <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4"> InvMachine
+            <span class="card-title activator grey-text text-darken-4"> Automatización y Control
                <i class="mdi-navigation-more-vert right"></i></span>
-            <p><a href="#contact">Project link</a></p>
+            <p><a href="{% url 'account_signup' %}">Registrate</a></p>
           </div>
           <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Instalación Odoo <i
-                class="mdi-navigation-close right"></i></span>
-            <p class="grey-text text-darken-1">
+            <span class="card-title grey-text text-darken-4">Maneja tus Documentos
+              <i class="mdi-navigation-close right"></i></span>
+              <br>
+              <p class="grey-text text-darken-1">
+                Empieza a tener el control de tus consumos en un solo lugar,
+                con Invoo tendrá tu propio panel de administración y control
+                de todos tus consumos, presupuesto y gastos de cuantos Rucs
+                necesites, con tan solo cargar tus facturas o agregar tu cuentas
+                gmail, yahoo o hotmail.
 
+                Nuestro bot automatizara todos tus documentos, generará presupuestos,
+                alertas y agrupara por tipo de gastos o rubros, el bot es personalizable
+                podrás personalizar la opciones y crear más tipos de consumos a partir
+                de tu información, en la era digital la información es poder y
+                la inteligencia financiera no es la escepción.
+              </p>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m4 ">
+        <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="{% static 'img/feature3.jpg'%}">
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4"> Portabilidad
+               <i class="mdi-navigation-more-vert right"></i></span>
+            <p><a href="{% url 'account_signup' %}">Registrate</a></p>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4"> Documentos Eléctronicos en todos tus dispocitivos <i
+                class="mdi-navigation-close right"></i></span>
+                <br>
+            <p class="grey-text text-darken-1">
+              Con Invoo puedes acceder a todas tus finanzas desde cualquier dispositivo con un buscador también tienes nuestra App donde el Bot estará pendiente de todas tus configuraciones desde la comodidad de tus smartphone, no tendrás que volver a preocuparte de estar revisando tus gastos en tu correo o tener que pedir a tu contador, utiliza la inteligencia financiera desde nuestra app y vuélvete un ahorrista de la era digital.
             </p>
           </div>
         </div>
       </div>
-      <div class="col s12 m4 l6">
+      <div class="col s12 m4 ">
         <div class="card">
           <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="img/project1.jpg">
+            <img class="activator" src="{% static 'img/feature3.jpg'%}">
           </div>
           <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4"> InvMachine
+            <span class="card-title activator grey-text text-darken-4"> Integración
                <i class="mdi-navigation-more-vert right"></i></span>
-            <p><a href="#contact">Project link</a></p>
+            <p><a href="{% url 'account_signup' %}">Registrate</a></p>
           </div>
           <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Instalación Odoo <i
+            <span class="card-title grey-text text-darken-4"> Integra toda tu información <i
                 class="mdi-navigation-close right"></i></span>
+                <br>
             <p class="grey-text text-darken-1">
-
+              Nuestro objetivo es que te beneficies al usar las nuevas tecnologías, por lo que también permitimos la integración con tus billeteras electrónicas, tus cuentas de correo, y próximamente con tus cuentas de inversión, no dejas nada al azar, no te quedas atrás en un mundo digital donde la información es poder, tener el control de ellas es una decisión inteligente.
             </p>
           </div>
         </div>
@@ -247,9 +272,9 @@
 </div>
 
 <!--Parallax-->
-<div class="parallax-container">
+<div id="paralax1" class="parallax-container">
   <div class="parallax white">
-    <img src="{% static 'img/bg1.png' %}">
+    <img src="{% static 'img/HomeParalaxInvo.jpg'%}" width="1200">
   </div>
 </div>
 
@@ -288,27 +313,4 @@
     </div>
   </div>
 </div>
-<!--Parallax-->
-<div class="parallax-container">
-  <div class="parallax white">
-    <img src="{% static 'img/bg1.png' %}">
-  </div>
-</div>
-<!--Footer-->
-<footer class="page-footer default_color scrollspy">
-  <div class="footer-copyright default_color">
-  <div class="container">
-    © 2017 InvMachine, todos los derechos reservados.
-  </div>
-  </div>
-</footer>
-
-{% endblock %}
-{% block footer_base %}
-    <hr/>
-    <footer>
-        <div class="container">
-            {% block footer %}{% endblock %}
-        </div>
-    </footer>
 {% endblock %}

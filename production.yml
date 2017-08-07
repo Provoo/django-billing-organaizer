@@ -11,7 +11,7 @@ services:
       file: base.yml
       service: nginx
     ports:
-      - "8001:80"
+      - "9001:80"
     depends_on:
       - web
 
@@ -27,8 +27,25 @@ services:
       - ./ProvooApp:/ProvooApp
     ports:
       - "9000:9000"
-    depends_on:
-      - db
+      depends_on:
+        - db
+        - celery
+
+    celery:
+      extends:
+        file: base.yml
+        service: celery
+      build:
+        args:
+          - DJANGO_ENV=$DJANGO_ENV
+      command:  bash -c "celery -A project worker -l info"
+      volumes:
+        - ./ProvooApp:/ProvooApp
+      depends_on:
+        - redis
+
+    redis:
+      image: redis:latest
 
 volumes:
   db_data:
