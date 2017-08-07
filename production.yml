@@ -33,6 +33,9 @@ services:
       - db
       - celery
 
+  redis:
+    image: redis:latest
+
   celery:
     extends:
       file: base.yml
