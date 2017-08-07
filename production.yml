@@ -5,8 +5,8 @@ services:
     extends:
       file: base.yml
       service: db
-      ports:
-        - "9002:5432"
+    ports:
+      - "9002:5432"
 
   nginx:
     extends:
