@@ -25,12 +25,12 @@ services:
       - celery
 
   celery:
-    extends:  
+    extends:
       file: base.yml
       service: celery
     build:
       args:
-        - celery=$DJANGO_ENV
+        - DJANGO_ENV=$CELERY_ENV
     command:  bash -c "celery -A project worker -l info"
     volumes:
       - ./ProvooApp:/ProvooApp
