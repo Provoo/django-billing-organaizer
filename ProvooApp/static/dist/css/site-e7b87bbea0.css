@@ -4800,7 +4800,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
 }
 
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
-    border-color: #e7e7e7
+    border-color: #35384C;
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
