@@ -46,9 +46,9 @@ services:
     depends_on:
       - redis
 
- redis:
-   image: redis:latest
-
+  redis:
+    image: redis:latest
+    
 volumes:
   db_data:
     external: true
