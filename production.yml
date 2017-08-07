@@ -33,9 +33,6 @@ services:
       - db
       - celery
 
-  redis:
-    image: redis:latest
-
   celery:
     extends:
       file: base.yml
@@ -48,6 +45,9 @@ services:
       - ./ProvooApp:/ProvooApp
     depends_on:
       - redis
+
+ redis:
+   image: redis:latest
 
 volumes:
   db_data:
