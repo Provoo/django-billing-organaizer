@@ -33,21 +33,18 @@ services:
       - db
       - celery
 
-    celery:
-      extends:
-        file: base.yml
-        service: celery
-      build:
-        args:
-          - DJANGO_ENV=$DJANGO_ENV
-      command:  bash -c "celery -A project worker -l info"
-      volumes:
-        - ./ProvooApp:/ProvooApp
-      depends_on:
-        - redis
-
-    redis:
-      image: redis:latest
+  celery:
+    extends:
+      file: base.yml
+      service: celery
+    build:
+      args:
+        - DJANGO_ENV=$DJANGO_ENV
+    command:  bash -c "celery -A project worker -l info"
+    volumes:
+      - ./ProvooApp:/ProvooApp
+    depends_on:
+      - redis
 
 volumes:
   db_data:
