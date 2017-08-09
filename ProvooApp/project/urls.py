@@ -6,12 +6,13 @@ from django.views.generic import TemplateView
 from dashboard.views import dashboardView, documentoView, portfoliosView, googleImport, upLoad, upLoadManual, notificationsView
 import notifications.urls
 from wallet.views import walletsView
-# from .views import SignupView
+from .views import SignupView
 
 urlpatterns = [
     # Include URLS
     url(r'', include('social_django.urls', namespace='social')),
     url(r"^admin/", include(admin.site.urls)),
+    url(r"^account/signup/$", SignupView.as_view(), name='account_signup'),
     url(r"^account/", include("account.urls")),
     url(r"^notifications/", include('notifications.urls', namespace='notifications')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
@@ -21,7 +22,6 @@ urlpatterns = [
         name="home"),
     url(r"^login/", TemplateView.as_view(template_name="login.html"), name="login"),
     url(r"^inbox/notifications/", notificationsView.as_view(), name='user_notifications'),
-    # url(r"^account/signup/$", SignupView.as_view(), name='account_signup'),
     url(r"^googleimp/", googleImport, name="googleImport"),
     url(r"^upload/", upLoad, name="upload"),
     url(r"^uploadmanual/", upLoadManual, name="uploadmanual"),

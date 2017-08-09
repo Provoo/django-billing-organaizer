@@ -13,7 +13,7 @@ services:
       file: base.yml
       service: nginx
     ports:
-      - "9001:80"
+      - "8001:80"
     depends_on:
       - web
 
@@ -48,7 +48,7 @@ services:
 
   redis:
     image: redis:latest
-    
+
 volumes:
   db_data:
     external: true

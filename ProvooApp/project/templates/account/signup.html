@@ -37,11 +37,12 @@
                 <!-- /Social Sign Up -->
 
                 <div class="row">
+                  {{form.as_p}}
 
                     <!-- First Name -->
                     <div class="col m6 s12">
                         <div class="input-field">
-
+                            <!-- {{ form.first_name}} -->
                             <label for="input_fname">First Name</label>
                         </div>
                     </div>
@@ -50,6 +51,7 @@
                     <!-- Last Name -->
                     <div class="col m6 s12">
                         <div class="input-field">
+                          <!-- {{ form.last_name}} -->
                             <label for="input_lname">Last Name</label>
                         </div>
                     </div>
@@ -59,23 +61,22 @@
                 <!-- Email -->
                 <div class="input-field">
                     <i class="fa fa-envelope prefix"></i>
-                    {{ form.email}}
+                    <!-- {{ form.username}} -->
                     <label for="input_email">Email</label>
                 </div>
                 <!-- /Email -->
 
                 <!-- Username -->
-                <div class="input-field">
+                <!-- <div class="input-field">
                     <i class="fa fa-user prefix"></i>
-                    {{ form.username}}
                     <label for="input_username">Username</label>
-                </div>
+                </div> -->
                 <!-- /Username -->
 
                 <!-- Password -->
                 <div class="input-field">
                     <i class="fa fa-unlock-alt prefix"></i>
-                    {{ form.password}}
+                    <!-- {{ form.password}} -->
                     <label for="input_password">Password</label>
                 </div>
                 <!-- /Password -->
@@ -83,7 +84,7 @@
                 <!-- Password -->
                 <div class="input-field">
                     <i class="fa fa-unlock-alt prefix"></i>
-                    {{ form.password_confirm}}
+                    <!-- {{ form.password_confirm}} -->
                     <label for="input_password">Confirm Password</label>
                 </div>
                 <!-- /Password -->
