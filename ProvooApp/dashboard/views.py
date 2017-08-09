@@ -77,7 +77,7 @@ def saveDocumentPorfolio(document_object, user_id):
         documento_r = documento_error(
             user_documento_id=user_id, file_dcoumento=document_object)
         documento_r.save()
-        return ("El documento %s, se ha guardado con error te comunicaremos por email cuando este listo" % (objeto_xml_paser['NUMERO_DOCUMENTO']))
+        return ("El documento %s, se ha guardado con error te comunicaremos por email cuando este listo" % (document_object['NUMERO_DOCUMENTO']))
     try:
         p = Portafolio.objects.get(Ruc=objeto_xml_paser['RUC_XML'], UserID_id=user_id)
     except Portafolio.DoesNotExist:
