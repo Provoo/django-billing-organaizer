@@ -9,19 +9,45 @@
 
 <div class="card-panel">
   <div class="row">
+    <section ng-app="app">
+      <div ng-controller="MainCtrl">
+        <table st-table="rowCollection" class="table table-bordered table-striped table-hover">
+        	<thead>
+        	<tr>
+        		<th>first name</th>
+        		<th>last name</th>
+        		<th>birth date</th>
+        		<th>balance</th>
+        		<th>email</th>
+        	</tr>
+        	</thead>
+        	<tbody>
+        	<tr ng-repeat="row in rowCollection">
+        		<td>{{row.firstName}}</td>
+        		<td>{{row.lastName}}</td>
+        		<td>{{row.birthDate}}</td>
+        		<td>{{row.balance}}</td>
+        		<td>{{row.email}}</td>
+        	</tr>
+        	</tbody>
+        </table>
+      </div>
+    </section>
+    <!--
     <div class="col s12 ">
-    <table id="table2" class="display table table-bordered table-striped table-hover "width="20%" cellspacing="0">
+
+     <table id="table2" class="display table table-bordered table-striped table-hover "width="20%" cellspacing="0">
       <thead>
         <tr>
             <th>Fecha</th>
             <th>RUC</th>
             <th>Nro.Fact</th>
             <th>Empresa</th>
-            <th>Deducible Educacion</th>
-            <th>Deducible  Salud</th>
-            <th>Deducible Vestimenta</th>
-            <th>Deducible Alimentación</th>
-            <th>Deducibl  Alimentación</th>
+            <th>Educacion</th>
+            <th>Salud</th>
+            <th>Vestimenta</th>
+            <th>Vivienda</th>
+            <th>Alimentación</th>
             <th>No Deducible</th>
             <th>Total</th>
             <th>Tags</th>
@@ -38,7 +64,7 @@
                   <td >{{ documentos.deducible_educacion }}</td>
                   <td>{{ documentos.deducible_salud }}</td>
                   <td>{{ documentos.deducible_vestimenta }}</td>
-                  <td>{{ documentos.deducible_comida }}</td>
+                  <td>{{ documentos.deducible_vivienda }}</td>
                   <td>{{ documentos.deducible_comida }}</td>
                   <td>{{ documentos.no_deducible }}</td>
                   <td>{{ documentos.totalGastosf }}</td>
@@ -47,7 +73,7 @@
                       <div class="chip blue white-text">{{tag}}</div>
                     {% endfor %}
                   </td>
-                  <!-- <span class="badge new">{{tag}}</span> -->
+
               </tr>
           {% endfor %}
       {% else %}
@@ -55,21 +81,26 @@
       {% endif %}
       </tbody>
     </table>
+    -->
   </div>
   </div>
-
 </div>
+
 {% endblock %}
 
 {% block scripts %}
-    {{ block.super }}
     {% load static from staticfiles %}
-    <script type="text/javascript" src="{% static "js/jquery.dataTables.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "angular/angular.min.js" %}"></script>
+    <script src="{% static "js/smart-table.min.js" %}"></script>
     <script>
-    $('#table2').DataTable({
-      "iDisplayLength": 5,
-      "aLengthMenu": [ [5, 0, 5, 0, -1], [5, 10, 25, 50, "all"] ],
-      "scrollX": true
-    });
+    var app = angular.module('app', ['smart-table']);
+      app.controller('MainCtrl', ['$scope', function (scope) {
+        scope.rowCollection = [
+        {firstName: 'Laurent', lastName: 'Renard', birthDate: new Date('1987-05-21'), balance: 102, email: 'whatever@gmail.com'},
+        {firstName: 'Blandine', lastName: 'Faivre', birthDate: new Date('1987-04-25'), balance: -2323.22, email: 'oufblandou@gmail.com'},
+        {firstName: 'Francoise', lastName: 'Frere', birthDate: new Date('1955-08-27'), balance: 42343, email: 'raymondef@gmail.com'}
+          ];
+      }]);
+
     </script>
 {% endblock %}

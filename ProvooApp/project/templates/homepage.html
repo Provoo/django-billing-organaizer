@@ -16,11 +16,13 @@
 {% endblock %}
 
 {% block scripts %}
+  {% include "_scripts.html" %}
   {% load staticfiles %}
   <script type="text/javascript" src="{% static "min/plugin-min.js" %}"></script>
   <script type="text/javascript" src="{% static "min/custom-min.js" %}"></script>
   <script type="text/javascript" src="{% static "min/classie.js" %}"></script>
   <script type="text/javascript" src="{% static "js/wow.js" %}"></script>
+  
   <script type="text/javascript">
   $( document ).ready(function(){
     function init() {
@@ -39,6 +41,7 @@
     }
     window.onload = init();
   })
+
   </script>
 {% endblock %}
 
@@ -93,6 +96,7 @@
 
 {% endblock %}
 {% block body_base %}
+<div class="preloader"><div></div></div>
 <!--Hero-->
 <div id="index-banner" class="section no-pad-bot wow slideInLeft gradiant-purple" >
   <div class="container white-text text-darken-2">

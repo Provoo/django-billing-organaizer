@@ -2,7 +2,7 @@
 {% load pinax_webanalytics_tags %}
 {% load i18n %}
 {% block head_title_base %}
-    {% if SITE_NAME %}InvMachine | {% endif %}
+    {% if SITE_NAME %}Invoo | {% endif %}
     {% block head_title %} {% endblock %}
 {% endblock %}
 {% block scripts %}
@@ -29,7 +29,7 @@
       </div>
       <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li ><a href="{% url 'home' %}" class="white-text">InvMachine <span class="sr-only">(current)</span></a></li>
+          <li ><a href="{% url 'home' %}" class="white-text">Invoo <span class="sr-only">(current)</span></a></li>
         </ul>
         <div class="collapse navbar-collapse navbar-responsive-collapse">
             {% block nav %}
@@ -43,7 +43,9 @@
 {% endblock %}
 {% block web_base %}
 
+<div class="preloader"><div></div></div>
 <main class="mdl-layout__content">
+  
   {% block body_base %}
   <section id="content_body">
     <div class="container">
@@ -57,6 +59,9 @@
       {% block extra_head %}{% endblock %}
   {% endblock %}
 </main>
+{% endblock %}
+{% block extra_body %}
+  <div class="preloader"><div></div></div>
 {% endblock %}
 
 {% block footer_base %}

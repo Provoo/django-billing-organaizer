@@ -6,13 +6,19 @@
 {% block extra_head %}
     <title>InvMachine | Registro </title>
 {% endblock %}
-{% block body_class %}{% endblock %}
-{% block menu-icon %}{% endblock %}
+
+
+
 
 {% block styles %}
     {{ block.super }}
-    {% include "_conStyles.html" %}
+    <!-- {% include "_conStyles.html" %} -->
 {% endblock %}
+
+
+{% block body_class %}{% endblock %}
+{% block menu-icon %}{% endblock %}
+
 
 
 {% block body_base %}
@@ -23,26 +29,30 @@
             <div class="card-panel clearfix">
 
                 <!-- Social Sign Up -->
-                <div class="row socials">
-                    <div class="col s4">
-                        <a class="btn blue darken-2 z-depth-0 z-depth-1-hover" href="#"><i class="fa fa-2x fa-facebook"></i></a>
-                    </div>
-                    <div class="col s4">
-                        <a class="btn blue lighten-2 z-depth-0 z-depth-1-hover" href="#"><i class="fa fa-2x fa-twitter"></i></a>
-                    </div>
-                    <div class="col s4">
-                        <a class="btn red z-depth-0 z-depth-1-hover" href="{% url "social:begin" "google-oauth2" %}"><i class="fa fa-2x fa-google-plus"></i></a>
-                    </div>
+             <div class="row socials">
+                <div class="col s4">
+                    <a class="btn blue darken-2 z-depth-0 z-depth-1-hover" href="#">
+                      <img src="{% static 'img/yahoo.svg' %}" alt="" class="logo-login"/>
+                    </a>
                 </div>
+                <div class="col s4">
+                    <a class="btn blue lighten-2 z-depth-0 z-depth-1-hover" href="#">
+                        <img src="{% static 'img/outlook.svg' %}" alt="" class="logo-login"/>
+                    </a>
+                </div>
+                <div class="col s4">
+                    <a class="btn red z-depth-0 z-depth-1-hover" href="{% url "social:begin" "google-oauth2" %}"><i class="fa fa-2x fa-google-plus"></i></a>
+                </div>
+            </div>
                 <!-- /Social Sign Up -->
 
                 <div class="row">
-                  {{form.as_p}}
-
+<!--                   {{form.as_p}}
+ -->
                     <!-- First Name -->
                     <div class="col m6 s12">
                         <div class="input-field">
-                            <!-- {{ form.first_name}} -->
+                            {{ form.first_name}}
                             <label for="input_fname">First Name</label>
                         </div>
                     </div>
@@ -51,7 +61,7 @@
                     <!-- Last Name -->
                     <div class="col m6 s12">
                         <div class="input-field">
-                          <!-- {{ form.last_name}} -->
+                          {{ form.last_name}}
                             <label for="input_lname">Last Name</label>
                         </div>
                     </div>
@@ -61,7 +71,7 @@
                 <!-- Email -->
                 <div class="input-field">
                     <i class="fa fa-envelope prefix"></i>
-                    <!-- {{ form.username}} -->
+                    {{ form.username}}
                     <label for="input_email">Email</label>
                 </div>
                 <!-- /Email -->
@@ -84,7 +94,7 @@
                 <!-- Password -->
                 <div class="input-field">
                     <i class="fa fa-unlock-alt prefix"></i>
-                    <!-- {{ form.password_confirm}} -->
+                    {{ form.password_confirm}}
                     <label for="input_password">Confirm Password</label>
                 </div>
                 <!-- /Password -->
@@ -115,7 +125,7 @@
 
   {% block scripts %}
       {{ block.super }}
-      {% include "_conScripts.html" %}
+      
       <script type="text/javascript">
           $(document).ready(function() {
               $('#id_username').focus();
