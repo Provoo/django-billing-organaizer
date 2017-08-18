@@ -1,18 +1,13 @@
-{% extends "site_base.html" %}
 {% load staticfiles %}
 {% load i18n %}
 {% load account_tags %}
-{% block head_title %}{% trans "Registro" %}{% endblock %}
 {% block extra_head %}
     <title>InvMachine | Registro </title>
 {% endblock %}
 
-
-
-
 {% block styles %}
-    {{ block.super }}
-    <!-- {% include "_conStyles.html" %} -->
+    {% include "_styles.html" %}
+    {% include "_conStyles.html" %}
 {% endblock %}
 
 
@@ -86,7 +81,7 @@
                 <!-- Password -->
                 <div class="input-field">
                     <i class="fa fa-unlock-alt prefix"></i>
-                    <!-- {{ form.password}} -->
+                    {{ form.password}}
                     <label for="input_password">Password</label>
                 </div>
                 <!-- /Password -->
@@ -98,8 +93,6 @@
                     <label for="input_password">Confirm Password</label>
                 </div>
                 <!-- /Password -->
-
-
                 <p>
                     <input type="checkbox" id="checkbox_terms" />
                     <label for="checkbox_terms">I agree to the <a href="#">terms of use</a>.</label>
@@ -113,7 +106,7 @@
             </div>
             <div class="row links">
                 <div class="col s6 offset-s3 center-align">
-                    <strong>Sign In</strong> / <a href="page-sign-up.html">Sign Up</a>
+                  <a class="white-text" href="{% url 'account_login' %}">{% trans "Iniciar Sesión" %} </a> / <strong>{% trans "Regístrate" %}<strong>                    
                   </div>
             </div>
         </form>
@@ -124,8 +117,7 @@
   {% endblock %}
 
   {% block scripts %}
-      {{ block.super }}
-      
+
       <script type="text/javascript">
           $(document).ready(function() {
               $('#id_username').focus();

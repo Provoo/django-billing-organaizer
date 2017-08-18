@@ -119,11 +119,11 @@ def xml_handler(document, user_id):
 
 
 class homeView(TemplateView):
-    template_name = "homepage.html"
+    template_name = "dashboard/homepage.html"
 
 
 class portfoliosView(ListView):
-    template_name = 'portfolios.html'
+    template_name = 'dashboard/portfolios.html'
     model = Portafolio
 
     def get_queryset(self):
@@ -133,8 +133,8 @@ class portfoliosView(ListView):
 
 
 class dashboardView(ListView):
+    template_name = 'dashboard/dashboard.html'
     context_object_name = 'portafolio'
-    template_name = 'dashboard.html'
     queryset = Portafolio.objects.all()
 
     # Query para buscar el Portafolio que le corresponde al usuario
@@ -162,7 +162,7 @@ class dashboardView(ListView):
 
 class documentoView(ListView):
     model = documento
-    template_name = 'documents.html'
+    template_name = 'dashboard/documents.html'
 
     def get_queryset(self):
         documentos = super(documentoView, self).get_queryset()
@@ -174,7 +174,7 @@ class documentoView(ListView):
 
 class notificationsView(ListView):
     model = User
-    template_name = 'notifications.html'
+    template_name = 'dashboard/notifications.html'
 
     def get_queryset(self):
         notifica = super(

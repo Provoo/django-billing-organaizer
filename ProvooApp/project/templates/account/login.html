@@ -1,17 +1,14 @@
-{% extends "site_base.html" %}
 {% load staticfiles %}
 {% load i18n %}
-{% block head_title %}login{% endblock %}
 {% block body_class %}{% endblock %}
 {% block menu-icon %}{% endblock %}
 
 {% block scripts %}
-    {{ block.super }}
     {% include "_conScripts.html" %}
 {% endblock %}
 
 {% block styles %}
-    {{ block.super }}
+    {% include "_styles.html" %}
     {% include "_conStyles.html" %}
 {% endblock %}
 
@@ -51,7 +48,7 @@
             <div class="input-field">
                 <i class="fa fa-user prefix"></i>
                 {{form.username}}
-                <label for="username-input">Username</label>
+                <label for="username-input">{% trans "Email" %}</label>
             </div>
             <!-- /Username -->
 
@@ -59,7 +56,7 @@
             <div class="input-field">
                 <i class="fa fa-unlock-alt prefix"></i>
                 {{form.password}}
-                <label for="password-input">Password</label>
+                <label for="password-input">{% trans "Contraseña" %}</label>
             </div>
             <!-- /Password -->
 
@@ -67,7 +64,7 @@
                 <label>
                     <input type="checkbox" checked />
                     <span class="lever"></span>
-                    Remember
+                    {% trans "Recordarme" %}
                 </label>
             </div>
             {% if redirect_field_value %}
@@ -75,15 +72,15 @@
 
             {% endif %}
 
-            <button class="waves-effect waves-light btn-large z-depth-0 z-depth-1-hover">Sign In</button>
+            <button class="waves-effect waves-light btn-large z-depth-0 z-depth-1-hover">{% trans "Iniciar Sesión" %}</button>
         </div>
 
         <div class="links right-align">
-            <a href="page-forgot-password.html">Forgot Password?</a>
+            <a  href="{% url 'account_password_reset' %}">{% trans "¿Olvidaste la contraseña?" %}</a>
         </div>
         <div class="row links">
             <div class="col s6 offset-s3 center-align">
-                <strong>Sign In</strong> / <a href="page-sign-up.html">Sign Up</a>
+                <strong>{% trans "Iniciar Sesión" %}</strong> / <a class="white-text" href="{% url 'account_signup' %}">{% trans "Regístrate" %}</a>
               </div>
         </div>
     </form>

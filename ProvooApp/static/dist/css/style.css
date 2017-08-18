@@ -9,6 +9,23 @@
 
 .default_color_text{color: #2196F3 !important}
 
+.section--purple {
+  background-color: #9b59b6;
+}
+
+.section--blue {
+  background-color: #3498db;
+}
+
+.section--green {
+  background-color: #2ecc71;
+}
+
+.custom-blue-gray-darken {
+  background-color: #35384C;
+}
+
+
 .icon-block {
     padding: 0 15px;
 }

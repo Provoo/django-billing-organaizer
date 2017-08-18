@@ -1,14 +1,13 @@
-{% extends "site_base.html" %}
 {% load staticfiles %}
 {% load i18n %}
 {% block extra_head %}
-<title>InvMachine</title>
+{% load static from staticfiles %}
+
+<title>InvooMachine</title>
 {% endblock %}
-{% block body_class %}home{% endblock %}
 
 {% block styles %}
-  {{ block.super }}
-  {% load static from staticfiles %}
+  {% include "_styles.html" %}
   <link href='{% static "min/plugin.css" %}' rel='stylesheet'/>
   <link href='{% static "min/custom.css" %}' rel='stylesheet'/>
   <link href='{% static "css/animate.css" %}' rel='stylesheet'/>
@@ -16,13 +15,12 @@
 {% endblock %}
 
 {% block scripts %}
-  {% include "_scripts.html" %}
-  {% load staticfiles %}
+    {% include "_scripts.html" %}
   <script type="text/javascript" src="{% static "min/plugin-min.js" %}"></script>
   <script type="text/javascript" src="{% static "min/custom-min.js" %}"></script>
   <script type="text/javascript" src="{% static "min/classie.js" %}"></script>
   <script type="text/javascript" src="{% static "js/wow.js" %}"></script>
-  
+
   <script type="text/javascript">
   $( document ).ready(function(){
     function init() {
@@ -67,7 +65,7 @@
 
             <li>
               <a href="{% url 'account_settings' %}">
-              {% trans "Settings" %}
+              {% trans "Configuración" %}
               </a>
             </li>
             <li>
@@ -76,9 +74,10 @@
               </a>
             </li>
           {% else %}
-            <li><a class="white-text" href="{% url 'account_login' %}">{% trans "Log in" %}</a></li>
+
+            <li><a class="white-text" href="{% url 'account_login' %}">{% trans "Iniciar Sesión" %} </a></li>
           {% if ACCOUNT_OPEN_SIGNUP %}
-            <li><a class="white-text" href="{% url 'account_signup' %}">{% trans "Sign up" %}</a></li>
+            <li><a class="white-text" href="{% url 'account_signup' %}">{% trans "Regístrate" %}</a></li>
           {% endif %}
           {% endif %}
           </ul>
@@ -317,4 +316,7 @@
     </div>
   </div>
 </div>
+{% endblock %}
+{% block footer_base %}
+  {% include "components/_footer.html" %}
 {% endblock %}
