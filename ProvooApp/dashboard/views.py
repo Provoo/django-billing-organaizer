@@ -203,24 +203,16 @@ def upLoad(request, *args, **kwargs):
 
 @login_required
 def upLoadManual(request, *args, **kwargs):
-    # ajax = request.is_ajax()
-    # print(mensaje)
-    # return JsonResponse(data)
     form = uploadManualForm(request.POST)
-
-    if form.is_valid():
-        data = {
-            'mensaje': "tu factura se guardo satisfactoriamente"
-            }
-        return JsonResponse(data)
-    else:
-        form = uploadManualForm()
-        data = {
-            'mensaje': "tu factura no se ha guardo"
-            }
-        return JsonResponse(data)
-
-    return render(request, 'dashboard_base.html', {'form': form})
+    if request.method == 'POST':
+        if form.is_valid():
+                var1 = form.cleaned_data['NombreEmisor']
+                print("esta es la variable post %s" % var1)
+                # created_at = form.cleaned_data['created_at']
+                # post = m.Post.objects.create(content=content,
+                #                              created_at=created_at)
+                return HttpResponseRedirect(reverse('user_portfolios'))
+    return render(request, 'dashboard/uploadmanual.html', {'form': form})
 
 
 
