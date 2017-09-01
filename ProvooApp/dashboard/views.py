@@ -19,11 +19,11 @@ from django.db.models.functions import ExtractMonth, ExtractYear
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Sum
+from datetime import datetime
+
 
 #Xml Reader Api
 from DocumentReader.xmlReader import readDocumentXML
-from django.conf import settings
-from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 import re
 import zipfile
@@ -40,7 +40,7 @@ from .forms import uploadManualForm
 
 
 # funcion para combrar la existencia de un portafolio o crear uno nuevo guardar
-def modelDocumentoSave(document_object, portafolio_instance):
+def modelDocumentoSave(document_object, portafolio_instance, tags):
     p = documento(
         rucDocumento=portafolio_instance,
         nombreDocumento=document_object['NOMBRE_DOCUMENTO'],
@@ -59,7 +59,7 @@ def modelDocumentoSave(document_object, portafolio_instance):
         deducible_salud=document_object['DEDUCIBLE_SALUD'],
         deducible_vivienda=document_object['DEDUCIBLE_VIVIENDA'],
         no_deducible=document_object['NO_DEDUCIBLE'],
-        tags=[],
+        tags=tags,
         archivo=document_object['ARCHIVO'])
     p.save()
 
@@ -68,6 +68,7 @@ def saveDocumentPorfolio(document_object, user_id):
     # user_document = Portafolio.objects.get(UserID=user_id)
     errors_documents = []
     objeto_xml_paser = {}
+    tags=[]
     try:
         objeto_xml_paser = readDocumentXML(document_object)
         print("documento parseado %s " % (objeto_xml_paser))
@@ -86,14 +87,14 @@ def saveDocumentPorfolio(document_object, user_id):
             Nombre=objeto_xml_paser['NOMBRE_DOCUMENTO'])
         p.save()
         print(p)
-        modelDocumentoSave(objeto_xml_paser, p)
+        modelDocumentoSave(objeto_xml_paser, p, tags)
         return("No existe el ruc del documento %s, crearemos un nuevo portafolio para este Ruc %s" % (objeto_xml_paser['NUMERO_DOCUMENTO'], objeto_xml_paser['RUC_XML']))
     else:
         print("El ruc si existe")
         try:
             documento_exist = documento.objects.get(rucDocumento=p, numeroDeDocumento=objeto_xml_paser['NUMERO_DOCUMENTO'])
         except documento.DoesNotExist:
-            modelDocumentoSave(objeto_xml_paser, p)
+            modelDocumentoSave(objeto_xml_paser, p, tags)
             return("Tu %s ya se guardo automaticamente en el portafolio %s" % (objeto_xml_paser['NUMERO_DOCUMENTO'], objeto_xml_paser['RUC_XML']))
         else:
             return("Este %s ya existe, no necesitas duplicarlo" % (objeto_xml_paser['NUMERO_DOCUMENTO']))
@@ -187,7 +188,6 @@ class notificationsView(ListView):
 @login_required
 @require_http_methods(["POST"])
 def upLoad(request, *args, **kwargs):
-    # ajax = request.is_ajax()
     list_message = []
     documentos = request.FILES.getlist('docfile')
     for documento_it in documentos:
@@ -203,15 +203,53 @@ def upLoad(request, *args, **kwargs):
 
 @login_required
 def upLoadManual(request, *args, **kwargs):
+    document_object = {}
     form = uploadManualForm(request.POST)
     if request.method == 'POST':
         if form.is_valid():
-                var1 = form.cleaned_data['NombreEmisor']
-                print("esta es la variable post %s" % var1)
-                # created_at = form.cleaned_data['created_at']
-                # post = m.Post.objects.create(content=content,
-                #                              created_at=created_at)
-                return HttpResponseRedirect(reverse('user_portfolios'))
+            document_object['NOMBRE_EMISOR'] = form.cleaned_data['numeroDeDocumento']
+            document_object['RUC_EMISOR'] = form.cleaned_data['RucEmisor']
+            document_object['NOMBRE_DOCUMENTO'] = form.cleaned_data['nombreDocumento']
+            document_object['RUC_XML'] = form.cleaned_data['rucDocumento']
+            document_object['NUMERO_DOCUMENTO'] = form.cleaned_data['numeroDeDocumento']
+            document_object['DIRECCION_EMISOR'] = ""
+            document_object['FECHA'] = datetime.strptime(
+                            form.cleaned_data['fecha'], "%d/%m/%Y")
+            document_object['TAX'] = form.cleaned_data['Impuesto']
+            document_object['TOTAL_GASTOSF'] = form.cleaned_data['totalGastosf']
+            document_object['TOTAL_IMPUESTOS'] = form.cleaned_data['totalImpuestos']
+            document_object['TOTAL_DOCUMENTO'] = form.cleaned_data['totalDocumento']
+            document_object['DEDUCIBLE_COMIDA'] = form.cleaned_data['deducible_comida']
+            document_object['DEDUCIBLE_SALUD'] = form.cleaned_data['deducible_salud']
+            document_object['DEDUCIBLE_VESTIMENTA'] = form.cleaned_data['deducible_vestimenta']
+            document_object['DEDUCIBLE_EDUCACION'] = form.cleaned_data['deducible_educacion']
+            document_object['DEDUCIBLE_VIVIENDA'] = form.cleaned_data['deducible_vivienda']
+            document_object['NO_DEDUCIBLE'] = form.cleaned_data['no_deducible']
+            document_object['TAGS'] = form.cleaned_data['tags'].split(",")
+            document_object['TAGS'].append('Factura Manual')
+            document_object['ARCHIVO'] = None
+
+            try:
+                p = Portafolio.objects.get(Ruc=document_object['RUC_XML'], UserID_id=request.user.id)
+            except Portafolio.DoesNotExist:
+                p = Portafolio(
+                    UserID_id=request.user.id, Ruc=document_object['RUC_XML'],
+                    Nombre=document_object['NOMBRE_DOCUMENTO'])
+                p.save()
+                print(p)
+                modelDocumentoSave(document_object, p, document_object['TAGS'])
+                # return("No existe el ruc del documento %s, crearemos un nuevo portafolio para este Ruc %s" % (objeto_xml_paser['NUMERO_DOCUMENTO'], objeto_xml_paser['RUC_XML']))
+            else:
+                print("El ruc si existe")
+                try:
+                    documento_exist = documento.objects.get(rucDocumento=p, numeroDeDocumento=document_object['NUMERO_DOCUMENTO'])
+                except documento.DoesNotExist:
+                    modelDocumentoSave(document_object, p, document_object['TAGS'])
+                    # return("Tu %s ya se guardo automaticamente en el portafolio %s" % (objeto_xml_paser['NUMERO_DOCUMENTO'], objeto_xml_paser['RUC_XML']))
+                else:
+                     print("Este %s ya existe, no necesitas duplicarlo" % (document_object['NUMERO_DOCUMENTO']))
+            print("esta es la variable post %s" % document_object)
+            return HttpResponseRedirect(reverse('user_portfolios'))
     return render(request, 'dashboard/uploadmanual.html', {'form': form})
 
 
