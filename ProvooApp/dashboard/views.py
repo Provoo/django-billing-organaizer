@@ -18,7 +18,7 @@ from dashboard.models import Portafolio, documento, documento_error
 from django.db.models.functions import ExtractMonth, ExtractYear
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.db.models import Sum
+from django.db.models import Sum, Count, F, Func
 from datetime import datetime
 
 
@@ -36,7 +36,7 @@ from dashboard.GoogleApi import ListMessagesMatchingQuery, GetAttachments
 
 #forms
 
-from .forms import uploadManualForm
+from .forms import uploadManualForm, registerExpensesForm
 
 
 # funcion para combrar la existencia de un portafolio o crear uno nuevo guardar
@@ -154,10 +154,15 @@ class dashboardView(ListView):
             gastos_sin_impuestos=Sum('totalGastosf')) \
             .values('mes', 'anio', 'gastos_sin_impuestos')
 
+        query_expenses = documento.objects.select_related('rucDocumento').filter(
+                rucDocumento=port).annotate(codes_len=Func(F('tags'), function='unnest')).values('codes_len').annotate(sum=Sum('totalGastosf'))
+        print(" la lista de query expense %s =" % query_expenses)
         monthly_expenses = json.dumps(list(query), cls=DjangoJSONEncoder)
-        print(monthly_expenses)
+        print(" la lista de query monthly expenses %s =" % monthly_expenses)
 
         context['monthly_expenses'] = monthly_expenses
+        context['query_expenses'] = query_expenses
+
         return context
 
 
@@ -251,6 +256,23 @@ def upLoadManual(request, *args, **kwargs):
             print("esta es la variable post %s" % document_object)
             return HttpResponseRedirect(reverse('user_portfolios'))
     return render(request, 'dashboard/uploadmanual.html', {'form': form})
+
+
+@login_required
+def registerExpenses(request, *args, **kwargs):
+    portafolio = Portafolio.objects.get(UserID=request.user.id, Ruc=kwargs["ruc"])
+    query = documento.objects.select_related('rucDocumento').filter(
+            rucDocumento=portafolio).values('NombreEmisor').annotate(count=Count('NombreEmisor')).order_by()
+    form = registerExpensesForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            a = form.cleaned_data['tags']
+            uPdocumento = documento.objects.select_related().filter(rucDocumento=portafolio, NombreEmisor=form.cleaned_data['Empresas'])
+            for o in uPdocumento:
+                o.tags.append(a)
+                o.save()
+            return HttpResponseRedirect(reverse('user_portfolios'))
+    return render(request, 'dashboard/create_expenses.html', {'form': form, 'supliers': query})
 
 
 

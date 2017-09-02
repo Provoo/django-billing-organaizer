@@ -24,6 +24,10 @@ class uploadManualForm(forms.Form):
     tags = forms.CharField(label='Tags Separado por comas', max_length=255)
 
 
+class registerExpensesForm(forms.Form):
+    Empresas = forms.CharField(label='Tags Separado por comas', max_length=255)
+    tags = forms.CharField(label='Tags Separado por comas', max_length=255)
+
 # class uploadManualForm(forms.ModelForm):
 #     class Meta:
 #         model = documento

@@ -1,0 +1,29 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% load i18n %}
+{% block head_title %}Dashboard{% endblock %}
+
+{% block dashboard-content %}
+<div class="page-title">
+  <h1>Gastos Personalizados</h1>
+</div>
+
+<div class="card-panel">
+  <div class="row">
+    {% for s in supliers %}
+    <p>{{ s.NombreEmisor }} / {{ s.count }} </p>
+    {% endfor %}
+
+    <div class="col s6 ">
+      <form  method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="col offset-s5">
+          <button class="btn fs1" type="submit"  name="action"> Submit <i class="mdi-content-send right"></i> </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

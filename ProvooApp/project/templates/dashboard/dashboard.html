@@ -5,7 +5,6 @@
 {% block dashboard-content %}
 
 <div class="page-title">
-  {# <h1>Portafolio</h1>#}
   <p class="dashboard-title">
     <h1 class="">Portafolio</h1>
     <br>
@@ -13,154 +12,186 @@
     <br>
     <small>
       {{ portafolio.Ruc }}
-    |
       <a href="{% url 'user_documentos' portafolio.Ruc %}">Ver facturas</a>
     </small>
   </p>
 </div>
 
 <div class="row">
-       <div class="col l4 s12">
-           <a href="#" class="card-panel stats-card gradiant-purple indigo-text text-lighten-5">
-             <div class="progress small purple lighten-1">
-                 <div class="purple darken-1" style="width: 42%"></div>
-             </div>
-             <i class="fa fa-credit-card"></i>
-             <span class="count">USD {{ portafolio.total_gastos }}</span>
-             <div class="name">CONSUMOS</div>
-             <div class="name">1 de enero - 30 de abril</div>
-           </a>
+  <div class="col l4 s12">
+     <a href="#" class="card-panel stats-card gradiant-purple indigo-text text-lighten-5">
+       <div class="progress small purple lighten-1">
+           <div class="purple darken-1" style="width: 42%"></div>
        </div>
-       <div class="col l4 s12">
-           <a href="#" class="card-panel stats-card gradiant-purple blue-text text-lighten-5">
-             <div class="progress small purple lighten-1">
-                 <div class="purple darken-1" style="width: 42%"></div>
-             </div>
-             <i class="fa fa-percent"></i>
-             <span class="count">USD {{ portafolio.total_impuestos }}</span>
-             <div class="name">Impuestos</div>
-             <div class="name">1 de enero - 30 de abril</div>
-
-           </a>
+       <i class="fa fa-credit-card"></i>
+       <span class="count">USD {{ portafolio.total_gastos }}</span>
+       <div class="name">CONSUMOS</div>
+       <div class="name">1 de enero - 30 de abril</div>
+     </a>
+  </div>
+  <div class="col l4 s12">
+     <a href="#" class="card-panel stats-card gradiant-purple blue-text text-lighten-5">
+       <div class="progress small purple lighten-1">
+           <div class="purple darken-1" style="width: 42%"></div>
        </div>
-       <div class="col l4 s12">
-           <div class="card-panel stats-card gradiant-purple green-text text-lighten-5">
-               <div class="progress small purple lighten-1">
-                   <div class="purple darken-1" style="width: 42%"></div>
-               </div>
+       <i class="fa fa-percent"></i>
+       <span class="count">USD {{ portafolio.total_impuestos }}</span>
+       <div class="name">Impuestos</div>
+       <div class="name">1 de enero - 30 de abril</div>
 
-               <i class="fa fa-dollar"></i>
-               <span class="count">USD {{ portafolio.total_portafolio }}</span>
-               <div class="name">Total</div>
-               <div class="name">1 de enero - 30 de abril</div>
-
-           </div>
+     </a>
+  </div>
+  <div class="col l4 s12">
+   <div class="card-panel stats-card gradiant-purple green-text text-lighten-5">
+       <div class="progress small purple lighten-1">
+           <div class="purple darken-1" style="width: 42%"></div>
        </div>
-   </div>
-  <div class="row">
 
-    <div class="card">
-      <div class="title">
-        <h5>Deducibles</h5>
-        <a class="minimize" href="#"> <i class="mdi-navigation-expand-less"></i> </a>
-      </div>
-      <div class="content">
-        <div class="col l4 s12">
-            <div class="card-panel stats-card blue-grey-text text-darken-3">
-                <div class="progress small purple lighten-1">
-                    <div class="purple darken-1" style="width: 42%"></div>
-                </div>
-                <i class="fa fa-home"></i>
-                <span class="count">USD {{ portafolio.total_comida }}</span>
-                <div class="name">Alimentaci&#243;n</div>
-                <div class="name">1 de enero - 30 de abril</div>
-            </div>
-          </div>
-          <div class="col l4 s12">
-              <div class="card-panel stats-card blue-grey-text text-darken-3">
-                  <div class="progress small purple lighten-1">
-                      <div class="purple darken-1" style="width: 42%"></div>
-                  </div>
-                  <i class="fa fa-dollar"></i>
-                  <span class="count">USD {{ portafolio.total_salud }}</span>
-                  <div class="name">Salud</div>
-                  <div class="name">1 de enero - 30 de abril</div>
-              </div>
-          </div>
-          <div class="col l4 s12">
-              <div class="card-panel stats-card blue-grey-text text-darken-3">
-                  <div class="progress small purple lighten-1">
-                      <div class="purple darken-1" style="width: 42%"></div>
-                  </div>
-                  <i class="fa fa-dollar"></i>
-                  <span class="count">USD {{ portafolio.total_vestimenta }}</span>
-                  <div class="name">Vestimenta</div>
-                  <div class="name">1 de enero - 30 de abril</div>
-              </div>
-          </div>
-          <div class="col l4 s12">
-              <div class="card-panel stats-card blue-grey-text text-darken-3">
-                  <div class="progress small purple lighten-1">
-                      <div class="purple darken-1" style="width: 42%"></div>
-                  </div>
-                  <i class="glyphicon glyphicon-education"></i>
-                  <span class="count">USD {{ portafolio.total_educacion }}</span>
-                  <div class="name">Educaci&#243;n</div>
-                  <div class="name">1 de enero - 30 de abril</div>
-              </div>
-            </div>
-            <div class="col l4 s12">
-                <div class="card-panel stats-card  blue-grey-text text-darken-3">
-                    <div class="progress small purple lighten-1">
-                        <div class="purple darken-1" style="width: 42%"></div>
-                    </div>
-                    <i class="fa fa-dollar"></i>
-                    <span class="count">USD {{ portafolio.total_vivienda }}</span>
-                    <div class="name">Vivienda</div>
-                    <div class="name">1 de enero - 30 de abril</div>
-                </div>
-            </div>
-          </div>
-        </div>
-   <div class="row">
-     <!-- Pie Chart -->
-      <div class="col s12 l5">
-          <div class="card">
-              <div class="title">
-                  <h5>Gastos</h5>
-                  <a class="close" href="#">
-                      <i class="mdi-content-clear"></i>
-                  </a>
-                  <a class="minimize" href="#">
-                      <i class="mdi-navigation-expand-less"></i>
-                  </a>
-              </div>
-              <div class="content">
-                  <div id="flotPieChart" style="height: 300px"></div>
-              </div>
-          </div>
-      </div>
-      <div class="col s12 l7">
-          <div class="card">
-              <div class="title">
-                  <h5>Mensual</h5>
-                  <a class="close" href="#">
-                      <i class="mdi-content-clear"></i>
-                  </a>
-                  <a class="minimize" href="#">
-                      <i class="mdi-navigation-expand-less"></i>
-                  </a>
-              </div>
-              <div class="content">
-                <div id="flotLineChart" style="height: 250px"></div>
-              </div>
-          </div>
-      </div>
-
-      <!-- /Pie Chart -->
+       <i class="fa fa-dollar"></i>
+       <span class="count">USD {{ portafolio.total_portafolio }}</span>
+       <div class="name">Total</div>
+       <div class="name">1 de enero - 30 de abril</div>
 
    </div>
   </div>
+</div>
+
+
+<div class="row">
+<div class="card">
+  <div class="title">
+    <h5>Deducibles</h5>
+    <a class="minimize" href="#"> <i class="mdi-navigation-expand-less"></i> </a>
+  </div>
+  <div class="content">
+    <div class="col l4 s12">
+        <div class="card-panel stats-card blue-grey-text text-darken-3">
+            <div class="progress small purple lighten-1">
+                <div class="purple darken-1" style="width: 42%"></div>
+            </div>
+            <i class="fa fa-home"></i>
+            <span class="count">USD {{ portafolio.total_comida }}</span>
+            <div class="name">Alimentaci&#243;n</div>
+            <div class="name">1 de enero - 30 de abril</div>
+        </div>
+      </div>
+      <div class="col l4 s12">
+          <div class="card-panel stats-card blue-grey-text text-darken-3">
+              <div class="progress small purple lighten-1">
+                  <div class="purple darken-1" style="width: 42%"></div>
+              </div>
+              <i class="fa fa-dollar"></i>
+              <span class="count">USD {{ portafolio.total_salud }}</span>
+              <div class="name">Salud</div>
+              <div class="name">1 de enero - 30 de abril</div>
+          </div>
+      </div>
+      <div class="col l4 s12">
+          <div class="card-panel stats-card blue-grey-text text-darken-3">
+              <div class="progress small purple lighten-1">
+                  <div class="purple darken-1" style="width: 42%"></div>
+              </div>
+              <i class="fa fa-dollar"></i>
+              <span class="count">USD {{ portafolio.total_vestimenta }}</span>
+              <div class="name">Vestimenta</div>
+              <div class="name">1 de enero - 30 de abril</div>
+          </div>
+      </div>
+      <div class="col l4 s12">
+          <div class="card-panel stats-card blue-grey-text text-darken-3">
+              <div class="progress small purple lighten-1">
+                  <div class="purple darken-1" style="width: 42%"></div>
+              </div>
+              <i class="glyphicon glyphicon-education"></i>
+              <span class="count">USD {{ portafolio.total_educacion }}</span>
+              <div class="name">Educaci&#243;n</div>
+              <div class="name">1 de enero - 30 de abril</div>
+          </div>
+        </div>
+        <div class="col l4 s12">
+            <div class="card-panel stats-card  blue-grey-text text-darken-3">
+                <div class="progress small purple lighten-1">
+                    <div class="purple darken-1" style="width: 42%"></div>
+                </div>
+                <i class="fa fa-dollar"></i>
+                <span class="count">USD {{ portafolio.total_vivienda }}</span>
+                <div class="name">Vivienda</div>
+                <div class="name">1 de enero - 30 de abril</div>
+            </div>
+        </div>
+
+
+      </div>
+    </div>
+</div>
+query_expenses
+
+<div class="row pt30 pb30">
+  <div class="card">
+    <div class="title">
+      <h5>Gastos Personalizados</h5>
+      <a class="minimize" href="#"> <i class="mdi-navigation-expand-less"></i></a>
+    </div>
+
+    <div class="content">
+      <div class="pb10"><a href="{% url 'create_expenses' portafolio.Ruc %}">Agregar gastos</a></div>
+{% if query_expenses %}
+{% for qe in query_expenses%}
+      <div class="col l4 s12">
+          <div class="card-panel stats-card blue-grey-text text-darken-3">
+              <div class="progress small purple lighten-1">
+                  <div class="purple darken-1" style="width: 42%"></div>
+              </div>
+              <i class="fa fa-home"></i>
+              <span class="count">USD {{ qe.sum }}</span>
+              <div class="name">{{ qe.codes_len }}</div>
+              <div class="name">1 de enero - 30 de abril</div>
+          </div>
+        </div>
+        {% endfor%}
+        {%endif%}
+
+    </div>
+  </div>
+
+</div>
+
+<div class="row  ">
+   <!-- Pie Chart -->
+    <div class="col s12 l5">
+        <div class="card">
+            <div class="title">
+                <h5>Gastos</h5>
+                <a class="close" href="#">
+                    <i class="mdi-content-clear"></i>
+                </a>
+                <a class="minimize" href="#">
+                    <i class="mdi-navigation-expand-less"></i>
+                </a>
+            </div>
+            <div class="content">
+                <div id="flotPieChart" style="height: 300px"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 l7">
+        <div class="card">
+            <div class="title">
+                <h5>Mensual</h5>
+                <a class="close" href="#">
+                    <i class="mdi-content-clear"></i>
+                </a>
+                <a class="minimize" href="#">
+                    <i class="mdi-navigation-expand-less"></i>
+                </a>
+            </div>
+            <div class="content">
+              <div id="flotLineChart" style="height: 250px"></div>
+            </div>
+        </div>
+    </div>
+    <!-- /Pie Chart -->
+</div>
 
 {% endblock %}
 {% block scripts %}
