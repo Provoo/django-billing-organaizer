@@ -12,7 +12,7 @@ from .models import wallet
 
 
 class walletsView(ListView):
-    template_name = 'wallets.html'
+    template_name = 'dashboard/wallets.html'
     model = wallet
 
     def get_queryset(self):
