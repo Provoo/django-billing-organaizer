@@ -16,7 +16,6 @@ class Portafolio(models.Model):
     UserID = models.ForeignKey(User, default=1)
     Ruc = models.CharField(max_length=13)
     Nombre = models.CharField(max_length=50)
-    Tags = ArrayField(models.CharField(max_length=200), blank=True)
 
     def slug(self):
         return slugify(self.Ruc)

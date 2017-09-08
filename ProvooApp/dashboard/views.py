@@ -231,7 +231,6 @@ def upLoadManual(request, *args, **kwargs):
             document_object['DEDUCIBLE_VIVIENDA'] = form.cleaned_data['deducible_vivienda']
             document_object['NO_DEDUCIBLE'] = form.cleaned_data['no_deducible']
             document_object['TAGS'] = form.cleaned_data['tags'].split(",")
-            document_object['TAGS'].append('Factura Manual')
             document_object['ARCHIVO'] = None
 
             try:

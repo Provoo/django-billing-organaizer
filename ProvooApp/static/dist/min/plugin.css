@@ -4412,21 +4412,21 @@ nav .brand-logo {
     padding-left: 3rem;
 }
 nav .brand-logo.center {
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    -o-transform: translateX(-50%);
-    transform: translateX(-50%);
+    left: 10%;
+    -webkit-transform: translateX(-30%);
+    -moz-transform: translateX(-30%);
+    -ms-transform: translateX(-30%);
+    -o-transform: translateX(-30%);
+    transform: translateX(-30%);
 }
 @media only screen and (max-width : 992px) {
     nav .brand-logo {
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    -o-transform: translateX(-50%);
-    transform: translateX(-50%);
+    left: 10%;
+    -webkit-transform: translateX(-30%);
+    -moz-transform: translateX(-30%);
+    -ms-transform: translateX(-30%);
+    -o-transform: translateX(-30%);
+    transform: translateX(-30%);
 }
 nav .brand-logo.left, nav .brand-logo.right {
     padding: 0;

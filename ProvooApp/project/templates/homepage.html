@@ -2,6 +2,8 @@
 {% load i18n %}
 {% block extra_head %}
 {% load static from staticfiles %}
+{% load account_tags %}
+
 
 <title>InvooMachine</title>
 {% endblock %}
@@ -10,8 +12,6 @@
   {% include "_styles.html" %}
   <link href='{% static "min/plugin.css" %}' rel='stylesheet'/>
   <link href='{% static "min/custom.css" %}' rel='stylesheet'/>
-  <link href='{% static "css/animate.css" %}' rel='stylesheet'/>
-  <link href='{% static "css/site.css" %}' rel='stylesheet'/>
 {% endblock %}
 
 {% block scripts %}
@@ -39,9 +39,10 @@
     }
     window.onload = init();
   })
-
   </script>
 {% endblock %}
+<body>
+
 
 {% block topbar_base %}
 <div class="navbar-fixed navbar">
@@ -320,3 +321,4 @@
 {% block footer_base %}
   {% include "components/_footer.html" %}
 {% endblock %}
+</body>
