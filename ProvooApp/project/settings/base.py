@@ -175,6 +175,10 @@ INSTALLED_APPS = [
     # Django Rest Framework
     "rest_framework",
 
+    # Celery
+    'django_celery_beat',
+    'django_celery_results',
+
     # project
     "project",
     "dashboard",

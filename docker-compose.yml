@@ -30,7 +30,7 @@ services:
       service: celery
     build:
       args:
-        - DJANGO_ENV=$CELERY_ENV
+        - DJANGO_ENV=$DJANGO_ENV
     command:  bash -c "celery -A project worker -l info"
     volumes:
       - ./ProvooApp:/ProvooApp

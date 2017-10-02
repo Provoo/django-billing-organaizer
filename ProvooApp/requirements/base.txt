@@ -29,4 +29,6 @@ social-auth-core==1.2.0
 psycopg2
 markdown
 redis
-celery
+celery[redis]
+django-celery-beat
+django-celery-results

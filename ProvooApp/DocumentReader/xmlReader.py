@@ -72,6 +72,7 @@ def readDocumentXML(xml_document):
     print("imprimiendo Meta Empresa de la base: %s " % (Variables_Enterprise))
     # Seteamos Diccionario con los valores por defecto
     document_object['NUMERO_DOCUMENTO'] = ''
+    document_object['NOMBRE_EMISOR'] = ''
     document_object['DEDUCIBLE_COMIDA'] = Decimal(0.00)
     document_object['DEDUCIBLE_VESTIMENTA'] = Decimal(0.00)
     document_object['DEDUCIBLE_EDUCACION'] = Decimal(0.00)
@@ -176,8 +177,3 @@ def readDocumentXML(xml_document):
     print("Imprimiendo dentro del xml Reader %s" % (document_object))
 
     return document_object
-
-# import os
-# from DocumentReader.xmlReader import readDocumentXML
-# path = os.path.join(os.path.dirname(os.path.realpath('__file__')), 'xml_de_prueba/favorita022017.xml')
-# readDocumentXML(path)

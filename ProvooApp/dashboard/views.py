@@ -21,102 +21,18 @@ from django.contrib.auth.models import User
 from django.db.models import Sum, Count, F, Func
 from datetime import datetime
 
+# Xml Reader Api
+from DocumentReader.saveDocument import xml_handler as xh
 
-#Xml Reader Api
-from DocumentReader.xmlReader import readDocumentXML
-from django.core.files.base import ContentFile
-import re
-import zipfile
 
 # google api imports
 from oauth2client.client import AccessTokenCredentials
 from googleapiclient.discovery import build
 import httplib2
 from dashboard.GoogleApi import ListMessagesMatchingQuery, GetAttachments
-
+from tasks import googleTask
 #forms
-
 from .forms import uploadManualForm, registerExpensesForm
-
-
-# funcion para combrar la existencia de un portafolio o crear uno nuevo guardar
-def modelDocumentoSave(document_object, portafolio_instance, tags):
-    p = documento(
-        rucDocumento=portafolio_instance,
-        nombreDocumento=document_object['NOMBRE_DOCUMENTO'],
-        numeroDeDocumento=document_object['NUMERO_DOCUMENTO'],
-        RucEmisor=document_object['RUC_EMISOR'],
-        NombreEmisor=document_object['NOMBRE_EMISOR'],
-        DireccionEmisor=document_object['DIRECCION_EMISOR'],
-        fecha=document_object['FECHA'],
-        Impuesto=document_object['TAX'],
-        totalGastosf=document_object['TOTAL_GASTOSF'],
-        totalImpuestos=document_object['TOTAL_IMPUESTOS'],
-        totalDocumento=document_object['TOTAL_DOCUMENTO'],
-        deducible_vestimenta=document_object['DEDUCIBLE_VESTIMENTA'],
-        deducible_educacion=document_object['DEDUCIBLE_EDUCACION'],
-        deducible_comida=document_object['DEDUCIBLE_COMIDA'],
-        deducible_salud=document_object['DEDUCIBLE_SALUD'],
-        deducible_vivienda=document_object['DEDUCIBLE_VIVIENDA'],
-        no_deducible=document_object['NO_DEDUCIBLE'],
-        tags=tags,
-        archivo=document_object['ARCHIVO'])
-    p.save()
-
-
-def saveDocumentPorfolio(document_object, user_id):
-    # user_document = Portafolio.objects.get(UserID=user_id)
-    errors_documents = []
-    objeto_xml_paser = {}
-    tags=[]
-    try:
-        objeto_xml_paser = readDocumentXML(document_object)
-        print("documento parseado %s " % (objeto_xml_paser))
-    except Exception as e:
-        print("entro como error {}".format(e))
-        errors_documents.append(str(document_object))
-        documento_r = documento_error(
-            user_documento_id=user_id, file_dcoumento=document_object)
-        documento_r.save()
-        return ("El documento , se ha guardado con error te comunicaremos por email cuando este listo")
-    try:
-        p = Portafolio.objects.get(Ruc=objeto_xml_paser['RUC_XML'], UserID_id=user_id)
-    except Portafolio.DoesNotExist:
-        p = Portafolio(
-            UserID_id=user_id, Ruc=objeto_xml_paser['RUC_XML'],
-            Nombre=objeto_xml_paser['NOMBRE_DOCUMENTO'])
-        p.save()
-        print(p)
-        modelDocumentoSave(objeto_xml_paser, p, tags)
-        return("No existe el ruc del documento %s, crearemos un nuevo portafolio para este Ruc %s" % (objeto_xml_paser['NUMERO_DOCUMENTO'], objeto_xml_paser['RUC_XML']))
-    else:
-        print("El ruc si existe")
-        try:
-            documento_exist = documento.objects.get(rucDocumento=p, numeroDeDocumento=objeto_xml_paser['NUMERO_DOCUMENTO'])
-        except documento.DoesNotExist:
-            modelDocumentoSave(objeto_xml_paser, p, tags)
-            return("Tu %s ya se guardo automaticamente en el portafolio %s" % (objeto_xml_paser['NUMERO_DOCUMENTO'], objeto_xml_paser['RUC_XML']))
-        else:
-            return("Este %s ya existe, no necesitas duplicarlo" % (objeto_xml_paser['NUMERO_DOCUMENTO']))
-
-
-def xml_handler(document, user_id):
-    if re.search(r"zip", str(document.name)):
-        print("nombre documento en xml_handler %s" % (str(document.name)))
-        try:
-            unzip_file = zipfile.ZipFile(document, "r")
-        except Exception as e:
-            print('error: {}'.format(e))
-        else:
-            extrac_zip = unzip_file.filelist
-            for ds in extrac_zip:
-                if re.search(r"xml", str(ds.filename)):
-                    file_data = unzip_file.read(ds.filename)
-                    file_return = ContentFile(str(file_data), name=str(ds.filename))
-                    return saveDocumentPorfolio(file_return, user_id)
-            unzip_file.close()
-    else:
-        return saveDocumentPorfolio(document, user_id)
 
 
 class homeView(TemplateView):
@@ -196,7 +112,7 @@ def upLoad(request, *args, **kwargs):
     list_message = []
     documentos = request.FILES.getlist('docfile')
     for documento_it in documentos:
-        list_message.append(xml_handler(documento_it, request.user.id))
+        list_message.append(xh(documento_it, request.user.id))
     print(list_message)
     mensaje = ', '.join(list_message)
 
@@ -274,24 +190,34 @@ def registerExpenses(request, *args, **kwargs):
     return render(request, 'dashboard/create_expenses.html', {'form': form, 'supliers': query})
 
 
-
 @login_required
 def googleImport(request):
-    user = User.objects.get(username=request.user)
-    social = user.social_auth.get(provider='google-oauth2')
-    access_token = social.extra_data['access_token']
-    credentials = AccessTokenCredentials(access_token, 'my-user-agent/1.0')
-    http = httplib2.Http()
-    http = credentials.authorize(http)
-    services = build("gmail", "v1", http=http)
-    # Aqui hacer con GetAttachments un buffer para escribir el archivo
-    listemails = ListMessagesMatchingQuery(
-        services, request.user, "factura has:attachment xml ")
-    for nlist in listemails:
-        print('numero de id: %s' % (nlist['id']))
-        f_buffer = GetAttachments(services, request.user, nlist['id'])
-        if f_buffer:
-            xml_handler(f_buffer, request.user.id)
-        f_buffer = None
+    print("funciona entra %s" % request)
+    ds = googleTask.delay(str(request.user), str(request.user.id))
+    # print("funciona async %s" % ds)
     return HttpResponseRedirect(
             reverse('user_portfolios'))
+
+
+
+
+# @login_required
+# def googleImport(request):
+#     user = User.objects.get(username=request.user)
+#     social = user.social_auth.get(provider='google-oauth2')
+#     access_token = social.extra_data['access_token']
+#     credentials = AccessTokenCredentials(access_token, 'my-user-agent/1.0')
+#     http = httplib2.Http()
+#     http = credentials.authorize(http)
+#     services = build("gmail", "v1", http=http)
+#     # Aqui hacer con GetAttachments un buffer para escribir el archivo
+#     listemails = ListMessagesMatchingQuery(
+#         services, request.user, "factura has:attachment xml ")
+#     for nlist in listemails:
+#         print('numero de id: %s' % (nlist['id']))
+#         f_buffer = GetAttachments(services, request.user, nlist['id'])
+#         if f_buffer:
+#             xh(f_buffer, request.user.id)
+#         f_buffer = None
+#     return HttpResponseRedirect(
+#             reverse('user_portfolios'))
