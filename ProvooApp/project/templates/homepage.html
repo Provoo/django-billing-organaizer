@@ -46,50 +46,34 @@
 
 {% block topbar_base %}
 <div class="navbar-fixed navbar">
-  <nav class=" nav_f " role="navigation">
+  <nav class=" nav_f navbar-fixed-top " role="navigation">
     <div class="container-fluid z-depth-0 ">
       <div class="nav-wrapper">
+        <button type="button" class="navbar-toggle collapsed " data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only teal lighten-2 ">Toggle navigation</span>
+            <span class="icon-bar top-bar white"></span>
+            <span class="icon-bar middle-bar white"></span>
+            <span class="icon-bar bottom-bar white"></span>
+        </button>
         <a href="#" id="logo-container" class="brand-logo">Invoo BETA</a>
-        {# account bar #}
-        {% load account_tags %}
-        <ul class="right hide-on-med-and-down">
-          {% if request.user.is_authenticated %}
-            <li class="white-text">
-              <a href="" >
-              {% user_display request.user %}
-              </a>
-            </li>
-            <li role="separator" class="divider"></li>
-            <li>
-              <a href="{% url 'user_portfolios' %}" tabindex="-1">Portafolios</a>
-            </li>
-
-            <li>
-              <a href="{% url 'account_settings' %}">
-              {% trans "Configuración" %}
-              </a>
-            </li>
-            <li>
-              <a id="account_logout" href="{% url 'account_logout' %}">
-              {% trans "Log out" %}
-              </a>
-            </li>
-          {% else %}
-
-            <li><a class="white-text" href="{% url 'account_login' %}">{% trans "Iniciar Sesión" %} </a></li>
-          {% if ACCOUNT_OPEN_SIGNUP %}
-            <li><a class="white-text" href="{% url 'account_signup' %}">{% trans "Regístrate" %}</a></li>
-          {% endif %}
-          {% endif %}
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'user_portfolios' %}" tabindex="-1"> {% user_display request.user %}</a></li>
+                    <li><a href="{% url 'account_settings' %}">{% trans "Configuración" %}</a></li>
+                    <li><a id="account_logout" href="{% url 'account_logout' %}">{% trans "Log out" %}</a></li>
+                    {% else %}
+                    <li><a class="white-text" href="{% url 'account_login' %}">{% trans "Iniciar Sesión" %} </a></li>
+                    {% if ACCOUNT_OPEN_SIGNUP %}
+                      <li><a class="white-text" href="{% url 'account_signup' %}">{% trans "Regístrate" %}</a></li>
+                    {% endif %}
+                    {% endif %}
+              </li>
           </ul>
-        <form id="accountLogOutForm" style="display: none;" action="{% url 'account_logout' %}" method="POST"
-            class="white-text">
-          {% csrf_token %}
-        </form>
-        {# account bar #}
-        <a href="#" data-activates="nav-mobile" class="button-collapse"></a>
       </div>
-    </div>
+  </div>
+</div>
   </nav>
 </div>
 
