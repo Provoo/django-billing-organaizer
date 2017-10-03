@@ -12,6 +12,12 @@ from django.contrib.postgres.fields import ArrayField
 # from oauth2client.contrib.django_util.models import CredentialsField
 
 
+class UserDateUpdates(models.Model):
+    UserID = models.ForeignKey(User, default=1)
+    DateCreated = models.DateTimeField('Fecha de Creacion', null=True)
+    DateUpdated = models.DateTimeField('Fecha de Actualizacion', null=True)
+
+
 class Portafolio(models.Model):
     UserID = models.ForeignKey(User, default=1)
     Ruc = models.CharField(max_length=13)

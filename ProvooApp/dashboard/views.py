@@ -197,27 +197,3 @@ def googleImport(request):
     # print("funciona async %s" % ds)
     return HttpResponseRedirect(
             reverse('user_portfolios'))
-
-
-
-
-# @login_required
-# def googleImport(request):
-#     user = User.objects.get(username=request.user)
-#     social = user.social_auth.get(provider='google-oauth2')
-#     access_token = social.extra_data['access_token']
-#     credentials = AccessTokenCredentials(access_token, 'my-user-agent/1.0')
-#     http = httplib2.Http()
-#     http = credentials.authorize(http)
-#     services = build("gmail", "v1", http=http)
-#     # Aqui hacer con GetAttachments un buffer para escribir el archivo
-#     listemails = ListMessagesMatchingQuery(
-#         services, request.user, "factura has:attachment xml ")
-#     for nlist in listemails:
-#         print('numero de id: %s' % (nlist['id']))
-#         f_buffer = GetAttachments(services, request.user, nlist['id'])
-#         if f_buffer:
-#             xh(f_buffer, request.user.id)
-#         f_buffer = None
-#     return HttpResponseRedirect(
-#             reverse('user_portfolios'))

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from dashboard.models import Portafolio, documento, documento_error
+from dashboard.models import Portafolio, documento, documento_error, UserDateUpdates
 # Register your models here.
 
 
@@ -19,3 +19,4 @@ class DocumentoAdmin(admin.ModelAdmin):
 admin.site.register(Portafolio, PortafolioAdmin)
 admin.site.register(documento, DocumentoAdmin)
 admin.site.register(documento_error)
+admin.site.register(UserDateUpdates)
