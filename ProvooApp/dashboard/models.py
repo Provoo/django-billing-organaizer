@@ -81,11 +81,11 @@ def user_directory_path(instance, filename):
 
 class documento(models.Model):
     rucDocumento = models.ForeignKey(Portafolio, default=1)
-    nombreDocumento = models.CharField(max_length=50)
+    nombreDocumento = models.CharField(max_length=100)
     numeroDeDocumento = models.CharField(max_length=30)
     RucEmisor = models.CharField(max_length=13)
-    NombreEmisor = models.CharField(max_length=100)
-    DireccionEmisor = models.CharField(max_length=100)
+    NombreEmisor = models.CharField(max_length=255)
+    DireccionEmisor = models.CharField(max_length=255)
     fecha = models.DateTimeField('Fecha del documento')
     Impuesto = models.DecimalField(max_digits=4, decimal_places=2)
     totalGastosf = models.DecimalField(max_digits=20, decimal_places=2)
