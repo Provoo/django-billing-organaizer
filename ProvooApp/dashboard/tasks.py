@@ -1,6 +1,6 @@
 import time
 import redis
-from datetime import datetime
+from datetime import datetime, timedelta
 from celery import task
 from django.contrib.auth.models import User
 from dashboard.models import UserDateUpdates
@@ -38,7 +38,7 @@ def googleTask(user1, id):
         p.save()
         print("imprimiento dates %s" % (p))
     else:
-        searchdate = p.DateUpdated
+        searchdate = p.DateUpdated - timedelta(2)
         p.DateUpdated = datetime.now()
         flag = True
 

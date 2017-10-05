@@ -1,6 +1,7 @@
 {% extends "dashboard/dashboard_base.html" %}
 {% load i18n %}
 {% block head_title %}Dashboard{% endblock %}
+{% load static from staticfiles %}
 
 {% block dashboard-content %}
 
@@ -196,6 +197,12 @@ query_expenses
 {% endblock %}
 {% block scripts %}
     {{ block.super }}
+    <script type="text/javascript" src="{% static "js/jquery.sparkline.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/jquery.flot.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/jquery.flot.time.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/jquery.flot.pie.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/jquery.flot.categories.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/jquery.flot.tooltip.min.js" %}"></script>
     <script>
     /*
      * Flot Pie Chart

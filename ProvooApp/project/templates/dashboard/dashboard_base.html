@@ -7,7 +7,6 @@
 {% load bootstrap %}
 
 {% block styles %}
-  {# {{ block.super }} #}
   {% include "_dashboardStyles.html" %}
 {% endblock %}
 
@@ -38,8 +37,11 @@
             </a>
             <ul>
                 <li>
-                  <a href="{% url 'googleImport' %}" class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="Agregar facturas de Google">
-                  <i class="fa fa-google"></i></a>
+                  <!-- <a href="modal2"  class="btn-floating red modal-trigger pulse btn tooltipped tooltipped"  data-position="left" data-delay="50" data-tooltip="Agregar facturas de Google">
+                  <i class="fa fa-google"></i></a> {% url 'googleImport' %} -->
+                  <a id="gajax" action="{% url 'googleImport' %}" class="btn-floating  modal-trigger pulse btn tooltipped red " href="#modal2" data-position="left" data-delay="50" data-tooltip="Agregar facturas">
+                      <i class="fa fa-google"></i>
+                  </a>
                 </li>
                 <li>
                   <a href="{% url "social:begin" "msn-live-connect" %}" class="btn-floating blue tooltipped" data-position="left" data-delay="40" data-tooltip="Agregar cuenta de Outlook">
@@ -51,14 +53,14 @@
                 </li>
             </ul>
           </div>
-          <div id="modal1" class="modal-fixed-footer modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div id="modal1" class="modal-fixed-footer modal fade modal-close" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-content flow-text card-panel content ">
               <div class="modal-header card-title pt30">
                 <h3 class="center blue-text text-darken-2" id="exampleModalLabel">
                     Subir Factura
                 </h3>
               </div>
-              <div class="modal-body card-content row upload-modal">
+              <div class="modal-body card-content row upload-modal" >
                 <form id=uploadForm action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
                   {% csrf_token %}
                   <div class="file-field input-field col s12">
@@ -72,13 +74,88 @@
                     </div>
                   </div>
                   <br>
+                  <div class=""> <p id="ajaxMessage1" ></p>
+
+                  </div>
                   <div class="col offset-s5">
                     <button class="btn fs1" type="submit" id="but_upload" name="action"> Submit <i class="mdi-content-send right"></i> </button>
                   </div>
                 </form>
+
               </div>
             </div>
           </div>
+          <!-- Modal Structure -->
+          <div id="modal2" class="modal-fixed-footer modal fade modal-close " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-content flow-text card-panel content modal-close ">
+              <div class="modal-header card-title pt30">
+                <h3 class="center blue-text text-darken-2" id="exampleModalLabel">
+                    Importando Facturas de Google
+                </h3>
+              </div>
+              <div class="modal-body card-content row upload-modal">
+                <div id="ajaxMessage2" class="">
+                </div>
+                <div class="container pt20 mb20">
+                  <div class="center ">
+                    <div class="preloader-wrapper small active ">
+                      <div class="spinner-layer spinner-blue">
+                          <div class="circle-clipper left">
+                              <div class="circle"></div>
+                          </div>
+                          <div class="gap-patch">
+                              <div class="circle"></div>
+                          </div>
+                          <div class="circle-clipper right">
+                              <div class="circle"></div>
+                          </div>
+                      </div>
+
+                      <div class="spinner-layer spinner-red">
+                          <div class="circle-clipper left">
+                              <div class="circle"></div>
+                          </div>
+                          <div class="gap-patch">
+                              <div class="circle"></div>
+                          </div>
+                          <div class="circle-clipper right">
+                              <div class="circle"></div>
+                          </div>
+                      </div>
+
+                      <div class="spinner-layer spinner-yellow">
+                          <div class="circle-clipper left">
+                              <div class="circle"></div>
+                          </div>
+                          <div class="gap-patch">
+                              <div class="circle"></div>
+                          </div>
+                          <div class="circle-clipper right">
+                              <div class="circle"></div>
+                          </div>
+                      </div>
+
+                      <div class="spinner-layer spinner-green">
+                          <div class="circle-clipper left">
+                              <div class="circle"></div>
+                          </div>
+                          <div class="gap-patch">
+                              <div class="circle"></div>
+                          </div>
+                          <div class="circle-clipper right">
+                              <div class="circle"></div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
           <!-- Modal Trigger -->
 
         {% endif %}
@@ -86,6 +163,5 @@
 {% endblock %}
 
 {% block scripts %}
-  {{ block.super }}
-  {% include "_dashboardScripts.html" %}
+  {% include "_conScripts.html" %}
 {% endblock %}

@@ -195,5 +195,6 @@ def googleImport(request):
     print("funciona entra %s" % request)
     ds = googleTask.delay(str(request.user), str(request.user.id))
     # print("funciona async %s" % ds)
-    return HttpResponseRedirect(
-            reverse('user_portfolios'))
+    data = {
+        'mensaje': "Estamos Importando tus facturas, esto puede tomar algunos minutos hasta mientras puedes disfrutar de un cafe"}
+    return JsonResponse(data)

@@ -10,8 +10,8 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (data) {
-                //$("#SOME-DIV").html(data);
-                alert(data.mensaje);
+                $("#ajaxMessage1").html(data.mensaje);
+                //alert(data.mensaje);
             },
             error: function (data) {
                 //$("#MESSAGE-DIV").html("Something went wrong!");
@@ -22,18 +22,16 @@ $(document).ready(function () {
 
     });
 
-    var manualform = $('#uploadManual');
-    manualform.submit(function (e) {
+    var manualform = $('#gajax');
+    manualform.click(function (e) {
         e.preventDefault();
         $.ajax({
-            type: manualform.attr('method'),
             url: manualform.attr('action'),
             data: new FormData(this),
             processData: false,
             contentType: false,
             success: function (data) {
-                //$("#SOME-DIV").html(data);
-                alert(data.mensaje);
+              $("#ajaxMessage2").html(data.mensaje);
             },
             error: function (data) {
                 //$("#MESSAGE-DIV").html("Something went wrong!");
