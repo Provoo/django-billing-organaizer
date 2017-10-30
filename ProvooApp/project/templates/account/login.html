@@ -3,6 +3,12 @@
 {% block body_class %}{% endblock %}
 {% block menu-icon %}{% endblock %}
 
+{% block extra_head %}
+    <title>InvMachine | LogIn </title>
+    {% block viewport %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% endblock %}
+{% endblock %}
 {% block scripts %}
     {% include "_conScripts.html" %}
 {% endblock %}
@@ -24,17 +30,17 @@
 
             <!-- Social Sign Up -->
             <div class="row socials">
-                <div class="col s4">
+                <div class="col s12 m4">
                     <a class="btn blue darken-2 z-depth-0 z-depth-1-hover" href="#">
                       <img src="{% static 'img/yahoo.svg' %}" alt="" class="logo-login"/>
                     </a>
                 </div>
-                <div class="col s4">
+                <div class="col s12 m4">
                     <a class="btn blue lighten-2 z-depth-0 z-depth-1-hover" href="#">
                         <img src="{% static 'img/outlook.svg' %}" alt="" class="logo-login"/>
                     </a>
                 </div>
-                <div class="col s4">
+                <div class="col s12 m4">
                     <a class="btn red z-depth-0 z-depth-1-hover" href="{% url "social:begin" "google-oauth2" %}"><i class="fa fa-2x fa-google-plus"></i></a>
                 </div>
             </div>
@@ -75,7 +81,7 @@
             <button class="waves-effect waves-light btn-large z-depth-0 z-depth-1-hover">{% trans "Iniciar Sesión" %}</button>
         </div>
 
-        <div class="links right-align">
+        <div class="links middle">
             <a  href="{% url 'account_password_reset' %}">{% trans "¿Olvidaste la contraseña?" %}</a>
         </div>
         <div class="row links">

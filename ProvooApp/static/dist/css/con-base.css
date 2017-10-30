@@ -5208,31 +5208,42 @@ nav {
       -webkit-transform: translateX(-50%);
           -ms-transform: translateX(-50%);
               transform: translateX(-50%); }
-    @media only screen and (max-width: 992px) {
-      nav .brand-logo {
-        left: 50%;
-        -webkit-transform: translateX(-50%);
-            -ms-transform: translateX(-50%);
-                transform: translateX(-50%); }
-        nav .brand-logo.left, nav .brand-logo.right {
-          padding: 0;
-          -webkit-transform: none;
-              -ms-transform: none;
-                  transform: none; }
-        nav .brand-logo.left {
-          left: 0.5rem; }
-        nav .brand-logo.right {
-          right: 0.5rem;
-          left: auto; } }
-    nav .brand-logo.right {
+
+@media only screen and (max-width: 992px) {
+
+  nav .brand-logo {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%); }
+  nav .brand-logo.left, nav .brand-logo.right {
+      padding: 0;
+      -webkit-transform: none;
+          -ms-transform: none;
+              transform: none;
+            }
+  nav .brand-logo.left {
+      left: 0.5rem; }
+  nav .brand-logo.right {
+      right: 0.5rem;
+      left: auto; }
+
+
+
+}
+nav .brand-logo.right {
       right: 0.5rem;
       padding: 0; }
-  nav ul {
-    margin: 0; }
-    nav ul li {
-      transition: background-color .3s;
-      float: left;
-      padding: 0; }
+nav ul {
+  margin: -6px;
+  padding-top: 5px;
+
+}
+  nav ul li {
+    transition: background-color .3s;
+    float: left;
+    padding: 0;
+  }
       nav ul li.active {
         background-color: rgba(0, 0, 0, 0.1); }
     nav ul a, nav ul .sp-cancel {
@@ -9561,7 +9572,7 @@ html.rtl .yay-notransition .yaybar.yay-overlap-content ~ footer:after {
       padding-left: 15px;
       padding-right: 90px; }
 
-/* 
+/*
  * Top Navbar
  */
 .navbar-top {
@@ -11567,7 +11578,7 @@ table.dataTable.no-footer {
 #lock {
   height: 100%;
   min-height: 100%;
-  min-height: 100vh;
+  min-height: 150vh;
   padding-top: 80px;
   background: #35384C; }
   #sign-in .logo,

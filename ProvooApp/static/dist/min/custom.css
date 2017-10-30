@@ -285,9 +285,18 @@ i.in {
     font-size: 5em;
     font-weight: 100;
     color: white;
-}
-}input, textarea {
-    border-bottom: 1px solid #fff;
+ }
+  .text_h2 {
+  padding: 0 0;
+  font-size: 1em;
+  font-weight: 300;
+  margin: 0 0 0 0 !important;
+  }
+  .img-home img{
+    display: none !important
+  }
+  }input, textarea {
+      border-bottom: 1px solid #fff;
 }
 
 .card-avatar .waves-effect {
