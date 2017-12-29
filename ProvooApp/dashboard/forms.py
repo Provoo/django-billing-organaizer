@@ -1,5 +1,7 @@
 from django import forms
+from django.forms import widgets
 from django.contrib.admin import widgets
+
 
 # from dashboard.models import documento
 
@@ -25,8 +27,18 @@ class uploadManualForm(forms.Form):
 
 
 class registerExpensesForm(forms.Form):
-    Empresas = forms.CharField(label='Tags Separado por comas', max_length=255)
-    tags = forms.CharField(label='Tags Separado por comas', max_length=255)
+    Empresas = forms.CharField(label='Empresa', max_length=255)
+    tags = forms.CharField(label='Gastos, separado por comas', max_length=255)
+    tags.widget.attrs['class'] = 'input-tag'
+    OPTIONS = (
+               ("AUT", "Austria"),
+               ("DEU", "Germany"),
+               ("NLD", "Neitherlands"),
+               )
+    choice_field = forms.ChoiceField(
+        choices=OPTIONS
+        )
+
 
 # class uploadManualForm(forms.ModelForm):
 #     class Meta:

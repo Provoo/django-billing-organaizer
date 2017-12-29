@@ -179,6 +179,7 @@ def registerExpenses(request, *args, **kwargs):
     query = documento.objects.select_related('rucDocumento').filter(
             rucDocumento=portafolio).values('NombreEmisor').annotate(count=Count('NombreEmisor')).order_by()
     form = registerExpensesForm(request.POST)
+
     if request.method == 'POST':
         if form.is_valid():
             a = form.cleaned_data['tags']

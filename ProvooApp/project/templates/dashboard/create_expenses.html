@@ -1,6 +1,9 @@
 {% extends "dashboard/dashboard_base.html" %}
 {% load i18n %}
 {% block head_title %}Dashboard{% endblock %}
+{% load staticfiles %}
+
+
 
 {% block dashboard-content %}
 <div class="page-title">
@@ -9,14 +12,19 @@
 
 <div class="card-panel">
   <div class="row">
-    {% for s in supliers %}
-    <p>{{ s.NombreEmisor }} / {{ s.count }} </p>
-    {% endfor %}
+    <select>
+      <option value="" disabled selected>Choose option</option>
+      {% for s in supliers %}
+        <option value="">{{ s.NombreEmisor }} / {{ s.count }}</option>
+      {% endfor %}
+    </select>
+
+    <p> </p>
 
     <div class="col s6 ">
       <form  method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{form.as_p}}
         <div class="col offset-s5">
           <button class="btn fs1" type="submit"  name="action"> Submit <i class="mdi-content-send right"></i> </button>
         </div>
