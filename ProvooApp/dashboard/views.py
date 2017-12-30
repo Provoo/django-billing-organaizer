@@ -20,6 +20,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Sum, Count, F, Func
 from datetime import datetime
+from django.template.loader import render_to_string
+
 
 # Xml Reader Api
 from DocumentReader.saveDocument import xml_handler as xh
@@ -174,23 +176,51 @@ def upLoadManual(request, *args, **kwargs):
 
 
 @login_required
+# @require_http_methods(["POST"])
 def registerExpenses(request, *args, **kwargs):
     portafolio = Portafolio.objects.get(UserID=request.user.id, Ruc=kwargs["ruc"])
     query = documento.objects.select_related('rucDocumento').filter(
             rucDocumento=portafolio).values('NombreEmisor').annotate(count=Count('NombreEmisor')).order_by()
-    form = registerExpensesForm(request.POST)
+    # form = registerExpensesForm(request.POST)
 
-    if request.method == 'POST':
-        if form.is_valid():
-            a = form.cleaned_data['tags']
-            uPdocumento = documento.objects.select_related().filter(rucDocumento=portafolio, NombreEmisor=form.cleaned_data['Empresas'])
-            for o in uPdocumento:
-                o.tags.append(a)
-                o.save()
-            return HttpResponseRedirect(reverse('user_portfolios'))
-    return render(request, 'dashboard/create_expenses.html', {'form': form, 'supliers': query})
+    # if request.method == 'POST':
+    #     print("el form de expenses")
+    #     print(form)
+    #     if form.is_valid():
+    #         a = form.cleaned_data['tags']
+    #         uPdocumento = documento.objects.select_related().filter(rucDocumento=portafolio, NombreEmisor=form.cleaned_data['Empresas'])
+    #         for o in uPdocumento:
+    #             o.tags.append(a)
+    #             o.save()
+    #         return HttpResponseRedirect(reverse('user_portfolios')) 'form': form,
+    return render(request, 'dashboard/create_expenses.html', {'supliers': query})
 
+@login_required
+# @require_http_methods(["POST"])
+def tagsconsult(request, *args, **kwargs):
+    print("tags")
+    gjson = json.loads(request.body)
+    print(gjson['value'])
+    portafolio = Portafolio.objects.get(UserID=request.user.id, Ruc=kwargs["ruc"])
+    fact = documento.objects.select_related().filter(rucDocumento=portafolio, NombreEmisor=gjson['value']).first()
+    print("antesde ndal")
+    print(fact.tags)
+    jdata = {}
+    jdata['html_form'] = render_to_string("dashboard/components/tags.html",
+        context={"tags": fact.tags},
+        request=request
+        )
+    return JsonResponse(jdata)
 
+# def inventario(request, *args, **kwargs):
+#     json_re = {}
+#     inventario_list = request.data
+#     print(inventario_list)
+#     # json_re['data'] = obj_sheets.worksheet(inventario_list).get_all_records(head=1)
+#     json_re['data'] = obj_sheets.worksheet(inventario_list).get_all_values()
+#     print(json_re['data'])
+#     json_re['ke'] = json_re['data'][0]
+#     return jsonify(render_template('table.html', data=json_re['data'], ke=json_re['ke']))
 @login_required
 def googleImport(request):
     print("funciona entra %s" % request)

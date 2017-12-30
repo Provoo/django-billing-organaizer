@@ -30,14 +30,14 @@ class registerExpensesForm(forms.Form):
     Empresas = forms.CharField(label='Empresa', max_length=255)
     tags = forms.CharField(label='Gastos, separado por comas', max_length=255)
     tags.widget.attrs['class'] = 'input-tag'
-    OPTIONS = (
-               ("AUT", "Austria"),
-               ("DEU", "Germany"),
-               ("NLD", "Neitherlands"),
-               )
-    choice_field = forms.ChoiceField(
-        choices=OPTIONS
-        )
+    # OPTIONS = (
+    #            ("AUT", "Austria"),
+    #            ("DEU", "Germany"),
+    #            ("NLD", "Neitherlands"),
+    #            )
+    # choice_field = forms.ChoiceField(
+    #     choices=OPTIONS
+    #     )
 
 
 # class uploadManualForm(forms.ModelForm):

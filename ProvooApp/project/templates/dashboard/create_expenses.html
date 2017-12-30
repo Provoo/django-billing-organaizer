@@ -12,26 +12,67 @@
 
 <div class="card-panel">
   <div class="row">
-    <select>
-      <option value="" disabled selected>Choose option</option>
-      {% for s in supliers %}
-        <option value="">{{ s.NombreEmisor }} / {{ s.count }}</option>
-      {% endfor %}
-    </select>
+
 
     <p> </p>
 
     <div class="col s6 ">
       <form  method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{form.as_p}}
+        <select id="enter">
+          <option value="" disabled selected>Elije una empresa</option>
+          {% for s in supliers %}
+            <option value="{{ s.NombreEmisor }}">{{ s.NombreEmisor }} / {{ s.count }}</option>
+          {% endfor %}
+        </select>
+        <div id="tagsembed" class="" href="{% url 'tagsconsult' 1711635571 %}">
+        </div>
+        <input class="input-tag" type="text" name="tags" id="tags" value="PHP,JavaScript,CSS" />
+
+
+        {# {{form.as_p}}#}
         <div class="col offset-s5">
-          <button class="btn fs1" type="submit"  name="action"> Submit <i class="mdi-content-send right"></i> </button>
+          <button class="btn fs1" type="button"  name="action"> Submit <i class="mdi-content-send right"></i> </button>
         </div>
       </form>
 
     </div>
   </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+  $('#enter').on('change', function() {
+    var csrftoken = Cookies.get('csrftoken');
+    jsonData = {};
+    jsonData['value'] = this.value;
+    console.log(jsonData);
+     $.ajax({
+        url: '/tagsconsult/1711635571/',
+        type: "POST",
+        data: JSON.stringify(jsonData),
+        dataType: "json",
+        contentType: 'application/json; charset=UTF-8',
+        beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        },
+        success: function(data){
+          $('#tagsembed').html(data.html_form);
+        },
+        error: function (data) {
+            alert("Something went wrong!"+data);
+            console.log(data);
+        }
+    });
+  });
+});
+</script>
 
 {% endblock %}

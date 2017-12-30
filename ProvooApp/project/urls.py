@@ -3,10 +3,11 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
-from dashboard.views import dashboardView, documentoView, portfoliosView, googleImport, upLoad, upLoadManual, notificationsView, registerExpenses
+from dashboard.views import dashboardView, documentoView, portfoliosView, googleImport, upLoad, upLoadManual, notificationsView, registerExpenses, tagsconsult
 import notifications.urls
 from wallet.views import walletsView
 from .views import SignupView
+
 
 urlpatterns = [
     # Include URLS
@@ -26,6 +27,7 @@ urlpatterns = [
     url(r"^upload/", upLoad, name="upload"),
     url(r"^uploadmanual/", upLoadManual, name="uploadmanual"),
     url(r"^create_expenses/(?P<ruc>[0-9]+)/$", registerExpenses, name="create_expenses"),
+    url(r"^tagsconsult/(?P<ruc>[0-9]+)/$", tagsconsult, name="tagsconsult"),
     url(r"^portfolios/", portfoliosView.as_view(),
         name="user_portfolios"),
     url(r"^dashboard/(?P<ruc>[0-9]+)/$",
