@@ -13,6 +13,9 @@
     {% block styles %}
       {% include "_dashboardStyles.html" %}
     {% endblock %}
+    {% block scripts %}
+      {% include "_conScripts.html" %}
+    {% endblock %}
 
 
     {% block html5shim %}
@@ -179,8 +182,6 @@
 
         {% endif %}
     {% endblock %}
-    {% block scripts %}
-      {% include "_conScripts.html" %}
-    {% endblock %}
+
     </html>
 {% endblock %}

@@ -3,7 +3,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
-from dashboard.views import dashboardView, documentoView, portfoliosView, googleImport, upLoad, upLoadManual, notificationsView, registerExpenses, tagsconsult
+from dashboard.views import dashboardView, documentoView, portfoliosView, googleImport, upLoad, upLoadManual, notificationsView, registerExpenses, tagsconsult, savetags
 import notifications.urls
 from wallet.views import walletsView
 from .views import SignupView
@@ -28,6 +28,7 @@ urlpatterns = [
     url(r"^uploadmanual/", upLoadManual, name="uploadmanual"),
     url(r"^create_expenses/(?P<ruc>[0-9]+)/$", registerExpenses, name="create_expenses"),
     url(r"^tagsconsult/(?P<ruc>[0-9]+)/$", tagsconsult, name="tagsconsult"),
+    url(r"^savetags/(?P<ruc>[0-9]+)/$", savetags, name="savetags"),
     url(r"^portfolios/", portfoliosView.as_view(),
         name="user_portfolios"),
     url(r"^dashboard/(?P<ruc>[0-9]+)/$",

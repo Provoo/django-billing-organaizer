@@ -14,8 +14,6 @@
   <div class="row">
 
 
-    <p> </p>
-
     <div class="col s6 ">
       <form  method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -25,35 +23,36 @@
             <option value="{{ s.NombreEmisor }}">{{ s.NombreEmisor }} / {{ s.count }}</option>
           {% endfor %}
         </select>
-        <div id="tagsembed" class="" href="{% url 'tagsconsult' 1711635571 %}">
+        <div id="tagsembed" class="" data-url="{% url 'tagsconsult' ruc %}">
         </div>
-        <input class="input-tag" type="text" name="tags" id="tags" value="PHP,JavaScript,CSS" />
-
-
         {# {{form.as_p}}#}
         <div class="col offset-s5">
-          <button class="btn fs1" type="button"  name="action"> Submit <i class="mdi-content-send right"></i> </button>
+          <button id="submiTag" data-url="{% url 'savetags' ruc %}" class="btn fs1" type="button"> Submit <i class="mdi-content-send right"></i> </button>
         </div>
       </form>
+      <a id="" href="{% url 'user_dashboard' ruc %}" class="btn fs1" type="button"> Regresar a Portafolio</i> </a>
 
     </div>
   </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+{% block additional_js %}
+{% endblock additional_js %}
+
 <script type="text/javascript">
 $(document).ready(function() {
   function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
   }
+  var csrftoken = Cookies.get('csrftoken');
+  var enterprice_selected = ""
   $('#enter').on('change', function() {
-    var csrftoken = Cookies.get('csrftoken');
     jsonData = {};
+    enterprice_selected = this.value;
     jsonData['value'] = this.value;
     console.log(jsonData);
      $.ajax({
-        url: '/tagsconsult/1711635571/',
+        url: $('#tagsembed').data('url'),
         type: "POST",
         data: JSON.stringify(jsonData),
         dataType: "json",
@@ -65,6 +64,7 @@ $(document).ready(function() {
         },
         success: function(data){
           $('#tagsembed').html(data.html_form);
+          $('#tags2').tagsInput();
         },
         error: function (data) {
             alert("Something went wrong!"+data);
@@ -72,6 +72,33 @@ $(document).ready(function() {
         }
     });
   });
+
+  $("#submiTag").click(function(){
+    jsonData={}
+    jsonData['tags'] = $('#tags2').val();
+    jsonData["enterprice"] = enterprice_selected
+    console.log(jsonData)
+    $.ajax({
+       url: $('#submiTag').data('url'),
+       type: "POST",
+       data: JSON.stringify(jsonData),
+       dataType: "json",
+       contentType: 'application/json; charset=UTF-8',
+       beforeSend: function(xhr, settings) {
+         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+           xhr.setRequestHeader("X-CSRFToken", csrftoken);
+           }
+       },
+       success: function(data){
+         alert("Tus gastos se actulaizaron")
+       },
+       error: function (data) {
+           alert("Something went wrong!"+data);
+           console.log(data);
+       }
+   });
+  });
+
 });
 </script>
 

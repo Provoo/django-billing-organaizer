@@ -10448,7 +10448,10 @@ select.browser-default.align-right {
 div.tagsinput {
   border: none;
   padding: 0;
-  border-bottom: 1px solid #9e9e9e; }
+  border-bottom: 1px solid #9e9e9e;
+  min-height: 10px !important;
+  height: auto !important; 
+    }
   div.tagsinput input {
     height: 3rem;
     line-height: 3rem;

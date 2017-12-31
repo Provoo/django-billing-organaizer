@@ -176,27 +176,24 @@ def upLoadManual(request, *args, **kwargs):
 
 
 @login_required
-# @require_http_methods(["POST"])
+#@require_http_methods(["POST"])
 def registerExpenses(request, *args, **kwargs):
     portafolio = Portafolio.objects.get(UserID=request.user.id, Ruc=kwargs["ruc"])
     query = documento.objects.select_related('rucDocumento').filter(
             rucDocumento=portafolio).values('NombreEmisor').annotate(count=Count('NombreEmisor')).order_by()
-    # form = registerExpensesForm(request.POST)
-
+    # # form = registerExpensesForm(request.POST)
     # if request.method == 'POST':
-    #     print("el form de expenses")
-    #     print(form)
     #     if form.is_valid():
-    #         a = form.cleaned_data['tags']
+    #         a = json.loads(request.body)
     #         uPdocumento = documento.objects.select_related().filter(rucDocumento=portafolio, NombreEmisor=form.cleaned_data['Empresas'])
     #         for o in uPdocumento:
     #             o.tags.append(a)
     #             o.save()
     #         return HttpResponseRedirect(reverse('user_portfolios')) 'form': form,
-    return render(request, 'dashboard/create_expenses.html', {'supliers': query})
+    return render(request, 'dashboard/create_expenses.html', {'supliers': query, "ruc":kwargs["ruc"]})
 
 @login_required
-# @require_http_methods(["POST"])
+@require_http_methods(["POST"])
 def tagsconsult(request, *args, **kwargs):
     print("tags")
     gjson = json.loads(request.body)
@@ -211,6 +208,23 @@ def tagsconsult(request, *args, **kwargs):
         request=request
         )
     return JsonResponse(jdata)
+
+@login_required
+@require_http_methods(["POST"])
+def savetags(request, *args, **kwargs):
+    print("savetags")
+    gjson = json.loads(request.body)
+    print(gjson['enterprice'])
+    print(gjson['tags'].split(','))
+    portafolio = Portafolio.objects.get(UserID=request.user.id, Ruc=kwargs["ruc"])
+    uPdocumento = documento.objects.select_related().filter(
+        rucDocumento=portafolio,
+        NombreEmisor=gjson['enterprice'])
+    for o in uPdocumento:
+        o.tags = gjson['tags'].split(',')
+        o.save()
+
+    return JsonResponse({"data":"succes"})
 
 # def inventario(request, *args, **kwargs):
 #     json_re = {}
